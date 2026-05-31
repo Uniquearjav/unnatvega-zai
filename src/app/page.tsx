@@ -121,7 +121,6 @@ const projects = [
     image: '/images/project-1.png',
     year: '2024',
     tech: ['Next.js', 'Shopify', 'Framer Motion'],
-    featured: true,
     metrics: '+340% Conversions',
   },
   {
@@ -131,7 +130,6 @@ const projects = [
     image: '/images/project-2.png',
     year: '2024',
     tech: ['React', 'Node.js', 'Stripe'],
-    featured: true,
     metrics: '+220% Revenue',
   },
   {
@@ -141,7 +139,6 @@ const projects = [
     image: '/images/project-3.png',
     year: '2023',
     tech: ['TypeScript', 'D3.js', 'WebSocket'],
-    featured: true,
     metrics: '50K+ Daily Users',
   },
   {
@@ -151,7 +148,6 @@ const projects = [
     image: '/images/project-4.png',
     year: '2023',
     tech: ['Next.js', 'GSAP', 'Three.js'],
-    featured: true,
     metrics: 'Award Winning',
   },
   {
@@ -161,7 +157,6 @@ const projects = [
     image: '/images/project-5.png',
     year: '2023',
     tech: ['React Native', 'Firebase', 'Plaid'],
-    featured: false,
     metrics: '100K+ Downloads',
   },
   {
@@ -171,12 +166,9 @@ const projects = [
     image: '/images/project-6.png',
     year: '2024',
     tech: ['Next.js', 'Prisma', 'Tailwind'],
-    featured: false,
     metrics: '+180% Bookings',
   },
 ];
-
-const categories = ['All', 'E-Commerce', 'SaaS', 'Branding', 'Mobile App', 'Web Design'];
 
 const stats = [
   { value: '150+', label: 'Projects Delivered' },
@@ -474,349 +466,248 @@ function Services() {
 /* ─────────────────────── Portfolio ─────────────────────── */
 function Portfolio() {
   const [activeProject, setActiveProject] = useState(0);
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [isCustomCursor, setIsCustomCursor] = useState(false);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const showcaseRef = useRef<HTMLDivElement>(null);
 
-  const filteredProjects =
-    activeCategory === 'All'
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
-
-  const featuredProjects = filteredProjects.filter((p) => p.featured);
-  const nonFeaturedProjects = filteredProjects.filter((p) => !p.featured);
-
-  const handleShowcaseMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!showcaseRef.current) return;
-    const rect = showcaseRef.current.getBoundingClientRect();
-    setCursorPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      setActiveProject((prev) => (prev + 1) % projects.length);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      setActiveProject((prev) => (prev - 1 + projects.length) % projects.length);
+    }
   };
-
-  const handleBentoMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    e.currentTarget.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
-  };
-
-  const handleBentoMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.currentTarget.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-  };
-
-  // Reset activeProject when category changes if out of range
-  const safeActiveProject = Math.min(activeProject, Math.max(featuredProjects.length - 1, 0));
 
   return (
     <AnimatedSection
       id="work"
-      className="px-4 py-20 md:py-28 lg:py-32"
+      className="relative py-20 md:py-28 lg:py-32"
     >
-      <div className="mx-auto max-w-7xl">
-        {/* Section Header */}
-        <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
-          <Badge
-            variant="outline"
-            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
-          >
-            OUR WORK
-          </Badge>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-            Crafted with Purpose
-          </h2>
-        </motion.div>
+      {/* Section Header — compact, top-left aligned */}
+      <motion.div variants={fadeInUp} className="mb-8 px-4 md:mb-10 lg:px-8">
+        <Badge
+          variant="outline"
+          className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+        >
+          OUR WORK
+        </Badge>
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+          Crafted with Purpose
+        </h2>
+      </motion.div>
 
-        {/* Category Filter Tabs */}
-        <motion.div variants={fadeInUp} className="mb-12 flex items-center gap-2 overflow-x-auto pb-2 md:justify-center">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                setActiveCategory(cat);
-                setActiveProject(0);
-              }}
-              className={`shrink-0 rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
-                activeCategory === cat
-                  ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
-                  : 'border border-border bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </motion.div>
+      {/* Full-width showcase area */}
+      <motion.div
+        variants={fadeInUp}
+        className="relative flex h-[70vh] min-h-[500px] md:h-[80vh] md:min-h-[600px] lg:h-[85vh] lg:min-h-[700px]"
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+      >
+        {/* ─── Left Sidebar: Company Names ─── */}
+        <div className="relative z-20 flex w-16 shrink-0 flex-col items-center justify-center border-r border-border/40 bg-background/80 backdrop-blur-md md:w-24 lg:w-32">
+          {/* Vertical label at top */}
+          <span className="absolute top-6 text-[9px] font-medium uppercase tracking-[0.25em] text-muted-foreground/50 md:text-[10px] [writing-mode:vertical-lr] rotate-180">
+            Clients
+          </span>
 
-        {/* Part 1: Interactive Split Showcase */}
-        {featuredProjects.length > 0 ? (
-          <motion.div
-            variants={fadeInUp}
-            ref={showcaseRef}
-            onMouseMove={handleShowcaseMouseMove}
-            onMouseEnter={() => setIsCustomCursor(true)}
-            onMouseLeave={() => setIsCustomCursor(false)}
-            className="relative mb-12 grid gap-6 md:grid-cols-5 md:gap-8 lg:mb-16"
-            style={{ cursor: isCustomCursor ? 'none' : 'default' }}
-          >
-            {/* Custom Cursor */}
-            {isCustomCursor && (
-              <div
-                className="pointer-events-none absolute z-50 flex size-20 items-center justify-center rounded-full border border-primary/50 bg-primary/10 backdrop-blur-sm transition-[left,top] duration-100"
-                style={{
-                  left: cursorPos.x - 40,
-                  top: cursorPos.y - 40,
-                }}
+          {/* Centered company name list */}
+          <div className="flex flex-col items-center gap-1 py-4">
+            {projects.map((project, idx) => (
+              <button
+                key={project.name}
+                onClick={() => setActiveProject(idx)}
+                className={`group/sidebar relative flex items-center justify-center transition-all duration-500 ${
+                  activeProject === idx ? 'scale-110' : 'scale-100'
+                }`}
               >
-                <span className="text-xs font-bold text-primary">VIEW</span>
-              </div>
-            )}
+                {/* Active indicator dot */}
+                <div
+                  className={`absolute -left-1 size-1.5 rounded-full transition-all duration-500 md:-left-2 ${
+                    activeProject === idx
+                      ? 'bg-primary shadow-md shadow-primary/50'
+                      : 'bg-muted-foreground/20 group-hover/sidebar:bg-muted-foreground/40'
+                  }`}
+                />
 
-            {/* Left: Project List (2 cols) */}
-            <div className="flex flex-col md:col-span-2">
-              {featuredProjects.map((project, idx) => (
-                <motion.button
-                  key={project.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1, duration: 0.4 }}
-                  onMouseEnter={() => setActiveProject(idx)}
-                  className={`group relative flex items-start gap-4 py-5 text-left transition-all duration-300 md:py-6 ${
-                    safeActiveProject === idx
-                      ? 'border-l-2 border-primary pl-4'
-                      : 'border-l-2 border-transparent pl-4'
+                {/* Company initial letter (mobile) / Abbreviated name (md) / Full name (lg) */}
+                <span
+                  className={`transition-all duration-500 ${
+                    activeProject === idx
+                      ? 'text-primary font-bold'
+                      : 'text-muted-foreground/40 font-medium group-hover/sidebar:text-muted-foreground/70'
                   }`}
                 >
-                  {/* Project Number */}
-                  <span
-                    className={`shrink-0 text-3xl font-bold tracking-tighter transition-all duration-300 md:text-4xl ${
-                      safeActiveProject === idx
-                        ? 'text-primary/60'
-                        : 'text-muted-foreground/20'
-                    }`}
-                    style={{ fontFamily: 'var(--font-geist-mono)' }}
-                  >
-                    {String(idx + 1).padStart(2, '0')}
+                  {/* Mobile: single letter */}
+                  <span className="text-xs md:hidden">
+                    {project.name.charAt(0)}
                   </span>
+                  {/* Tablet: abbreviated */}
+                  <span className="hidden text-[10px] leading-tight md:block lg:hidden" style={{ writingMode: 'vertical-lr' }}>
+                    {project.name.split(' ').map(w => w.charAt(0)).join('')}
+                  </span>
+                  {/* Desktop: full name vertical */}
+                  <span
+                    className="hidden text-[11px] leading-tight lg:block"
+                    style={{ writingMode: 'vertical-lr', transform: 'rotate(180deg)' }}
+                  >
+                    {project.name}
+                  </span>
+                </span>
+              </button>
+            ))}
+          </div>
 
-                  {/* Project Info */}
-                  <div className="min-w-0 flex-1 pt-1">
-                    <div className="flex items-center gap-2">
-                      <h3
-                        className={`text-lg font-bold transition-all duration-300 md:text-xl ${
-                          safeActiveProject === idx
-                            ? 'text-foreground'
-                            : 'text-muted-foreground group-hover:text-foreground/80'
-                        }`}
-                      >
-                        {project.name}
-                      </h3>
-                      <span className="text-xs text-muted-foreground/60">{project.year}</span>
-                    </div>
-                    <div className="mt-1 flex items-center gap-2">
-                      <Badge
-                        variant="secondary"
-                        className="bg-primary/10 text-[10px] text-primary"
-                      >
-                        {project.category}
-                      </Badge>
-                      <span className="text-xs font-medium text-primary/70">{project.metrics}</span>
-                    </div>
-                    {/* Tech pills */}
-                    <div className="mt-2 flex flex-wrap gap-1">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-border/50 bg-muted/50 px-2 py-0.5 text-[10px] text-muted-foreground"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+          {/* Counter at bottom */}
+          <div className="absolute bottom-6 text-center">
+            <span className="text-xs font-bold text-primary" style={{ fontFamily: 'var(--font-geist-mono)' }}>
+              {String(activeProject + 1).padStart(2, '0')}
+            </span>
+            <span className="text-[10px] text-muted-foreground/40">/</span>
+            <span className="text-[10px] text-muted-foreground/40" style={{ fontFamily: 'var(--font-geist-mono)' }}>
+              {String(projects.length).padStart(2, '0')}
+            </span>
+          </div>
+        </div>
 
-                  {/* Separator */}
-                  {idx < featuredProjects.length - 1 && (
-                    <div className="absolute bottom-0 right-0 left-4 h-px bg-gradient-to-r from-primary/30 via-primary/15 to-transparent" />
-                  )}
-                </motion.button>
-              ))}
-            </div>
-
-            {/* Right: Image Preview (3 cols) */}
-            <div className="relative min-h-[300px] overflow-hidden rounded-2xl md:col-span-3 md:min-h-[450px] lg:min-h-[520px]">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={safeActiveProject}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  className="absolute inset-0"
-                >
-                  {featuredProjects[safeActiveProject] && (
-                    <>
-                      <Image
-                        src={featuredProjects[safeActiveProject].image}
-                        alt={featuredProjects[safeActiveProject].name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 60vw"
-                        priority
-                      />
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
-
-                      {/* Text overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                        <p className="mb-3 max-w-md text-sm leading-relaxed text-foreground/80 md:text-base">
-                          {featuredProjects[safeActiveProject].description}
-                        </p>
-                        <Button
-                          className="bg-primary text-primary-foreground opacity-0 transition-all duration-300 group-hover:opacity-100 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
-                          style={{ opacity: 1 }}
-                        >
-                          View Case Study
-                          <ArrowRight className="ml-2 size-4" />
-                        </Button>
-                      </div>
-                    </>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        ) : (
-          <motion.div
-            variants={fadeInUp}
-            className="mb-12 flex min-h-[300px] items-center justify-center rounded-2xl border border-dashed border-border/50"
-          >
-            <p className="text-muted-foreground">No projects found in this category.</p>
-          </motion.div>
-        )}
-
-        {/* Part 2: Bento Grid */}
-        <div className="grid gap-4 md:grid-cols-3 lg:gap-5">
-          {nonFeaturedProjects.map((project, idx) => (
+        {/* ─── Main Image Area (~80% of screen) ─── */}
+        <div className="relative flex-1 overflow-hidden">
+          <AnimatePresence mode="wait">
             <motion.div
-              key={project.name}
-              variants={fadeInUp}
-              className={`${idx === 0 ? 'md:col-span-2' : 'md:col-span-1'}`}
+              key={activeProject}
+              initial={{ opacity: 0, scale: 1.03, filter: 'blur(8px)' }}
+              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 0.97, filter: 'blur(8px)' }}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="absolute inset-0"
             >
-              <div
-                onMouseMove={handleBentoMouseMove}
-                onMouseLeave={handleBentoMouseLeave}
-                className="glass group h-full overflow-hidden rounded-2xl border border-transparent transition-all duration-300 ease-out hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5"
-                style={{ transition: 'transform 0.15s ease-out, border-color 0.3s, box-shadow 0.3s' }}
-              >
-                <div className={`relative overflow-hidden ${idx === 0 ? 'aspect-[2/1]' : 'aspect-square'}`}>
-                  <Image
-                    src={project.image}
-                    alt={project.name}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-                    <div className="flex items-center gap-2">
-                      <Badge className="bg-primary/15 text-[10px] text-primary backdrop-blur-sm">
-                        {project.category}
-                      </Badge>
-                      <span className="text-[10px] text-foreground/60">{project.year}</span>
-                    </div>
-                    <h3 className="mt-1 text-base font-bold md:text-lg">{project.name}</h3>
-                    <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">{project.description}</p>
-                    <div className="mt-2 flex flex-wrap gap-1">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-white/10 bg-white/5 px-1.5 py-0.5 text-[9px] text-foreground/60"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4 pt-0">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-primary">{project.metrics}</span>
-                    <ExternalLink className="size-3.5 text-muted-foreground transition-colors duration-300 group-hover:text-primary" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-
-          {/* Stats Card */}
-          <motion.div variants={fadeInUp}>
-            <div
-              onMouseMove={handleBentoMouseMove}
-              onMouseLeave={handleBentoMouseLeave}
-              className="relative flex h-full min-h-[220px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-transparent transition-all duration-300 ease-out hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5"
-              style={{ transition: 'transform 0.15s ease-out, border-color 0.3s, box-shadow 0.3s' }}
-            >
-              {/* Decorative background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/5 to-transparent" />
-              <div className="absolute -right-8 -top-8 size-32 rounded-full bg-primary/10 blur-2xl" />
-              <div className="absolute -bottom-8 -left-8 size-32 rounded-full bg-primary/10 blur-2xl" />
-              <div className="relative z-10 text-center">
-                <div
-                  className="text-5xl font-bold tracking-tight text-primary md:text-6xl"
-                  style={{ fontFamily: 'var(--font-geist-mono)' }}
-                >
-                  150+
-                </div>
-                <p className="mt-2 text-sm font-medium text-muted-foreground">
-                  Projects Delivered
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground/60">
-                  Across 12+ industries
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* CTA Card */}
-          <motion.div variants={fadeInUp} className="md:col-span-2">
-            <div
-              onMouseMove={handleBentoMouseMove}
-              onMouseLeave={handleBentoMouseLeave}
-              className="relative flex h-full min-h-[220px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-transparent transition-all duration-300 ease-out hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5"
-              style={{ transition: 'transform 0.15s ease-out, border-color 0.3s, box-shadow 0.3s' }}
-            >
-              {/* Gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-primary/5 to-transparent" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,oklch(0.85_0.08_75)_0%,transparent_60%)] opacity-30" />
-              {/* Grid pattern */}
-              <div
-                className="absolute inset-0 opacity-[0.04]"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-                  backgroundSize: '30px 30px',
-                }}
+              <Image
+                src={projects[activeProject].image}
+                alt={projects[activeProject].name}
+                fill
+                className="object-cover"
+                sizes="80vw"
+                priority
               />
-              <div className="relative z-10 text-center">
-                <h3 className="mb-2 text-xl font-bold md:text-2xl">
-                  Ready to Start Your Project?
-                </h3>
-                <p className="mb-5 max-w-sm text-sm text-muted-foreground">
-                  Explore our full portfolio and let&apos;s bring your vision to life.
-                </p>
+
+              {/* Cinematic gradient overlays */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-l from-background/30 via-transparent to-transparent md:from-transparent" />
+
+              {/* Vignette effect */}
+              <div className="absolute inset-0" style={{
+                boxShadow: 'inset 0 0 150px 30px rgba(0,0,0,0.4)',
+              }} />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* ─── Bottom Info Bar ─── */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeProject}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.15 }}
+              className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-6 md:px-10 md:pb-10 lg:px-14 lg:pb-12"
+            >
+              {/* Category + Year row */}
+              <div className="mb-3 flex items-center gap-3">
+                <Badge className="border border-primary/30 bg-primary/15 px-3 py-1 text-[11px] font-medium text-primary backdrop-blur-sm">
+                  {projects[activeProject].category}
+                </Badge>
+                <span className="text-xs text-foreground/40">{projects[activeProject].year}</span>
+                <span className="text-xs font-semibold text-primary/70">{projects[activeProject].metrics}</span>
+              </div>
+
+              {/* Company Name */}
+              <h3
+                className="mb-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl"
+                style={{ fontFamily: 'var(--font-geist-mono)' }}
+              >
+                {projects[activeProject].name}
+              </h3>
+
+              {/* Description */}
+              <p className="mb-5 max-w-xl text-sm leading-relaxed text-foreground/60 md:text-base md:text-foreground/70">
+                {projects[activeProject].description}
+              </p>
+
+              {/* Tech stack + CTA */}
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <div className="flex flex-wrap gap-2">
+                  {projects[activeProject].tech.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-foreground/10 bg-foreground/5 px-3 py-1 text-[11px] font-medium text-foreground/50 backdrop-blur-sm"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
                 <Button
                   asChild
-                  size="lg"
-                  className="bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
+                  className="bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 sm:ml-auto"
                 >
                   <a href="#contact">
-                    View All Projects
+                    View Case Study
                     <ArrowRight className="ml-2 size-4" />
                   </a>
                 </Button>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* ─── Navigation Arrows ─── */}
+          <div className="absolute right-4 top-1/2 z-10 flex -translate-y-1/2 flex-col gap-2 md:right-6">
+            <button
+              onClick={() => setActiveProject((prev) => (prev - 1 + projects.length) % projects.length)}
+              className="flex size-10 items-center justify-center rounded-full border border-foreground/10 bg-background/30 text-foreground/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:bg-background/60 hover:text-primary md:size-12"
+              aria-label="Previous project"
+            >
+              <ChevronRight className="size-4 rotate-90 md:size-5" />
+            </button>
+            <button
+              onClick={() => setActiveProject((prev) => (prev + 1) % projects.length)}
+              className="flex size-10 items-center justify-center rounded-full border border-foreground/10 bg-background/30 text-foreground/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:bg-background/60 hover:text-primary md:size-12"
+              aria-label="Next project"
+            >
+              <ChevronRight className="size-4 -rotate-90 md:size-5" />
+            </button>
+          </div>
+
+          {/* ─── Progress Dots (bottom-right) ─── */}
+          <div className="absolute bottom-6 right-6 z-10 hidden flex-col gap-1.5 md:flex">
+            {projects.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveProject(idx)}
+                className={`transition-all duration-500 ${
+                  activeProject === idx
+                    ? 'h-6 w-1.5 rounded-full bg-primary shadow-sm shadow-primary/50'
+                    : 'h-1.5 w-1.5 rounded-full bg-foreground/20 hover:bg-foreground/40'
+                }`}
+                aria-label={`Go to project ${idx + 1}`}
+              />
+            ))}
+          </div>
         </div>
+      </motion.div>
+
+      {/* ─── Mobile: Swipeable project names row ─── */}
+      <div className="flex gap-2 overflow-x-auto px-4 py-4 md:hidden">
+        {projects.map((project, idx) => (
+          <button
+            key={project.name}
+            onClick={() => setActiveProject(idx)}
+            className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 ${
+              activeProject === idx
+                ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
+                : 'border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground'
+            }`}
+          >
+            {project.name}
+          </button>
+        ))}
       </div>
     </AnimatedSection>
   );
