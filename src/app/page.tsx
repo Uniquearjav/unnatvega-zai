@@ -490,24 +490,142 @@ function Services() {
 /* ─────────────────────── Portfolio ─────────────────────── */
 function Portfolio() {
   const [activeProject, setActiveProject] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState<'down' | 'up' | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const showcaseRef = useRef<HTMLDivElement>(null);
+  const isScrolling = useRef(false);
+  const touchStartY = useRef(0);
+
+  // Scroll-snap: lock viewport to this section and change slides on wheel
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const rect = section.getBoundingClientRect();
+      const isSectionInView = rect.top <= 100 && rect.bottom >= window.innerHeight - 100;
+
+      if (!isSectionInView) return;
+
+      // If we're at the last project and scrolling down, or first and scrolling up, unlock
+      if (activeProject === projects.length - 1 && e.deltaY > 0 && !isScrolling.current) {
+        setIsLocked(false);
+        return;
+      }
+      if (activeProject === 0 && e.deltaY < 0 && !isScrolling.current) {
+        setIsLocked(false);
+        return;
+      }
+
+      // Capture the scroll
+      e.preventDefault();
+      setIsLocked(true);
+
+      if (isScrolling.current) return;
+      isScrolling.current = true;
+
+      if (e.deltaY > 0) {
+        setScrollDirection('down');
+        setActiveProject((prev) => Math.min(prev + 1, projects.length - 1));
+      } else if (e.deltaY < 0) {
+        setScrollDirection('up');
+        setActiveProject((prev) => Math.max(prev - 1, 0));
+      }
+
+      // Debounce scroll changes
+      setTimeout(() => {
+        isScrolling.current = false;
+      }, 800);
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, [activeProject]);
+
+  // Touch support for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+    if (Math.abs(deltaY) < 50) return;
+
+    if (deltaY > 0) {
+      setScrollDirection('down');
+      setActiveProject((prev) => Math.min(prev + 1, projects.length - 1));
+    } else {
+      setScrollDirection('up');
+      setActiveProject((prev) => Math.max(prev - 1, 0));
+    }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
       e.preventDefault();
-      setActiveProject((prev) => (prev + 1) % projects.length);
+      setScrollDirection('down');
+      setActiveProject((prev) => Math.min(prev + 1, projects.length - 1));
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
       e.preventDefault();
-      setActiveProject((prev) => (prev - 1 + projects.length) % projects.length);
+      setScrollDirection('up');
+      setActiveProject((prev) => Math.max(prev - 1, 0));
     }
   };
 
+  // Slide transition variants based on scroll direction
+  const slideVariants = {
+    enter: (direction: 'down' | 'up' | null) => ({
+      opacity: 0,
+      y: direction === 'down' ? 60 : -60,
+      scale: 1.02,
+      filter: 'blur(6px)',
+    }),
+    center: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+    },
+    exit: (direction: 'down' | 'up' | null) => ({
+      opacity: 0,
+      y: direction === 'down' ? -60 : 60,
+      scale: 0.98,
+      filter: 'blur(6px)',
+    }),
+  };
+
+  const infoVariants = {
+    enter: (direction: 'down' | 'up' | null) => ({
+      opacity: 0,
+      y: direction === 'down' ? 40 : -40,
+    }),
+    center: {
+      opacity: 1,
+      y: 0,
+    },
+    exit: (direction: 'down' | 'up' | null) => ({
+      opacity: 0,
+      y: direction === 'down' ? -40 : 40,
+    }),
+  };
+
   return (
-    <AnimatedSection
+    <section
       id="work"
-      className="relative py-20 md:py-28 lg:py-32"
+      ref={sectionRef}
+      className={`relative transition-[min-height] duration-700 ease-in-out ${
+        isLocked
+          ? 'min-h-screen'
+          : 'min-h-0 py-20 md:py-28 lg:py-32'
+      }`}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Section Header — compact, top-left aligned */}
-      <motion.div variants={fadeInUp} className="mb-8 px-4 md:mb-10 lg:px-8">
+      <div className={`mb-8 px-4 md:mb-10 lg:px-8 ${isLocked ? 'pt-20 md:pt-24 lg:pt-28' : ''}`}>
         <Badge
           variant="outline"
           className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
@@ -517,14 +635,12 @@ function Portfolio() {
         <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
           Crafted with Purpose
         </h2>
-      </motion.div>
+      </div>
 
       {/* Full-width showcase area */}
-      <motion.div
-        variants={fadeInUp}
+      <div
+        ref={showcaseRef}
         className="relative flex h-[70vh] min-h-[500px] md:h-[80vh] md:min-h-[600px] lg:h-[85vh] lg:min-h-[700px]"
-        onKeyDown={handleKeyDown}
-        tabIndex={0}
       >
         {/* ─── Left Sidebar: Company Names (Horizontal) ─── */}
         <div className="relative z-20 flex w-28 shrink-0 flex-col border-r border-border/40 bg-background/80 backdrop-blur-md md:w-40 lg:w-52">
@@ -540,7 +656,10 @@ function Portfolio() {
             {projects.map((project, idx) => (
               <button
                 key={project.name}
-                onClick={() => setActiveProject(idx)}
+                onClick={() => {
+                  setScrollDirection(idx > activeProject ? 'down' : 'up');
+                  setActiveProject(idx);
+                }}
                 className={`group/sidebar relative flex items-center gap-3 px-3 py-3 text-left transition-all duration-300 md:px-5 md:py-3.5 ${
                   activeProject === idx
                     ? 'bg-primary/10 border-l-2 border-primary'
@@ -565,16 +684,13 @@ function Portfolio() {
                         : 'text-muted-foreground/50 group-hover/sidebar:text-muted-foreground/80'
                     }`}
                   >
-                    {/* Mobile: abbreviated */}
                     <span className="md:hidden">
                       {project.name.split(' ').map(w => w.charAt(0)).join('')}
                     </span>
-                    {/* md+: full name */}
                     <span className="hidden md:inline">
                       {project.name}
                     </span>
                   </span>
-                  {/* Category — shown on active or hover */}
                   <span
                     className={`block truncate text-[9px] transition-all duration-300 md:text-[10px] ${
                       activeProject === idx
@@ -589,8 +705,17 @@ function Portfolio() {
             ))}
           </div>
 
-          {/* Counter at bottom */}
+          {/* Counter + Progress bar at bottom */}
           <div className="border-t border-border/30 px-3 py-3 md:px-5">
+            {/* Animated progress bar */}
+            <div className="mb-2 h-0.5 w-full overflow-hidden rounded-full bg-border/30">
+              <motion.div
+                className="h-full rounded-full bg-primary"
+                initial={false}
+                animate={{ width: `${((activeProject + 1) / projects.length) * 100}%` }}
+                transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+              />
+            </div>
             <span className="text-xs font-bold text-primary" style={{ fontFamily: 'var(--font-geist-mono)' }}>
               {String(activeProject + 1).padStart(2, '0')}
             </span>
@@ -603,12 +728,14 @@ function Portfolio() {
 
         {/* ─── Main Image Area (~80% of screen) ─── */}
         <div className="relative flex-1 overflow-hidden">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" custom={scrollDirection}>
             <motion.div
               key={activeProject}
-              initial={{ opacity: 0, scale: 1.03, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, scale: 0.97, filter: 'blur(8px)' }}
+              custom={scrollDirection}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
               transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="absolute inset-0"
             >
@@ -625,20 +752,20 @@ function Portfolio() {
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-l from-background/30 via-transparent to-transparent md:from-transparent" />
-
-              {/* Vignette effect */}
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/20" />
             </motion.div>
           </AnimatePresence>
 
           {/* ─── Bottom Info Bar ─── */}
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" custom={scrollDirection}>
             <motion.div
               key={activeProject}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.15 }}
+              custom={scrollDirection}
+              variants={infoVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
               className="absolute bottom-0 left-0 right-0 z-10 px-6 pb-6 md:px-10 md:pb-10 lg:px-14 lg:pb-12"
             >
               {/* Category + Year row */}
@@ -688,30 +815,30 @@ function Portfolio() {
             </motion.div>
           </AnimatePresence>
 
-          {/* ─── Navigation Arrows ─── */}
-          <div className="absolute right-4 top-1/2 z-10 flex -translate-y-1/2 flex-col gap-2 md:right-6">
-            <button
-              onClick={() => setActiveProject((prev) => (prev - 1 + projects.length) % projects.length)}
-              className="flex size-10 items-center justify-center rounded-full border border-foreground/10 bg-background/30 text-foreground/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:bg-background/60 hover:text-primary md:size-12"
-              aria-label="Previous project"
-            >
-              <ChevronRight className="size-4 rotate-90 md:size-5" />
-            </button>
-            <button
-              onClick={() => setActiveProject((prev) => (prev + 1) % projects.length)}
-              className="flex size-10 items-center justify-center rounded-full border border-foreground/10 bg-background/30 text-foreground/50 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:bg-background/60 hover:text-primary md:size-12"
-              aria-label="Next project"
-            >
-              <ChevronRight className="size-4 -rotate-90 md:size-5" />
-            </button>
-          </div>
+          {/* ─── Scroll Hint (shown when section is locked) ─── */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isLocked ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+            className="pointer-events-none absolute right-4 top-1/2 z-10 flex -translate-y-1/2 flex-col items-center gap-2 md:right-6"
+          >
+            <div className="flex size-10 items-center justify-center rounded-full border border-foreground/10 bg-background/30 backdrop-blur-sm md:size-12">
+              <ChevronRight className="size-4 rotate-90 text-foreground/40 md:size-5" />
+            </div>
+            <span className="text-[9px] font-medium uppercase tracking-widest text-muted-foreground/40">
+              Scroll
+            </span>
+          </motion.div>
 
           {/* ─── Progress Dots (bottom-right) ─── */}
           <div className="absolute bottom-6 right-6 z-10 hidden flex-col gap-1.5 md:flex">
             {projects.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setActiveProject(idx)}
+                onClick={() => {
+                  setScrollDirection(idx > activeProject ? 'down' : 'up');
+                  setActiveProject(idx);
+                }}
                 className={`transition-all duration-500 ${
                   activeProject === idx
                     ? 'h-6 w-1.5 rounded-full bg-primary shadow-sm shadow-primary/50'
@@ -722,14 +849,17 @@ function Portfolio() {
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* ─── Mobile: Swipeable project names row ─── */}
       <div className="flex gap-2 overflow-x-auto px-4 py-4 md:hidden">
         {projects.map((project, idx) => (
           <button
             key={project.name}
-            onClick={() => setActiveProject(idx)}
+            onClick={() => {
+              setScrollDirection(idx > activeProject ? 'down' : 'up');
+              setActiveProject(idx);
+            }}
             className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 ${
               activeProject === idx
                 ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
@@ -740,7 +870,7 @@ function Portfolio() {
           </button>
         ))}
       </div>
-    </AnimatedSection>
+    </section>
   );
 }
 
