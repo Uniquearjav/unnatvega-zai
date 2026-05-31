@@ -3,6 +3,8 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -57,7 +59,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <Navigation />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
           <Toaster />
         </ThemeProvider>
       </body>
