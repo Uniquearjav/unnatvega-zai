@@ -9,10 +9,6 @@ import {
   Code2,
   Target,
   TrendingUp,
-  Search,
-  PenTool,
-  Hammer,
-  Rocket,
   Menu,
   ArrowRight,
   Mail,
@@ -20,7 +16,8 @@ import {
   MapPin,
   Twitter,
   Linkedin,
-  Github,
+  Instagram,
+  Facebook,
   Star,
   ChevronRight,
   ExternalLink,
@@ -53,185 +50,124 @@ import { useToast } from '@/hooks/use-toast';
 
 import {
   fadeInUp,
-  fadeIn,
   staggerContainer,
-  scaleIn,
   slideInLeft,
   slideInRight,
 } from '@/lib/animations';
-
-/* ─────────────────────── Dribbble Icon (not in lucide) ─────────────────────── */
-function DribbbleIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94" />
-      <path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32" />
-      <path d="M8.56 2.75c4.37 6 6.56 12 7.56 18.5" />
-    </svg>
-  );
-}
 
 /* ─────────────────────── Data ─────────────────────── */
 
 const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'Work', href: '/work' },
-  { label: 'Process', href: '#process' },
   { label: 'Contact', href: '#contact' },
 ];
 
 const services = [
   {
-    icon: Palette,
-    title: 'Web Design',
-    description:
-      'Pixel-perfect designs that captivate and convert. We create visual stories that resonate.',
-  },
-  {
-    icon: Code2,
-    title: 'Development',
-    description:
-      'Clean, scalable code built with cutting-edge technology. Performance without compromise.',
-  },
-  {
     icon: Target,
-    title: 'Brand Strategy',
+    title: 'Export Solutions',
     description:
-      'Strategic brand positioning that sets you apart. Define your unique voice in the market.',
+      'End-to-end export management helping Indian businesses reach global markets with compliance and confidence.',
   },
   {
     icon: TrendingUp,
-    title: 'Digital Marketing',
+    title: 'Import Services',
     description:
-      'Data-driven campaigns that deliver measurable growth. Reach your audience effectively.',
+      'Seamless import facilitation with strategic sourcing, quality assurance, and customs clearance support.',
+  },
+  {
+    icon: Code2,
+    title: 'Digital Presence',
+    description:
+      'Powerful websites and digital platforms built for trade businesses to attract international clients and partners.',
+  },
+  {
+    icon: Palette,
+    title: 'Brand Identity',
+    description:
+      'Premium branding that positions your business as a trusted global player in the international trade ecosystem.',
   },
 ];
 
 const projects = [
   {
-    name: 'Luxe Fashion',
-    category: 'E-Commerce',
-    description: 'Premium fashion rebrand with immersive shopping experience',
+    name: 'SpiceRoute Exports',
+    category: 'Export',
+    description: 'Premium spice export platform connecting Indian farmers to global markets',
     image: '/images/project-1.png',
     year: '2024',
     tech: ['Next.js', 'Shopify', 'Framer Motion'],
-    metrics: '+340% Conversions',
+    metrics: '+340% Export Volume',
   },
   {
-    name: 'Velvet Commerce',
-    category: 'E-Commerce',
-    description: 'High-end e-commerce platform with seamless checkout flow',
+    name: 'TextileHub Global',
+    category: 'Export',
+    description: 'High-end textile export portal with seamless order management',
     image: '/images/project-2.png',
     year: '2024',
     tech: ['React', 'Node.js', 'Stripe'],
     metrics: '+220% Revenue',
   },
   {
-    name: 'Nexus Analytics',
+    name: 'TradeNexus Analytics',
     category: 'SaaS',
-    description: 'Enterprise analytics dashboard with real-time data visualization',
+    description: 'Enterprise trade analytics dashboard with real-time market intelligence',
     image: '/images/project-3.png',
     year: '2023',
     tech: ['TypeScript', 'D3.js', 'WebSocket'],
     metrics: '50K+ Daily Users',
   },
   {
-    name: 'Prism Creative',
+    name: 'AgroVista Branding',
     category: 'Branding',
-    description: 'Bold creative agency website with dynamic interactions',
+    description: 'Bold brand identity for an agro-products export house with global reach',
     image: '/images/project-4.png',
     year: '2023',
     tech: ['Next.js', 'GSAP', 'Three.js'],
     metrics: 'Award Winning',
   },
   {
-    name: 'Aurora Finance',
+    name: 'ImportEase App',
     category: 'Mobile App',
-    description: 'Fintech mobile application with intuitive investment tools',
+    description: 'Import management app with customs tracking and compliance tools',
     image: '/images/project-5.png',
     year: '2023',
     tech: ['React Native', 'Firebase', 'Plaid'],
     metrics: '100K+ Downloads',
   },
   {
-    name: 'Ember Dining',
+    name: 'Maritime Solutions',
     category: 'Web Design',
-    description: 'Luxury restaurant website with reservation system',
+    description: 'Corporate website for a logistics and freight forwarding company',
     image: '/images/project-6.png',
     year: '2024',
     tech: ['Next.js', 'Prisma', 'Tailwind'],
-    metrics: '+180% Bookings',
-  },
-];
-
-const stats = [
-  { value: '150+', label: 'Projects Delivered' },
-  { value: '98%', label: 'Client Satisfaction' },
-  { value: '12+', label: 'Years of Excellence' },
-  { value: '40+', label: 'Team Members' },
-];
-
-const processSteps = [
-  {
-    number: '01',
-    icon: Search,
-    title: 'Discovery',
-    description:
-      'We dive deep into your brand, audience, and goals to build a strategic foundation.',
-  },
-  {
-    number: '02',
-    icon: PenTool,
-    title: 'Design',
-    description:
-      'Crafting visual concepts and interactive prototypes that bring your vision to life.',
-  },
-  {
-    number: '03',
-    icon: Hammer,
-    title: 'Develop',
-    description:
-      'Building with precision using modern technology stacks and best practices.',
-  },
-  {
-    number: '04',
-    icon: Rocket,
-    title: 'Deploy',
-    description:
-      'Launch, optimize, and support your product for continued growth and success.',
+    metrics: '+180% Inquiries',
   },
 ];
 
 const testimonials = [
   {
     quote:
-      'Apex Studio transformed our digital presence completely. The attention to detail and strategic thinking behind every decision was remarkable. Our conversions increased by 340%.',
-    name: 'Sarah Chen',
-    title: 'CEO at Luxe Fashion',
-    initials: 'SC',
+      'Unnat Vega transformed our export operations completely. Their digital platform helped us reach 15 new countries in just 6 months. The attention to compliance and user experience was remarkable.',
+    name: 'Rajesh Sharma',
+    title: 'Director at SpiceRoute Exports',
+    initials: 'RS',
   },
   {
     quote:
-      "Working with Apex was a game-changer. They didn't just build a website — they crafted an experience that truly represents our brand's essence. The results speak for themselves.",
-    name: 'Marcus Rivera',
-    title: 'Founder of Velvet Commerce',
-    initials: 'MR',
+      "Working with Unnat Vega was a game-changer for our import business. They didn't just build a website — they created a complete trade management ecosystem that streamlined our entire supply chain.",
+    name: 'Priya Patel',
+    title: 'CEO at TextileHub Global',
+    initials: 'PP',
   },
   {
     quote:
-      'The team at Apex brings an unmatched level of creativity and technical expertise. They delivered beyond our expectations and continue to be our trusted digital partner.',
-    name: 'Emily Thornton',
-    title: 'CMO at Nexus Analytics',
-    initials: 'ET',
+      'The team at Unnat Vega brings an unmatched level of understanding of international trade. Their digital solutions helped us reduce customs clearance time by 60% and scale our operations globally.',
+    name: 'Amit Verma',
+    title: 'COO at TradeNexus Analytics',
+    initials: 'AV',
   },
 ];
 
@@ -288,8 +224,8 @@ function Navigation() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6 lg:px-8">
         {/* Logo */}
         <a href="#" className="flex items-center gap-0 text-xl font-bold tracking-tight transition-all duration-300 hover:opacity-80">
-          <span className="text-foreground">APE</span>
-          <span className="text-primary">X</span>
+          <span className="text-foreground">UNNAT</span>
+          <span className="text-primary"> VEGA</span>
         </a>
 
         {/* Desktop Nav */}
@@ -325,8 +261,8 @@ function Navigation() {
             <SheetContent side="right" className="w-72 bg-background">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-0 text-xl font-bold tracking-tight">
-                  <span className="text-foreground">APE</span>
-                  <span className="text-primary">X</span>
+                  <span className="text-foreground">UNNAT</span>
+                  <span className="text-primary"> VEGA</span>
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-4 px-4 pt-4">
@@ -397,7 +333,7 @@ function Hero() {
             variant="outline"
             className="mb-8 border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium tracking-widest text-primary"
           >
-            PREMIUM DIGITAL AGENCY
+            PREMIUM TRADE & DIGITAL AGENCY
           </Badge>
         </motion.div>
 
@@ -406,17 +342,17 @@ function Hero() {
           className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           style={{ fontFamily: 'var(--font-geist-mono)' }}
         >
-          <span className="block">We Craft</span>
-          <span className="gradient-text block">Extraordinary</span>
-          <span className="block">Experiences</span>
+          <span className="block">Empowering</span>
+          <span className="gradient-text block">Global Trade</span>
+          <span className="block">Digital Excellence</span>
         </motion.h1>
 
         <motion.p
           variants={fadeInUp}
           className="mx-auto mt-8 max-w-2xl text-base text-muted-foreground md:text-lg"
         >
-          We design and build premium digital products that elevate brands and
-          drive results. From concept to launch, every pixel tells your story.
+          We help exporters, importers, and businesses build powerful digital
+          presence and streamline international trade operations. From strategy to execution.
         </motion.p>
 
         <motion.div
@@ -461,7 +397,7 @@ function Services() {
             WHAT WE DO
           </Badge>
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-            Services That Drive Results
+            Solutions That Drive Growth
           </h2>
         </motion.div>
 
@@ -795,121 +731,6 @@ function Portfolio() {
   );
 }
 
-/* ─────────────────────── Stats ─────────────────────── */
-function Stats() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-
-  return (
-    <section
-      ref={ref}
-      className="relative overflow-hidden px-4 py-20 md:py-28"
-    >
-      {/* Stunning orange gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,oklch(0.85_0.15_40)_0%,transparent_60%)] opacity-30" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,oklch(0.8_0.18_30)_0%,transparent_60%)] opacity-20" />
-      {/* Subtle shimmer pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            'linear-gradient(135deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%)',
-          backgroundSize: '40px 40px',
-        }}
-      />
-
-      <motion.div
-        initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
-        variants={staggerContainer}
-        className="relative z-10 mx-auto grid max-w-7xl gap-10 sm:grid-cols-2 lg:grid-cols-4"
-      >
-        {stats.map((stat) => (
-          <motion.div
-            key={stat.label}
-            variants={fadeInUp}
-            className="text-center"
-          >
-            <div
-              className="text-4xl font-bold tracking-tight text-primary-foreground md:text-5xl"
-              style={{ fontFamily: 'var(--font-geist-mono)' }}
-            >
-              {stat.value}
-            </div>
-            <div className="mt-2 text-sm font-medium tracking-wide text-primary-foreground/80">
-              {stat.label}
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </section>
-  );
-}
-
-/* ─────────────────────── Process ─────────────────────── */
-function Process() {
-  return (
-    <AnimatedSection
-      id="process"
-      className="px-4 py-20 md:py-28 lg:py-32"
-    >
-      <div className="mx-auto max-w-7xl">
-        <motion.div variants={fadeInUp} className="mb-12 text-center md:mb-16">
-          <Badge
-            variant="outline"
-            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
-          >
-            HOW WE WORK
-          </Badge>
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-            Our Proven Process
-          </h2>
-        </motion.div>
-
-        {/* Timeline */}
-        <div className="relative">
-          {/* Horizontal line (desktop) */}
-          <div className="absolute top-16 right-0 left-0 hidden h-px bg-border lg:block" />
-          {/* Orange dots on the line (desktop) */}
-          <div className="absolute top-[61px] right-0 left-0 hidden lg:flex lg:justify-around">
-            {processSteps.map((_, i) => (
-              <div key={i} className="size-2.5 rounded-full bg-primary" />
-            ))}
-          </div>
-
-          <div className="grid gap-10 lg:grid-cols-4 lg:gap-6">
-            {processSteps.map((step) => (
-              <motion.div
-                key={step.number}
-                variants={fadeInUp}
-                className="relative flex gap-4 lg:flex-col lg:items-center lg:text-center"
-              >
-                {/* Vertical line on mobile */}
-                <div className="absolute top-12 bottom-0 left-5 w-px bg-border lg:hidden" />
-                <div className="flex flex-col items-center lg:items-center">
-                  <div className="relative z-10 flex size-12 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20">
-                    <step.icon className="size-5 text-primary" />
-                  </div>
-                  <span className="mt-1 text-xs font-bold tracking-widest text-primary">
-                    {step.number}
-                  </span>
-                </div>
-                <div className="pb-2 lg:mt-2">
-                  <h3 className="mb-1 text-lg font-semibold">{step.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {step.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </AnimatedSection>
-  );
-}
-
 /* ─────────────────────── Testimonials ─────────────────────── */
 function Testimonials() {
   return (
@@ -1025,7 +846,7 @@ function Contact() {
             GET IN TOUCH
           </Badge>
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-            Let&apos;s Create Something Extraordinary
+            Let&apos;s Grow Your Business Globally
           </h2>
         </motion.div>
 
@@ -1152,28 +973,28 @@ function Contact() {
               <h3 className="mb-4 text-lg font-semibold">Contact Information</h3>
               <div className="space-y-4">
                 <a
-                  href="mailto:hello@apexstudio.com"
+                  href="mailto:info@unnatvega.com"
                   className="flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 hover:text-foreground"
                 >
-                  <div className="flex size-10 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20">
+                  <div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
                     <Mail className="size-4 text-primary" />
                   </div>
-                  hello@apexstudio.com
+                  info@unnatvega.com
                 </a>
                 <a
-                  href="tel:+15551234567"
+                  href="tel:+919876543210"
                   className="flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 hover:text-foreground"
                 >
-                  <div className="flex size-10 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20">
+                  <div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
                     <Phone className="size-4 text-primary" />
                   </div>
-                  +1 (555) 123-4567
+                  +91 98765 43210
                 </a>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   <div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
                     <MapPin className="size-4 text-primary" />
                   </div>
-                  123 Creative Ave, San Francisco, CA 94102
+                  Mumbai, Maharashtra, India
                 </div>
               </div>
             </div>
@@ -1182,14 +1003,16 @@ function Contact() {
               <h3 className="mb-4 text-lg font-semibold">Follow Us</h3>
               <div className="flex gap-3">
                 {[
-                  { icon: Twitter, label: 'Twitter', href: '#' },
-                  { icon: Linkedin, label: 'LinkedIn', href: '#' },
-                  { icon: DribbbleIcon, label: 'Dribbble', href: '#' },
-                  { icon: Github, label: 'GitHub', href: '#' },
+                  { icon: Twitter, label: 'Twitter', href: 'https://twitter.com/unnatvega' },
+                  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/unnatvega' },
+                  { icon: Instagram, label: 'Instagram', href: 'https://instagram.com/unnatvega' },
+                  { icon: Facebook, label: 'Facebook', href: 'https://facebook.com/unnatvega' },
                 ].map((social) => (
                   <a
                     key={social.label}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={social.label}
                     className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-muted-foreground transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:shadow-primary/20"
                   >
@@ -1202,10 +1025,10 @@ function Contact() {
             {/* Decorative card */}
             <Card className="glass hidden border-primary/20 transition-all duration-300 hover:border-primary/30 lg:block">
               <CardContent className="p-6">
-                <h4 className="mb-2 font-semibold">Ready to elevate your brand?</h4>
+                <h4 className="mb-2 font-semibold">Ready to expand globally?</h4>
                 <p className="text-sm text-muted-foreground">
-                  Our team is ready to bring your vision to life. Let&apos;s start a
-                  conversation about your next project.
+                  Our team is ready to help you navigate international trade. Let&apos;s start a
+                  conversation about taking your business to the world.
                 </p>
               </CardContent>
             </Card>
@@ -1227,28 +1050,53 @@ function Footer() {
 
   return (
     <footer className="mt-auto border-t border-border bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {/* Brand */}
-          <div>
-            <div className="mb-3 text-xl font-bold tracking-tight">
-              <span className="text-foreground">APE</span>
-              <span className="text-primary">X</span>
+      <div className="mx-auto max-w-7xl px-4 py-14 md:px-6 md:py-16 lg:px-8">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand + Contact */}
+          <div className="lg:col-span-1">
+            <div className="mb-4 text-xl font-bold tracking-tight">
+              <span className="text-foreground">UNNAT</span>
+              <span className="text-primary"> VEGA</span>
             </div>
-            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Crafting extraordinary digital experiences for visionary brands.
+            <p className="mb-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              Empowering exporters, importers, and businesses with powerful digital solutions for global trade excellence.
             </p>
+            {/* Contact Info */}
+            <div className="space-y-3">
+              <a
+                href="tel:+919876543210"
+                className="flex items-center gap-2.5 text-sm text-muted-foreground transition-all duration-300 hover:text-primary"
+              >
+                <Phone className="size-3.5 shrink-0 text-primary" />
+                +91 98765 43210
+              </a>
+              <a
+                href="mailto:info@unnatvega.com"
+                className="flex items-center gap-2.5 text-sm text-muted-foreground transition-all duration-300 hover:text-primary"
+              >
+                <Mail className="size-3.5 shrink-0 text-primary" />
+                info@unnatvega.com
+              </a>
+              <div className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                <MapPin className="size-3.5 mt-0.5 shrink-0 text-primary" />
+                Mumbai, Maharashtra, India
+              </div>
+            </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="mb-3 text-sm font-semibold">Quick Links</h4>
-            <div className="flex flex-col gap-2">
-              {navLinks.map((link) => (
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Quick Links</h4>
+            <div className="flex flex-col gap-2.5">
+              {[
+                { label: 'Services', href: '#services' },
+                { label: 'Our Work', href: '/work' },
+                { label: 'Contact', href: '#contact' },
+              ].map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-muted-foreground transition-all duration-300 hover:text-foreground"
+                  className="text-sm text-muted-foreground transition-all duration-300 hover:text-primary hover:pl-1"
                 >
                   {link.label}
                 </a>
@@ -1256,13 +1104,34 @@ function Footer() {
             </div>
           </div>
 
-          {/* Newsletter */}
+          {/* Legal */}
           <div>
-            <h4 className="mb-3 text-sm font-semibold">Stay Updated</h4>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Legal</h4>
+            <div className="flex flex-col gap-2.5">
+              {[
+                { label: 'Privacy Policy', href: '/privacy-policy' },
+                { label: 'Terms & Conditions', href: '/terms-and-conditions' },
+                { label: 'Refund Policy', href: '/refund-policy' },
+                { label: 'Shipping Policy', href: '/shipping-policy' },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-sm text-muted-foreground transition-all duration-300 hover:text-primary hover:pl-1"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Newsletter + Social */}
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Stay Updated</h4>
             <p className="mb-3 text-sm text-muted-foreground">
-              Subscribe to our newsletter for the latest insights and trends.
+              Subscribe for trade insights, export tips, and digital trends.
             </p>
-            <form onSubmit={handleSubscribe} className="flex gap-2">
+            <form onSubmit={handleSubscribe} className="mb-6 flex gap-2">
               <Input
                 type="email"
                 placeholder="your@email.com"
@@ -1274,23 +1143,54 @@ function Footer() {
               <Button
                 type="submit"
                 size="sm"
-                className="bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90"
+                className="bg-primary text-primary-foreground shrink-0 transition-all duration-300 hover:bg-primary/90"
               >
-                Subscribe
+                <Send className="size-4" />
               </Button>
             </form>
+
+            {/* Social Links */}
+            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider">Follow Us</h4>
+            <div className="flex gap-2.5">
+              {[
+                { icon: Twitter, label: 'Twitter', href: 'https://twitter.com/unnatvega' },
+                { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/unnatvega' },
+                { icon: Instagram, label: 'Instagram', href: 'https://instagram.com/unnatvega' },
+                { icon: Facebook, label: 'Facebook', href: 'https://facebook.com/unnatvega' },
+              ].map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-muted-foreground transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:shadow-primary/20"
+                >
+                  <social.icon className="size-4" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-10 flex flex-col items-center gap-2 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:justify-between">
-          <span>&copy; 2024 Apex Studio. All rights reserved.</span>
-          <div className="flex gap-4">
-            <a href="#" className="transition-all duration-300 hover:text-foreground">
+        <div className="mt-12 flex flex-col items-center gap-4 border-t border-border pt-6 sm:flex-row sm:justify-between">
+          <span className="text-xs text-muted-foreground">&copy; 2026 Unnat Vega. All rights reserved.</span>
+          <div className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
+            <a href="/privacy-policy" className="transition-all duration-300 hover:text-primary">
               Privacy Policy
             </a>
-            <a href="#" className="transition-all duration-300 hover:text-foreground">
-              Terms of Service
+            <span className="text-border">|</span>
+            <a href="/terms-and-conditions" className="transition-all duration-300 hover:text-primary">
+              Terms &amp; Conditions
+            </a>
+            <span className="text-border">|</span>
+            <a href="/refund-policy" className="transition-all duration-300 hover:text-primary">
+              Refund Policy
+            </a>
+            <span className="text-border">|</span>
+            <a href="/shipping-policy" className="transition-all duration-300 hover:text-primary">
+              Shipping Policy
             </a>
           </div>
         </div>
@@ -1308,8 +1208,6 @@ export default function Home() {
         <Hero />
         <Services />
         <Portfolio />
-        <Stats />
-        <Process />
         <Testimonials />
         <Contact />
       </main>

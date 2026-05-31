@@ -14,7 +14,14 @@ import {
   ExternalLink,
   ChevronRight,
   Filter,
-  X,
+  Phone,
+  Mail,
+  MapPin,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Facebook,
+  Send,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -37,21 +44,21 @@ import {
 
 const projects = [
   {
-    name: 'Luxe Fashion',
-    category: 'E-Commerce',
-    description: 'Premium fashion rebrand with immersive shopping experience',
-    fullDescription: 'A complete digital transformation for a luxury fashion house. We redesigned the entire e-commerce experience from the ground up, focusing on high-impact visuals and seamless user journeys that reflect the brand\'s premium positioning.',
+    name: 'SpiceRoute Exports',
+    category: 'Export',
+    description: 'Premium spice export platform connecting Indian farmers to global markets',
+    fullDescription: 'A complete digital transformation for a leading spice export house. We built an end-to-end platform connecting Indian farmers directly to international buyers, with real-time inventory tracking, compliance management, and seamless documentation workflows.',
     image: '/images/project-1.png',
     year: '2024',
     tech: ['Next.js', 'Shopify', 'Framer Motion'],
-    metrics: '+340% Conversions',
+    metrics: '+340% Export Volume',
     color: 'from-orange-500/20 to-orange-700/10',
   },
   {
-    name: 'Velvet Commerce',
-    category: 'E-Commerce',
-    description: 'High-end e-commerce platform with seamless checkout flow',
-    fullDescription: 'An enterprise-grade e-commerce platform built for speed and conversion. We engineered a frictionless checkout experience that reduced cart abandonment by 60% while maintaining a premium aesthetic throughout.',
+    name: 'TextileHub Global',
+    category: 'Export',
+    description: 'High-end textile export portal with seamless order management',
+    fullDescription: 'An enterprise-grade textile export portal built for speed and conversion. We engineered a frictionless order management experience that reduced processing time by 60% while maintaining a premium aesthetic that reflects the quality of Indian textiles.',
     image: '/images/project-2.png',
     year: '2024',
     tech: ['React', 'Node.js', 'Stripe'],
@@ -59,10 +66,10 @@ const projects = [
     color: 'from-orange-600/20 to-amber-600/10',
   },
   {
-    name: 'Nexus Analytics',
+    name: 'TradeNexus Analytics',
     category: 'SaaS',
-    description: 'Enterprise analytics dashboard with real-time data visualization',
-    fullDescription: 'A sophisticated analytics platform handling millions of data points in real time. We built an intuitive dashboard that makes complex data accessible, enabling teams to make data-driven decisions faster than ever.',
+    description: 'Enterprise trade analytics dashboard with real-time market intelligence',
+    fullDescription: 'A sophisticated trade analytics platform handling millions of data points in real time. We built an intuitive dashboard that makes complex trade data accessible, enabling exporters and importers to make data-driven decisions faster than ever.',
     image: '/images/project-3.png',
     year: '2023',
     tech: ['TypeScript', 'D3.js', 'WebSocket'],
@@ -70,10 +77,10 @@ const projects = [
     color: 'from-orange-400/20 to-yellow-600/10',
   },
   {
-    name: 'Prism Creative',
+    name: 'AgroVista Branding',
     category: 'Branding',
-    description: 'Bold creative agency website with dynamic interactions',
-    fullDescription: 'An award-winning website that pushes the boundaries of web interaction. We combined cutting-edge 3D visuals with smooth GSAP animations to create a digital experience that truly represents the creative spirit of the agency.',
+    description: 'Bold brand identity for an agro-products export house with global reach',
+    fullDescription: 'An award-winning brand identity that positions an agro-products export house as a global leader. We created a visual system that communicates trust, quality, and international standards across all touchpoints.',
     image: '/images/project-4.png',
     year: '2023',
     tech: ['Next.js', 'GSAP', 'Three.js'],
@@ -81,10 +88,10 @@ const projects = [
     color: 'from-amber-500/20 to-orange-400/10',
   },
   {
-    name: 'Aurora Finance',
+    name: 'ImportEase App',
     category: 'Mobile App',
-    description: 'Fintech mobile application with intuitive investment tools',
-    fullDescription: 'A next-generation fintech app that makes investing accessible to everyone. We designed an intuitive interface that simplifies complex financial instruments, resulting in massive user adoption and industry recognition.',
+    description: 'Import management app with customs tracking and compliance tools',
+    fullDescription: 'A next-generation import management app that makes customs clearance accessible and transparent. We designed an intuitive interface that simplifies complex import regulations, resulting in massive adoption by businesses across India.',
     image: '/images/project-5.png',
     year: '2023',
     tech: ['React Native', 'Firebase', 'Plaid'],
@@ -92,14 +99,14 @@ const projects = [
     color: 'from-orange-700/20 to-red-600/10',
   },
   {
-    name: 'Ember Dining',
+    name: 'Maritime Solutions',
     category: 'Web Design',
-    description: 'Luxury restaurant website with reservation system',
-    fullDescription: 'A mouth-watering digital experience for a luxury dining establishment. We crafted a website that captures the essence of fine dining, complete with an integrated reservation system that dramatically increased bookings.',
+    description: 'Corporate website for a logistics and freight forwarding company',
+    fullDescription: 'A powerful corporate website for a logistics and freight forwarding company. We crafted a digital experience that showcases their global network, complete with real-time shipment tracking and an integrated inquiry system.',
     image: '/images/project-6.png',
     year: '2024',
     tech: ['Next.js', 'Prisma', 'Tailwind'],
-    metrics: '+180% Bookings',
+    metrics: '+180% Inquiries',
     color: 'from-red-500/20 to-orange-600/10',
   },
 ];
@@ -138,8 +145,8 @@ function WorkNavigation() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-0 text-xl font-bold tracking-tight transition-all duration-300 hover:opacity-80">
-          <span className="text-foreground">APE</span>
-          <span className="text-primary">X</span>
+          <span className="text-foreground">UNNAT</span>
+          <span className="text-primary"> VEGA</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -177,8 +184,8 @@ function WorkNavigation() {
             <SheetContent side="right" className="w-72 bg-background">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-0 text-xl font-bold tracking-tight">
-                  <span className="text-foreground">APE</span>
-                  <span className="text-primary">X</span>
+                  <span className="text-foreground">UNNAT</span>
+                  <span className="text-primary"> VEGA</span>
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-4 px-4 pt-4">
@@ -598,13 +605,13 @@ export default function WorkPage() {
             className="mb-6 text-3xl font-bold tracking-tight text-primary-foreground md:text-4xl lg:text-5xl"
             style={{ fontFamily: 'var(--font-geist-mono)' }}
           >
-            Have a Project in Mind?
+            Ready to Go Global?
           </motion.h2>
           <motion.p
             variants={fadeInUp}
             className="mb-10 text-base text-primary-foreground/70 md:text-lg"
           >
-            Let&apos;s create something extraordinary together. We&apos;re ready to bring your vision to life.
+            Let&apos;s build your digital presence and streamline your international trade operations.
           </motion.p>
           <motion.div variants={fadeInUp} className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Button
@@ -633,15 +640,143 @@ export default function WorkPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border/40 bg-background px-4 py-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
-          <Link href="/" className="flex items-center gap-0 text-lg font-bold tracking-tight">
-            <span className="text-foreground">APE</span>
-            <span className="text-primary">X</span>
-          </Link>
-          <p className="text-xs text-muted-foreground/50">
-            &copy; {new Date().getFullYear()} Apex Studio. All rights reserved.
-          </p>
+      <footer className="border-t border-border bg-background">
+        <div className="mx-auto max-w-7xl px-4 py-14 md:px-6 md:py-16 lg:px-8">
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+            {/* Brand + Contact */}
+            <div className="lg:col-span-1">
+              <div className="mb-4 text-xl font-bold tracking-tight">
+                <Link href="/" className="flex items-center gap-0">
+                  <span className="text-foreground">UNNAT</span>
+                  <span className="text-primary"> VEGA</span>
+                </Link>
+              </div>
+              <p className="mb-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
+                Empowering exporters, importers, and businesses with powerful digital solutions for global trade excellence.
+              </p>
+              <div className="space-y-3">
+                <a href="tel:+919876543210" className="flex items-center gap-2.5 text-sm text-muted-foreground transition-all duration-300 hover:text-primary">
+                  <Phone className="size-3.5 shrink-0 text-primary" />
+                  +91 98765 43210
+                </a>
+                <a href="mailto:info@unnatvega.com" className="flex items-center gap-2.5 text-sm text-muted-foreground transition-all duration-300 hover:text-primary">
+                  <Mail className="size-3.5 shrink-0 text-primary" />
+                  info@unnatvega.com
+                </a>
+                <div className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                  <MapPin className="size-3.5 mt-0.5 shrink-0 text-primary" />
+                  Mumbai, Maharashtra, India
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Quick Links</h4>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { label: 'Home', href: '/' },
+                  { label: 'Services', href: '/#services' },
+                  { label: 'Our Work', href: '/work' },
+                  { label: 'Contact', href: '/#contact' },
+                ].map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-all duration-300 hover:text-primary hover:pl-1"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Legal</h4>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { label: 'Privacy Policy', href: '/privacy-policy' },
+                  { label: 'Terms & Conditions', href: '/terms-and-conditions' },
+                  { label: 'Refund Policy', href: '/refund-policy' },
+                  { label: 'Shipping Policy', href: '/shipping-policy' },
+                ].map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-all duration-300 hover:text-primary hover:pl-1"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Newsletter + Social */}
+            <div>
+              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Stay Updated</h4>
+              <p className="mb-3 text-sm text-muted-foreground">
+                Subscribe for trade insights, export tips, and digital trends.
+              </p>
+              <form onSubmit={(e) => e.preventDefault()} className="mb-6 flex gap-2">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                />
+                <Button
+                  type="submit"
+                  size="sm"
+                  className="bg-primary text-primary-foreground shrink-0 transition-all duration-300 hover:bg-primary/90"
+                >
+                  <Send className="size-4" />
+                </Button>
+              </form>
+
+              <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider">Follow Us</h4>
+              <div className="flex gap-2.5">
+                {[
+                  { icon: Twitter, label: 'Twitter', href: 'https://twitter.com/unnatvega' },
+                  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/unnatvega' },
+                  { icon: Instagram, label: 'Instagram', href: 'https://instagram.com/unnatvega' },
+                  { icon: Facebook, label: 'Facebook', href: 'https://facebook.com/unnatvega' },
+                ].map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-muted-foreground transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:shadow-primary/20"
+                  >
+                    <social.icon className="size-4" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="mt-12 flex flex-col items-center gap-4 border-t border-border pt-6 sm:flex-row sm:justify-between">
+            <span className="text-xs text-muted-foreground">&copy; 2026 Unnat Vega. All rights reserved.</span>
+            <div className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
+              <Link href="/privacy-policy" className="transition-all duration-300 hover:text-primary">
+                Privacy Policy
+              </Link>
+              <span className="text-border">|</span>
+              <Link href="/terms-and-conditions" className="transition-all duration-300 hover:text-primary">
+                Terms &amp; Conditions
+              </Link>
+              <span className="text-border">|</span>
+              <Link href="/refund-policy" className="transition-all duration-300 hover:text-primary">
+                Refund Policy
+              </Link>
+              <span className="text-border">|</span>
+              <Link href="/shipping-policy" className="transition-all duration-300 hover:text-primary">
+                Shipping Policy
+              </Link>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

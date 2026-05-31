@@ -15,26 +15,28 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Apex Studio — Premium Digital Agency",
+  title: "Unnat Vega — Premium Trade & Digital Agency",
   description:
-    "We craft extraordinary digital experiences for visionary brands. Premium web design, development, and brand strategy.",
+    "Empowering exporters, importers, and businesses with powerful digital solutions for global trade excellence. Export management, import facilitation, and digital presence.",
   keywords: [
-    "Apex Studio",
-    "Premium Web Design",
+    "Unnat Vega",
+    "Export Import",
+    "Trade Solutions",
     "Digital Agency",
-    "Brand Strategy",
-    "Web Development",
-    "UI/UX Design",
+    "Export Management",
+    "Import Services",
+    "International Trade",
+    "Business Solutions",
   ],
-  authors: [{ name: "Apex Studio" }],
+  authors: [{ name: "Unnat Vega" }],
   icons: {
     icon: "/logo.svg",
   },
   openGraph: {
-    title: "Apex Studio — Premium Digital Agency",
+    title: "Unnat Vega — Premium Trade & Digital Agency",
     description:
-      "We craft extraordinary digital experiences for visionary brands.",
-    siteName: "Apex Studio",
+      "Empowering exporters, importers, and businesses with powerful digital solutions for global trade excellence.",
+    siteName: "Unnat Vega",
     type: "website",
   },
 };
