@@ -84,7 +84,7 @@ function DribbbleIcon({ className }: { className?: string }) {
 
 const navLinks = [
   { label: 'Services', href: '#services' },
-  { label: 'Work', href: '#work' },
+  { label: 'Work', href: '/work' },
   { label: 'Process', href: '#process' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -540,16 +540,28 @@ function Portfolio() {
       tabIndex={0}
     >
       {/* Section Header — compact, top-left aligned */}
-      <div className="mb-8 md:mb-10 lg:px-4">
-        <Badge
-          variant="outline"
-          className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+      <div className="mb-8 flex items-end justify-between md:mb-10 lg:px-4">
+        <div>
+          <Badge
+            variant="outline"
+            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+          >
+            OUR WORK
+          </Badge>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+            Crafted with Purpose
+          </h2>
+        </div>
+        <Button
+          asChild
+          variant="ghost"
+          className="hidden text-sm text-muted-foreground transition-all duration-300 hover:text-primary md:inline-flex"
         >
-          OUR WORK
-        </Badge>
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-          Crafted with Purpose
-        </h2>
+          <a href="/work">
+            View All Work
+            <ArrowRight className="ml-1 size-4" />
+          </a>
+        </Button>
       </div>
 
       {/* Full-width showcase area */}
