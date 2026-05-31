@@ -24,6 +24,10 @@ import {
   Send,
   Sun,
   Moon,
+  Globe,
+  Users,
+  Award,
+  Building2,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -59,6 +63,7 @@ import {
 
 const navLinks = [
   { label: 'Services', href: '#services' },
+  { label: 'About', href: '#about' },
   { label: 'Work', href: '/work' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -731,6 +736,234 @@ function Portfolio() {
   );
 }
 
+/* ─────────────────────── About Us ─────────────────────── */
+function AboutUs() {
+  const stats = [
+    { icon: Globe, value: '25+', label: 'Countries Served' },
+    { icon: Users, value: '500+', label: 'Happy Clients' },
+    { icon: Award, value: '8+', label: 'Years Experience' },
+    { icon: Building2, value: '100%', label: 'Compliance Rate' },
+  ];
+
+  return (
+    <AnimatedSection
+      id="about"
+      className="px-4 py-20 md:py-28 lg:py-32"
+    >
+      <div className="mx-auto max-w-7xl">
+        <motion.div variants={fadeInUp} className="mb-12 text-center md:mb-16">
+          <Badge
+            variant="outline"
+            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+          >
+            ABOUT US
+          </Badge>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+            Who We Are
+          </h2>
+        </motion.div>
+
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Story */}
+          <motion.div variants={slideInLeft} className="flex flex-col justify-center">
+            <h3 className="mb-4 text-2xl font-bold tracking-tight md:text-3xl">
+              Bridging Indian Businesses to the <span className="gradient-text">World</span>
+            </h3>
+            <p className="mb-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+              Unnat Vega is a premier trade and digital agency dedicated to empowering Indian exporters, importers, and businesses with the tools, strategy, and digital presence they need to compete and thrive on the global stage.
+            </p>
+            <p className="mb-6 text-sm leading-relaxed text-muted-foreground md:text-base">
+              Founded with a vision to simplify international trade, we combine deep industry expertise with cutting-edge digital solutions. From export compliance and import facilitation to building world-class websites and brand identities — we are the trusted partner for businesses that want to go global with confidence.
+            </p>
+            <div className="flex flex-col gap-3">
+              {[
+                'End-to-end export & import management',
+                'Digital platforms built for global trade',
+                'Compliance-first approach with 100% track record',
+                'Dedicated support from strategy to execution',
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <div className="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                    <ArrowRight className="size-3 text-primary" />
+                  </div>
+                  <span className="text-sm text-muted-foreground">{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div variants={slideInRight}>
+            <div className="grid grid-cols-2 gap-4 md:gap-6">
+              {stats.map((stat) => (
+                <Card
+                  key={stat.label}
+                  className="glass group border-transparent transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
+                >
+                  <CardContent className="flex flex-col items-center p-6 text-center md:p-8">
+                    <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20">
+                      <stat.icon className="size-5 text-primary transition-transform duration-300 group-hover:scale-110" />
+                    </div>
+                    <span
+                      className="mb-1 text-3xl font-bold text-primary md:text-4xl"
+                      style={{ fontFamily: 'var(--font-geist-mono)' }}
+                    >
+                      {stat.value}
+                    </span>
+                    <span className="text-xs text-muted-foreground md:text-sm">{stat.label}</span>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+/* ─────────────────────── Listed On ─────────────────────── */
+function ListedOn() {
+  const platforms = [
+    {
+      name: 'Instagram',
+      icon: Instagram,
+      href: 'https://instagram.com/unnatvega',
+      color: '#E4405F',
+      bgLight: '#FFF0F3',
+      bgDark: 'rgba(228, 64, 95, 0.12)',
+    },
+    {
+      name: 'Facebook',
+      icon: Facebook,
+      href: 'https://facebook.com/unnatvega',
+      color: '#1877F2',
+      bgLight: '#EBF2FF',
+      bgDark: 'rgba(24, 119, 242, 0.12)',
+    },
+    {
+      name: 'Telegram',
+      icon: Send,
+      href: 'https://t.me/unnatvega',
+      color: '#26A5E4',
+      bgLight: '#E8F6FD',
+      bgDark: 'rgba(38, 165, 228, 0.12)',
+    },
+    {
+      name: 'Alibaba',
+      icon: Globe,
+      href: 'https://alibaba.com',
+      color: '#FF6A00',
+      bgLight: '#FFF3E8',
+      bgDark: 'rgba(255, 106, 0, 0.12)',
+    },
+  ];
+
+  return (
+    <AnimatedSection className="py-16 md:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl">
+        <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-12">
+          <Badge
+            variant="outline"
+            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+          >
+            LISTED ON
+          </Badge>
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+            Find Us Everywhere
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-sm text-muted-foreground md:text-base">
+            Connect with us across platforms. Follow, engage, and explore our global trade network.
+          </p>
+        </motion.div>
+
+        {/* Infinite Carousel */}
+        <div className="relative overflow-hidden">
+          {/* Fade edges */}
+          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent md:w-40" />
+          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent md:w-40" />
+
+          {/* Scrolling track */}
+          <div className="carousel-track flex items-center gap-8 md:gap-12" style={{ width: 'max-content' }}>
+            {/* First set */}
+            {platforms.map((platform) => (
+              <a
+                key={`first-${platform.name}`}
+                href={platform.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex shrink-0 items-center gap-4 rounded-2xl border border-border/40 bg-card/80 px-8 py-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 md:px-10 md:py-7"
+              >
+                <div
+                  className="flex size-14 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 md:size-16"
+                  style={{ backgroundColor: platform.bgLight }}
+                >
+                  <platform.icon
+                    className="size-7 md:size-8"
+                    style={{ color: platform.color }}
+                  />
+                </div>
+                <div>
+                  <span className="block text-base font-semibold md:text-lg">{platform.name}</span>
+                  <span className="block text-xs text-muted-foreground md:text-sm">@unnatvega</span>
+                </div>
+              </a>
+            ))}
+            {/* Duplicate set for seamless loop */}
+            {platforms.map((platform) => (
+              <a
+                key={`second-${platform.name}`}
+                href={platform.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex shrink-0 items-center gap-4 rounded-2xl border border-border/40 bg-card/80 px-8 py-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 md:px-10 md:py-7"
+              >
+                <div
+                  className="flex size-14 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 md:size-16"
+                  style={{ backgroundColor: platform.bgLight }}
+                >
+                  <platform.icon
+                    className="size-7 md:size-8"
+                    style={{ color: platform.color }}
+                  />
+                </div>
+                <div>
+                  <span className="block text-base font-semibold md:text-lg">{platform.name}</span>
+                  <span className="block text-xs text-muted-foreground md:text-sm">@unnatvega</span>
+                </div>
+              </a>
+            ))}
+            {/* Third set for wider screens */}
+            {platforms.map((platform) => (
+              <a
+                key={`third-${platform.name}`}
+                href={platform.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex shrink-0 items-center gap-4 rounded-2xl border border-border/40 bg-card/80 px-8 py-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 md:px-10 md:py-7"
+              >
+                <div
+                  className="flex size-14 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 md:size-16"
+                  style={{ backgroundColor: platform.bgLight }}
+                >
+                  <platform.icon
+                    className="size-7 md:size-8"
+                    style={{ color: platform.color }}
+                  />
+                </div>
+                <div>
+                  <span className="block text-base font-semibold md:text-lg">{platform.name}</span>
+                  <span className="block text-xs text-muted-foreground md:text-sm">@unnatvega</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
 /* ─────────────────────── Testimonials ─────────────────────── */
 function Testimonials() {
   return (
@@ -1106,13 +1339,12 @@ function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Legal</h4>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider">Company</h4>
             <div className="flex flex-col gap-2.5">
               {[
+                { label: 'About Us', href: '#about' },
                 { label: 'Privacy Policy', href: '/privacy-policy' },
                 { label: 'Terms & Conditions', href: '/terms-and-conditions' },
-                { label: 'Refund Policy', href: '/refund-policy' },
-                { label: 'Shipping Policy', href: '/shipping-policy' },
               ].map((link) => (
                 <a
                   key={link.label}
@@ -1177,20 +1409,16 @@ function Footer() {
         <div className="mt-12 flex flex-col items-center gap-4 border-t border-border pt-6 sm:flex-row sm:justify-between">
           <span className="text-xs text-muted-foreground">&copy; 2026 Unnat Vega. All rights reserved.</span>
           <div className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
+            <a href="#about" className="transition-all duration-300 hover:text-primary">
+              About Us
+            </a>
+            <span className="text-border">|</span>
             <a href="/privacy-policy" className="transition-all duration-300 hover:text-primary">
               Privacy Policy
             </a>
             <span className="text-border">|</span>
             <a href="/terms-and-conditions" className="transition-all duration-300 hover:text-primary">
               Terms &amp; Conditions
-            </a>
-            <span className="text-border">|</span>
-            <a href="/refund-policy" className="transition-all duration-300 hover:text-primary">
-              Refund Policy
-            </a>
-            <span className="text-border">|</span>
-            <a href="/shipping-policy" className="transition-all duration-300 hover:text-primary">
-              Shipping Policy
             </a>
           </div>
         </div>
@@ -1206,6 +1434,8 @@ export default function Home() {
       <Navigation />
       <main className="flex-1">
         <Hero />
+        <ListedOn />
+        <AboutUs />
         <Services />
         <Portfolio />
         <Testimonials />

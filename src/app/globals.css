@@ -186,6 +186,23 @@
   border: 1px solid oklch(1 0 0 / 10%);
 }
 
+@keyframes carousel-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.carousel-track {
+  animation: carousel-scroll 20s linear infinite;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
 .noise-overlay::before {
   content: '';
   position: absolute;
