@@ -45,7 +45,7 @@ const projects = [
     year: '2024',
     tech: ['Next.js', 'Shopify', 'Framer Motion'],
     metrics: '+340% Conversions',
-    color: 'from-amber-500/20 to-orange-600/10',
+    color: 'from-orange-500/20 to-orange-700/10',
   },
   {
     name: 'Velvet Commerce',
@@ -56,7 +56,7 @@ const projects = [
     year: '2024',
     tech: ['React', 'Node.js', 'Stripe'],
     metrics: '+220% Revenue',
-    color: 'from-rose-500/20 to-pink-600/10',
+    color: 'from-orange-600/20 to-amber-600/10',
   },
   {
     name: 'Nexus Analytics',
@@ -67,7 +67,7 @@ const projects = [
     year: '2023',
     tech: ['TypeScript', 'D3.js', 'WebSocket'],
     metrics: '50K+ Daily Users',
-    color: 'from-cyan-500/20 to-teal-600/10',
+    color: 'from-orange-400/20 to-yellow-600/10',
   },
   {
     name: 'Prism Creative',
@@ -78,7 +78,7 @@ const projects = [
     year: '2023',
     tech: ['Next.js', 'GSAP', 'Three.js'],
     metrics: 'Award Winning',
-    color: 'from-violet-500/20 to-purple-600/10',
+    color: 'from-amber-500/20 to-orange-400/10',
   },
   {
     name: 'Aurora Finance',
@@ -89,7 +89,7 @@ const projects = [
     year: '2023',
     tech: ['React Native', 'Firebase', 'Plaid'],
     metrics: '100K+ Downloads',
-    color: 'from-emerald-500/20 to-green-600/10',
+    color: 'from-orange-700/20 to-red-600/10',
   },
   {
     name: 'Ember Dining',
@@ -583,8 +583,8 @@ export default function WorkPage() {
       {/* CTA Section */}
       <section className="relative overflow-hidden px-4 py-20 md:py-28">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,oklch(0.9_0.12_75)_0%,transparent_60%)] opacity-30" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,oklch(0.85_0.15_60)_0%,transparent_60%)] opacity-20" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,oklch(0.85_0.15_40)_0%,transparent_60%)] opacity-30" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,oklch(0.8_0.18_30)_0%,transparent_60%)] opacity-20" />
 
         <motion.div
           initial="hidden"

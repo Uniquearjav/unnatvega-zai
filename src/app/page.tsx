@@ -371,7 +371,7 @@ function Hero() {
     >
       {/* Background decorative elements */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Gold gradient orbs */}
+        {/* Orange gradient orbs */}
         <div className="absolute -left-32 top-1/4 size-96 rounded-full bg-primary/10 blur-[120px]" />
         <div className="absolute -right-32 bottom-1/4 size-96 rounded-full bg-primary/8 blur-[120px]" />
         <div className="absolute left-1/2 top-1/2 size-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[100px]" />
@@ -805,10 +805,10 @@ function Stats() {
       ref={ref}
       className="relative overflow-hidden px-4 py-20 md:py-28"
     >
-      {/* Stunning gold gradient background */}
+      {/* Stunning orange gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,oklch(0.9_0.12_75)_0%,transparent_60%)] opacity-30" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,oklch(0.85_0.15_60)_0%,transparent_60%)] opacity-20" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_50%,oklch(0.85_0.15_40)_0%,transparent_60%)] opacity-30" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,oklch(0.8_0.18_30)_0%,transparent_60%)] opacity-20" />
       {/* Subtle shimmer pattern */}
       <div
         className="absolute inset-0 opacity-[0.08]"
@@ -871,7 +871,7 @@ function Process() {
         <div className="relative">
           {/* Horizontal line (desktop) */}
           <div className="absolute top-16 right-0 left-0 hidden h-px bg-border lg:block" />
-          {/* Gold dots on the line (desktop) */}
+          {/* Orange dots on the line (desktop) */}
           <div className="absolute top-[61px] right-0 left-0 hidden lg:flex lg:justify-around">
             {processSteps.map((_, i) => (
               <div key={i} className="size-2.5 rounded-full bg-primary" />
