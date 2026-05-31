@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
@@ -490,142 +490,57 @@ function Services() {
 /* ─────────────────────── Portfolio ─────────────────────── */
 function Portfolio() {
   const [activeProject, setActiveProject] = useState(0);
-  const [isLocked, setIsLocked] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState<'down' | 'up' | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const showcaseRef = useRef<HTMLDivElement>(null);
-  const isScrolling = useRef(false);
-  const touchStartY = useRef(0);
-
-  // Scroll-snap: lock viewport to this section and change slides on wheel
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      const rect = section.getBoundingClientRect();
-      const isSectionInView = rect.top <= 100 && rect.bottom >= window.innerHeight - 100;
-
-      if (!isSectionInView) return;
-
-      // If we're at the last project and scrolling down, or first and scrolling up, unlock
-      if (activeProject === projects.length - 1 && e.deltaY > 0 && !isScrolling.current) {
-        setIsLocked(false);
-        return;
-      }
-      if (activeProject === 0 && e.deltaY < 0 && !isScrolling.current) {
-        setIsLocked(false);
-        return;
-      }
-
-      // Capture the scroll
-      e.preventDefault();
-      setIsLocked(true);
-
-      if (isScrolling.current) return;
-      isScrolling.current = true;
-
-      if (e.deltaY > 0) {
-        setScrollDirection('down');
-        setActiveProject((prev) => Math.min(prev + 1, projects.length - 1));
-      } else if (e.deltaY < 0) {
-        setScrollDirection('up');
-        setActiveProject((prev) => Math.max(prev - 1, 0));
-      }
-
-      // Debounce scroll changes
-      setTimeout(() => {
-        isScrolling.current = false;
-      }, 800);
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
-  }, [activeProject]);
-
-  // Touch support for mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
-    if (Math.abs(deltaY) < 50) return;
-
-    if (deltaY > 0) {
-      setScrollDirection('down');
-      setActiveProject((prev) => Math.min(prev + 1, projects.length - 1));
-    } else {
-      setScrollDirection('up');
-      setActiveProject((prev) => Math.max(prev - 1, 0));
-    }
-  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
       e.preventDefault();
-      setScrollDirection('down');
       setActiveProject((prev) => Math.min(prev + 1, projects.length - 1));
     } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
       e.preventDefault();
-      setScrollDirection('up');
       setActiveProject((prev) => Math.max(prev - 1, 0));
     }
   };
 
-  // Slide transition variants based on scroll direction
-  const slideVariants = {
-    enter: (direction: 'down' | 'up' | null) => ({
+  // Crossfade transition variants
+  const crossfadeVariants = {
+    enter: {
       opacity: 0,
-      y: direction === 'down' ? 60 : -60,
-      scale: 1.02,
-      filter: 'blur(6px)',
-    }),
+      scale: 1.04,
+    },
     center: {
       opacity: 1,
-      y: 0,
       scale: 1,
-      filter: 'blur(0px)',
     },
-    exit: (direction: 'down' | 'up' | null) => ({
+    exit: {
       opacity: 0,
-      y: direction === 'down' ? -60 : 60,
-      scale: 0.98,
-      filter: 'blur(6px)',
-    }),
+      scale: 0.96,
+    },
   };
 
   const infoVariants = {
-    enter: (direction: 'down' | 'up' | null) => ({
+    enter: {
       opacity: 0,
-      y: direction === 'down' ? 40 : -40,
-    }),
+      y: 30,
+    },
     center: {
       opacity: 1,
       y: 0,
     },
-    exit: (direction: 'down' | 'up' | null) => ({
+    exit: {
       opacity: 0,
-      y: direction === 'down' ? -40 : 40,
-    }),
+      y: -20,
+    },
   };
 
   return (
     <section
       id="work"
-      ref={sectionRef}
-      className={`relative transition-[min-height] duration-700 ease-in-out ${
-        isLocked
-          ? 'min-h-screen'
-          : 'min-h-0 py-20 md:py-28 lg:py-32'
-      }`}
+      className="relative px-4 py-20 md:py-28 lg:py-32"
       onKeyDown={handleKeyDown}
       tabIndex={0}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
       {/* Section Header — compact, top-left aligned */}
-      <div className={`mb-8 px-4 md:mb-10 lg:px-8 ${isLocked ? 'pt-20 md:pt-24 lg:pt-28' : ''}`}>
+      <div className="mb-8 md:mb-10 lg:px-4">
         <Badge
           variant="outline"
           className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
@@ -638,10 +553,7 @@ function Portfolio() {
       </div>
 
       {/* Full-width showcase area */}
-      <div
-        ref={showcaseRef}
-        className="relative flex h-[70vh] min-h-[500px] md:h-[80vh] md:min-h-[600px] lg:h-[85vh] lg:min-h-[700px]"
-      >
+      <div className="relative flex h-[70vh] min-h-[500px] md:h-[80vh] md:min-h-[600px] lg:h-[85vh] lg:min-h-[700px]">
         {/* ─── Left Sidebar: Company Names (Horizontal) ─── */}
         <div className="relative z-20 flex w-28 shrink-0 flex-col border-r border-border/40 bg-background/80 backdrop-blur-md md:w-40 lg:w-52">
           {/* Label at top */}
@@ -656,10 +568,7 @@ function Portfolio() {
             {projects.map((project, idx) => (
               <button
                 key={project.name}
-                onClick={() => {
-                  setScrollDirection(idx > activeProject ? 'down' : 'up');
-                  setActiveProject(idx);
-                }}
+                onClick={() => setActiveProject(idx)}
                 className={`group/sidebar relative flex items-center gap-3 px-3 py-3 text-left transition-all duration-300 md:px-5 md:py-3.5 ${
                   activeProject === idx
                     ? 'bg-primary/10 border-l-2 border-primary'
@@ -705,10 +614,10 @@ function Portfolio() {
             ))}
           </div>
 
-          {/* Counter + Progress bar at bottom */}
+          {/* Counter + Progress bar + Navigation arrows at bottom */}
           <div className="border-t border-border/30 px-3 py-3 md:px-5">
             {/* Animated progress bar */}
-            <div className="mb-2 h-0.5 w-full overflow-hidden rounded-full bg-border/30">
+            <div className="mb-3 h-0.5 w-full overflow-hidden rounded-full bg-border/30">
               <motion.div
                 className="h-full rounded-full bg-primary"
                 initial={false}
@@ -716,23 +625,45 @@ function Portfolio() {
                 transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               />
             </div>
-            <span className="text-xs font-bold text-primary" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-              {String(activeProject + 1).padStart(2, '0')}
-            </span>
-            <span className="text-[10px] text-muted-foreground/40">/</span>
-            <span className="text-[10px] text-muted-foreground/40" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-              {String(projects.length).padStart(2, '0')}
-            </span>
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-xs font-bold text-primary" style={{ fontFamily: 'var(--font-geist-mono)' }}>
+                  {String(activeProject + 1).padStart(2, '0')}
+                </span>
+                <span className="text-[10px] text-muted-foreground/40">/</span>
+                <span className="text-[10px] text-muted-foreground/40" style={{ fontFamily: 'var(--font-geist-mono)' }}>
+                  {String(projects.length).padStart(2, '0')}
+                </span>
+              </div>
+              {/* Up/Down navigation arrows */}
+              <div className="flex gap-1">
+                <button
+                  onClick={() => setActiveProject((prev) => Math.max(prev - 1, 0))}
+                  disabled={activeProject === 0}
+                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-30 disabled:hover:border-border/40 disabled:hover:text-muted-foreground"
+                  aria-label="Previous project"
+                >
+                  <ChevronRight className="size-3.5 -rotate-90" />
+                </button>
+                <button
+                  onClick={() => setActiveProject((prev) => Math.min(prev + 1, projects.length - 1))}
+                  disabled={activeProject === projects.length - 1}
+                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-30 disabled:hover:border-border/40 disabled:hover:text-muted-foreground"
+                  aria-label="Next project"
+                >
+                  <ChevronRight className="size-3.5 rotate-90" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* ─── Main Image Area (~80% of screen) ─── */}
         <div className="relative flex-1 overflow-hidden">
-          <AnimatePresence mode="wait" custom={scrollDirection}>
+          <AnimatePresence mode="wait">
             <motion.div
               key={activeProject}
-              custom={scrollDirection}
-              variants={slideVariants}
+              variants={crossfadeVariants}
               initial="enter"
               animate="center"
               exit="exit"
@@ -757,10 +688,9 @@ function Portfolio() {
           </AnimatePresence>
 
           {/* ─── Bottom Info Bar ─── */}
-          <AnimatePresence mode="wait" custom={scrollDirection}>
+          <AnimatePresence mode="wait">
             <motion.div
               key={activeProject}
-              custom={scrollDirection}
               variants={infoVariants}
               initial="enter"
               animate="center"
@@ -815,30 +745,12 @@ function Portfolio() {
             </motion.div>
           </AnimatePresence>
 
-          {/* ─── Scroll Hint (shown when section is locked) ─── */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isLocked ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="pointer-events-none absolute right-4 top-1/2 z-10 flex -translate-y-1/2 flex-col items-center gap-2 md:right-6"
-          >
-            <div className="flex size-10 items-center justify-center rounded-full border border-foreground/10 bg-background/30 backdrop-blur-sm md:size-12">
-              <ChevronRight className="size-4 rotate-90 text-foreground/40 md:size-5" />
-            </div>
-            <span className="text-[9px] font-medium uppercase tracking-widest text-muted-foreground/40">
-              Scroll
-            </span>
-          </motion.div>
-
           {/* ─── Progress Dots (bottom-right) ─── */}
           <div className="absolute bottom-6 right-6 z-10 hidden flex-col gap-1.5 md:flex">
             {projects.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => {
-                  setScrollDirection(idx > activeProject ? 'down' : 'up');
-                  setActiveProject(idx);
-                }}
+                onClick={() => setActiveProject(idx)}
                 className={`transition-all duration-500 ${
                   activeProject === idx
                     ? 'h-6 w-1.5 rounded-full bg-primary shadow-sm shadow-primary/50'
@@ -856,10 +768,7 @@ function Portfolio() {
         {projects.map((project, idx) => (
           <button
             key={project.name}
-            onClick={() => {
-              setScrollDirection(idx > activeProject ? 'down' : 'up');
-              setActiveProject(idx);
-            }}
+            onClick={() => setActiveProject(idx)}
             className={`shrink-0 rounded-full px-4 py-2 text-xs font-medium transition-all duration-300 ${
               activeProject === idx
                 ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
