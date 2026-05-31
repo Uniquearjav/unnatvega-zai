@@ -830,32 +830,24 @@ function ListedOn() {
       icon: Instagram,
       href: 'https://instagram.com/unnatvega',
       color: '#E4405F',
-      bgLight: '#FFF0F3',
-      bgDark: 'rgba(228, 64, 95, 0.12)',
     },
     {
       name: 'Facebook',
       icon: Facebook,
       href: 'https://facebook.com/unnatvega',
       color: '#1877F2',
-      bgLight: '#EBF2FF',
-      bgDark: 'rgba(24, 119, 242, 0.12)',
     },
     {
       name: 'Telegram',
       icon: Send,
       href: 'https://t.me/unnatvega',
       color: '#26A5E4',
-      bgLight: '#E8F6FD',
-      bgDark: 'rgba(38, 165, 228, 0.12)',
     },
     {
       name: 'Alibaba',
       icon: Globe,
       href: 'https://alibaba.com',
       color: '#FF6A00',
-      bgLight: '#FFF3E8',
-      bgDark: 'rgba(255, 106, 0, 0.12)',
     },
   ];
 
@@ -872,91 +864,35 @@ function ListedOn() {
           <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
             Find Us Everywhere
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm text-muted-foreground md:text-base">
-            Connect with us across platforms. Follow, engage, and explore our global trade network.
-          </p>
         </motion.div>
 
         {/* Infinite Carousel */}
         <div className="relative overflow-hidden">
           {/* Fade edges */}
-          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent md:w-40" />
-          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent md:w-40" />
+          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-background to-transparent md:w-32" />
+          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-background to-transparent md:w-32" />
 
           {/* Scrolling track */}
-          <div className="carousel-track flex items-center gap-8 md:gap-12" style={{ width: 'max-content' }}>
-            {/* First set */}
-            {platforms.map((platform) => (
-              <a
-                key={`first-${platform.name}`}
-                href={platform.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex shrink-0 items-center gap-4 rounded-2xl border border-border/40 bg-card/80 px-8 py-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 md:px-10 md:py-7"
-              >
-                <div
-                  className="flex size-14 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 md:size-16"
-                  style={{ backgroundColor: platform.bgLight }}
+          <div className="carousel-track flex items-center gap-16 md:gap-24" style={{ width: 'max-content' }}>
+            {[0, 1, 2].map((set) =>
+              platforms.map((platform) => (
+                <a
+                  key={`${set}-${platform.name}`}
+                  href={platform.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex shrink-0 flex-col items-center gap-3 transition-all duration-300"
                 >
                   <platform.icon
-                    className="size-7 md:size-8"
+                    className="size-10 transition-all duration-300 group-hover:scale-110 md:size-12"
                     style={{ color: platform.color }}
                   />
-                </div>
-                <div>
-                  <span className="block text-base font-semibold md:text-lg">{platform.name}</span>
-                  <span className="block text-xs text-muted-foreground md:text-sm">@unnatvega</span>
-                </div>
-              </a>
-            ))}
-            {/* Duplicate set for seamless loop */}
-            {platforms.map((platform) => (
-              <a
-                key={`second-${platform.name}`}
-                href={platform.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex shrink-0 items-center gap-4 rounded-2xl border border-border/40 bg-card/80 px-8 py-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 md:px-10 md:py-7"
-              >
-                <div
-                  className="flex size-14 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 md:size-16"
-                  style={{ backgroundColor: platform.bgLight }}
-                >
-                  <platform.icon
-                    className="size-7 md:size-8"
-                    style={{ color: platform.color }}
-                  />
-                </div>
-                <div>
-                  <span className="block text-base font-semibold md:text-lg">{platform.name}</span>
-                  <span className="block text-xs text-muted-foreground md:text-sm">@unnatvega</span>
-                </div>
-              </a>
-            ))}
-            {/* Third set for wider screens */}
-            {platforms.map((platform) => (
-              <a
-                key={`third-${platform.name}`}
-                href={platform.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex shrink-0 items-center gap-4 rounded-2xl border border-border/40 bg-card/80 px-8 py-6 backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 md:px-10 md:py-7"
-              >
-                <div
-                  className="flex size-14 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110 md:size-16"
-                  style={{ backgroundColor: platform.bgLight }}
-                >
-                  <platform.icon
-                    className="size-7 md:size-8"
-                    style={{ color: platform.color }}
-                  />
-                </div>
-                <div>
-                  <span className="block text-base font-semibold md:text-lg">{platform.name}</span>
-                  <span className="block text-xs text-muted-foreground md:text-sm">@unnatvega</span>
-                </div>
-              </a>
-            ))}
+                  <span className="text-sm font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground md:text-base">
+                    {platform.name}
+                  </span>
+                </a>
+              ))
+            )}
           </div>
         </div>
       </div>
