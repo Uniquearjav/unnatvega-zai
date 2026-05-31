@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
 import {
   Palette,
   Code2,
@@ -24,6 +25,8 @@ import {
   ChevronRight,
   ExternalLink,
   Send,
+  Sun,
+  Moon,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -259,6 +262,25 @@ function AnimatedSection({
   );
 }
 
+/* ─────────────────────── Theme Toggle ─────────────────────── */
+function ThemeToggle() {
+  const { setTheme, resolvedTheme } = useTheme();
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      className="relative transition-all duration-300 hover:text-primary"
+      aria-label="Toggle theme"
+      suppressHydrationWarning
+    >
+      <Sun className="size-4 rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute size-4 rotate-90 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100" />
+    </Button>
+  );
+}
+
 /* ─────────────────────── Navigation ─────────────────────── */
 function Navigation() {
   return (
@@ -271,7 +293,7 @@ function Navigation() {
         </a>
 
         {/* Desktop Nav */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
             <a
               key={link.label}
@@ -281,6 +303,7 @@ function Navigation() {
               {link.label}
             </a>
           ))}
+          <ThemeToggle />
           <Button asChild className="bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20">
             <a href="#contact">
               Start a Project
@@ -290,7 +313,8 @@ function Navigation() {
         </div>
 
         {/* Mobile Nav */}
-        <div className="md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="transition-all duration-300">
@@ -353,10 +377,10 @@ function Hero() {
         <div className="absolute left-1/2 top-1/2 size-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-[100px]" />
         {/* Grid pattern */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+              'linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)',
             backgroundSize: '60px 60px',
           }}
         />
@@ -502,62 +526,71 @@ function Portfolio() {
         onKeyDown={handleKeyDown}
         tabIndex={0}
       >
-        {/* ─── Left Sidebar: Company Names ─── */}
-        <div className="relative z-20 flex w-16 shrink-0 flex-col items-center justify-center border-r border-border/40 bg-background/80 backdrop-blur-md md:w-24 lg:w-32">
-          {/* Vertical label at top */}
-          <span className="absolute top-6 text-[9px] font-medium uppercase tracking-[0.25em] text-muted-foreground/50 md:text-[10px] [writing-mode:vertical-lr] rotate-180">
-            Clients
-          </span>
+        {/* ─── Left Sidebar: Company Names (Horizontal) ─── */}
+        <div className="relative z-20 flex w-28 shrink-0 flex-col border-r border-border/40 bg-background/80 backdrop-blur-md md:w-40 lg:w-52">
+          {/* Label at top */}
+          <div className="border-b border-border/30 px-3 py-3 md:px-5">
+            <span className="text-[9px] font-medium uppercase tracking-[0.25em] text-muted-foreground/50 md:text-[10px]">
+              Clients
+            </span>
+          </div>
 
-          {/* Centered company name list */}
-          <div className="flex flex-col items-center gap-1 py-4">
+          {/* Company name list */}
+          <div className="flex flex-1 flex-col justify-center">
             {projects.map((project, idx) => (
               <button
                 key={project.name}
                 onClick={() => setActiveProject(idx)}
-                className={`group/sidebar relative flex items-center justify-center transition-all duration-500 ${
-                  activeProject === idx ? 'scale-110' : 'scale-100'
+                className={`group/sidebar relative flex items-center gap-3 px-3 py-3 text-left transition-all duration-300 md:px-5 md:py-3.5 ${
+                  activeProject === idx
+                    ? 'bg-primary/10 border-l-2 border-primary'
+                    : 'border-l-2 border-transparent hover:bg-muted/30'
                 }`}
               >
                 {/* Active indicator dot */}
                 <div
-                  className={`absolute -left-1 size-1.5 rounded-full transition-all duration-500 md:-left-2 ${
+                  className={`shrink-0 size-1.5 rounded-full transition-all duration-500 ${
                     activeProject === idx
-                      ? 'bg-primary shadow-md shadow-primary/50'
+                      ? 'bg-primary shadow-sm shadow-primary/50'
                       : 'bg-muted-foreground/20 group-hover/sidebar:bg-muted-foreground/40'
                   }`}
                 />
 
-                {/* Company initial letter (mobile) / Abbreviated name (md) / Full name (lg) */}
-                <span
-                  className={`transition-all duration-500 ${
-                    activeProject === idx
-                      ? 'text-primary font-bold'
-                      : 'text-muted-foreground/40 font-medium group-hover/sidebar:text-muted-foreground/70'
-                  }`}
-                >
-                  {/* Mobile: single letter */}
-                  <span className="text-xs md:hidden">
-                    {project.name.charAt(0)}
-                  </span>
-                  {/* Tablet: abbreviated */}
-                  <span className="hidden text-[10px] leading-tight md:block lg:hidden" style={{ writingMode: 'vertical-lr' }}>
-                    {project.name.split(' ').map(w => w.charAt(0)).join('')}
-                  </span>
-                  {/* Desktop: full name vertical */}
+                {/* Company name — horizontal */}
+                <div className="min-w-0 flex-1">
                   <span
-                    className="hidden text-[11px] leading-tight lg:block"
-                    style={{ writingMode: 'vertical-lr', transform: 'rotate(180deg)' }}
+                    className={`block truncate text-xs font-medium transition-all duration-300 md:text-sm ${
+                      activeProject === idx
+                        ? 'text-primary font-semibold'
+                        : 'text-muted-foreground/50 group-hover/sidebar:text-muted-foreground/80'
+                    }`}
                   >
-                    {project.name}
+                    {/* Mobile: abbreviated */}
+                    <span className="md:hidden">
+                      {project.name.split(' ').map(w => w.charAt(0)).join('')}
+                    </span>
+                    {/* md+: full name */}
+                    <span className="hidden md:inline">
+                      {project.name}
+                    </span>
                   </span>
-                </span>
+                  {/* Category — shown on active or hover */}
+                  <span
+                    className={`block truncate text-[9px] transition-all duration-300 md:text-[10px] ${
+                      activeProject === idx
+                        ? 'text-muted-foreground/60'
+                        : 'text-muted-foreground/0 group-hover/sidebar:text-muted-foreground/40'
+                    }`}
+                  >
+                    {project.category}
+                  </span>
+                </div>
               </button>
             ))}
           </div>
 
           {/* Counter at bottom */}
-          <div className="absolute bottom-6 text-center">
+          <div className="border-t border-border/30 px-3 py-3 md:px-5">
             <span className="text-xs font-bold text-primary" style={{ fontFamily: 'var(--font-geist-mono)' }}>
               {String(activeProject + 1).padStart(2, '0')}
             </span>
@@ -594,9 +627,7 @@ function Portfolio() {
               <div className="absolute inset-0 bg-gradient-to-l from-background/30 via-transparent to-transparent md:from-transparent" />
 
               {/* Vignette effect */}
-              <div className="absolute inset-0" style={{
-                boxShadow: 'inset 0 0 150px 30px rgba(0,0,0,0.4)',
-              }} />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/20" />
             </motion.div>
           </AnimatePresence>
 
@@ -729,10 +760,10 @@ function Stats() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_50%,oklch(0.85_0.15_60)_0%,transparent_60%)] opacity-20" />
       {/* Subtle shimmer pattern */}
       <div
-        className="absolute inset-0 opacity-[0.06]"
+        className="absolute inset-0 opacity-[0.08]"
         style={{
           backgroundImage:
-            'linear-gradient(135deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%)',
+            'linear-gradient(135deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%)',
           backgroundSize: '40px 40px',
         }}
       />
