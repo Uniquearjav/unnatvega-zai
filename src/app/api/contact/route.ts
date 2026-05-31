@@ -20,15 +20,37 @@ export async function POST(request: Request) {
       );
     }
 
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: 'Please provide a valid email address.' },
+        { status: 400 }
+      );
+    }
+
     // In production, you would send an email, save to DB, etc.
     // For now, log and return success
     console.log('Contact form submission:', { name, email, company, budget, message });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json(
+      { success: true },
+      {
+        status: 200,
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+        },
+      }
+    );
   } catch {
     return NextResponse.json(
       { error: 'Invalid request body.' },
-      { status: 400 }
+      {
+        status: 400,
+        headers: {
+          'Cache-Control': 'no-store',
+        },
+      }
     );
   }
 }
