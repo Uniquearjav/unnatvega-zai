@@ -21,6 +21,10 @@ import {
   Sparkles,
   Zap,
   Shield,
+  Heart,
+  MessageCircle,
+  Linkedin,
+  Twitter,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -30,8 +34,6 @@ import { Badge } from '@/components/ui/badge';
 import {
   fadeInUp,
   staggerContainer,
-  slideInLeft,
-  slideInRight,
 } from '@/lib/animations';
 
 /* ─────────────────────── Data ─────────────────────── */
@@ -789,6 +791,200 @@ function Testimonials() {
   );
 }
 
+/* ─────────────────────── Social Media ─────────────────────── */
+const socialPosts = [
+  {
+    id: 1,
+    platform: 'instagram' as const,
+    image: '/images/social-1.png',
+    caption: 'From farm to global market 🌍 Our export solutions connect Indian artisans and farmers to 25+ countries worldwide. Quality that speaks for itself.',
+    likes: 284,
+    comments: 18,
+    time: '2h ago',
+  },
+  {
+    id: 2,
+    platform: 'linkedin' as const,
+    image: '/images/social-2.png',
+    caption: 'Global trade never sleeps. Our logistics team ensures seamless container tracking and customs clearance across major ports worldwide. 🚢',
+    likes: 156,
+    comments: 24,
+    time: '5h ago',
+  },
+  {
+    id: 3,
+    platform: 'instagram' as const,
+    image: '/images/social-3.png',
+    caption: 'Behind every successful trade deal is a dedicated team 💼 Strategy meetings that turn global opportunities into real business growth.',
+    likes: 412,
+    comments: 32,
+    time: '1d ago',
+  },
+  {
+    id: 4,
+    platform: 'facebook' as const,
+    image: '/images/social-4.png',
+    caption: 'Indian textiles reaching the world 🧵 Premium silk and embroidery exports that showcase the artistry of Indian craftsmanship on the global stage.',
+    likes: 389,
+    comments: 45,
+    time: '1d ago',
+  },
+  {
+    id: 5,
+    platform: 'twitter' as const,
+    image: '/images/social-5.png',
+    caption: 'Data-driven trade decisions are the future. Our analytics platform helps businesses identify the most profitable markets and routes in real-time. 📊',
+    likes: 203,
+    comments: 15,
+    time: '2d ago',
+  },
+  {
+    id: 6,
+    platform: 'instagram' as const,
+    image: '/images/social-6.png',
+    caption: 'Milestone unlocked! 🎉 Celebrating 500+ businesses empowered and counting. Thank you for trusting Unnat Vega with your global journey.',
+    likes: 567,
+    comments: 89,
+    time: '3d ago',
+  },
+];
+
+const platformConfig = {
+  instagram: { icon: Instagram, label: 'Instagram', color: '#E4405F', gradient: 'from-[#E4405F]/20 via-[#F77737]/10 to-[#FCAF45]/10' },
+  linkedin: { icon: Linkedin, label: 'LinkedIn', color: '#0A66C2', gradient: 'from-[#0A66C2]/20 via-[#0A66C2]/10 to-transparent' },
+  facebook: { icon: Facebook, label: 'Facebook', color: '#1877F2', gradient: 'from-[#1877F2]/20 via-[#1877F2]/10 to-transparent' },
+  twitter: { icon: Twitter, label: 'X', color: '#000000', gradient: 'from-foreground/10 via-foreground/5 to-transparent' },
+};
+
+function SocialMedia() {
+  const [hoveredPost, setHoveredPost] = useState<number | null>(null);
+
+  return (
+    <AnimatedSection className="px-4 py-16 md:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl">
+        <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
+          <Badge
+            variant="outline"
+            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary md:mb-4"
+          >
+            SOCIAL FEED
+          </Badge>
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
+            Follow Our <span className="gradient-text">Journey</span>
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base">
+            Stay connected with us on social media for the latest updates, trade insights, and behind-the-scenes moments.
+          </p>
+        </motion.div>
+
+        {/* Platform links */}
+        <motion.div variants={fadeInUp} className="mb-8 flex items-center justify-center gap-3 sm:gap-4">
+          {Object.entries(platformConfig).map(([key, config]) => {
+            const IconComp = config.icon;
+            return (
+              <a
+                key={key}
+                href="#"
+                className="group flex items-center gap-2 rounded-full border border-border/60 px-3.5 py-2 transition-all duration-300 hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 sm:px-4"
+              >
+                <IconComp className="size-4 transition-transform duration-300 group-hover:scale-110" style={{ color: config.color }} />
+                <span className="hidden text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground sm:inline">
+                  {config.label}
+                </span>
+              </a>
+            );
+          })}
+        </motion.div>
+
+        {/* Posts grid */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5">
+          {socialPosts.map((post, index) => {
+            const config = platformConfig[post.platform];
+            const IconComp = config.icon;
+            const isHovered = hoveredPost === post.id;
+
+            return (
+              <motion.div
+                key={post.id}
+                variants={fadeInUp}
+                onMouseEnter={() => setHoveredPost(post.id)}
+                onMouseLeave={() => setHoveredPost(null)}
+                className="group"
+              >
+                <div className="overflow-hidden rounded-2xl border border-border/40 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5">
+                  {/* Image */}
+                  <div className="relative aspect-square overflow-hidden">
+                    <Image
+                      src={post.image}
+                      alt={post.caption}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    {/* Overlay on hover */}
+                    <div className={`absolute inset-0 bg-background/60 backdrop-blur-[2px] transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
+                    {/* Platform badge */}
+                    <div className={`absolute left-3 top-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 backdrop-blur-sm transition-all duration-300 ${isHovered ? 'bg-primary/90' : 'bg-background/80'}`}>
+                      <IconComp className={`size-3 ${isHovered ? 'text-primary-foreground' : ''}`} style={!isHovered ? { color: config.color } : undefined} />
+                      <span className={`text-[10px] font-semibold ${isHovered ? 'text-primary-foreground' : 'text-foreground/70'}`}>{config.label}</span>
+                    </div>
+                    {/* Hover stats */}
+                    <div className={`absolute inset-0 flex items-center justify-center gap-6 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+                      <div className="flex items-center gap-1.5 text-foreground">
+                        <Heart className="size-5 fill-primary text-primary" />
+                        <span className="text-sm font-bold">{post.likes}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-foreground">
+                        <MessageCircle className="size-5 text-primary" />
+                        <span className="text-sm font-bold">{post.comments}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-3.5 sm:p-4">
+                    <p className="mb-2.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                      {post.caption}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2.5 text-[10px] text-muted-foreground/60">
+                        <span className="flex items-center gap-1">
+                          <Heart className="size-3" />
+                          {post.likes}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MessageCircle className="size-3" />
+                          {post.comments}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-muted-foreground/40">{post.time}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* CTA to follow */}
+        <motion.div variants={fadeInUp} className="mt-8 text-center sm:mt-10">
+          <Button
+            asChild
+            variant="outline"
+            className="gap-2 border-border/60 transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
+          >
+            <a href="https://instagram.com/unnatvega" target="blank" rel="noopener noreferrer">
+              <Instagram className="size-4" />
+              Follow Us on Instagram
+              <ArrowRight className="ml-1 size-4" />
+            </a>
+          </Button>
+        </motion.div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
 /* ─────────────────────── CTA Section ─────────────────────── */
 function CTASection() {
   return (
@@ -851,6 +1047,7 @@ export default function Home() {
       <Services />
       <Portfolio />
       <Testimonials />
+      <SocialMedia />
       <CTASection />
     </>
   );
