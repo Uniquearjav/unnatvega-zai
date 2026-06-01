@@ -66,11 +66,16 @@ export default function Navigation() {
           : 'bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6 lg:px-8">
-        {/* ─── Logo ─── */}
+      <nav className="mx-auto flex h-16 max-w-7xl items-center px-4 md:px-6 lg:px-8">
+        {/* ─── Mobile: Theme Toggle (left) ─── */}
+        <div className="flex items-center md:hidden">
+          <ThemeToggle />
+        </div>
+
+        {/* ─── Logo (centered on mobile, left on desktop) ─── */}
         <Link
           href="/"
-          className="group flex items-center gap-0 text-xl font-bold tracking-tight transition-all duration-300 hover:opacity-80"
+          className="group flex flex-1 items-center justify-center text-xl font-bold tracking-tight transition-all duration-300 hover:opacity-80 md:flex-none md:justify-start md:mr-auto"
         >
           <span className="text-foreground transition-colors duration-300 group-hover:text-foreground/90">
             UNNAT
@@ -118,10 +123,8 @@ export default function Navigation() {
           </Button>
         </div>
 
-        {/* ─── Mobile Navigation ─── */}
-        <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
-
+        {/* ─── Mobile: Hamburger (right) ─── */}
+        <div className="flex items-center md:hidden">
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <Button
