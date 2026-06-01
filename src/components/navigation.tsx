@@ -12,8 +12,8 @@ import {
   SheetTitle,
   SheetClose,
 } from '@/components/ui/sheet';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, ArrowRight, ChevronRight, Sun, Moon } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Menu, ArrowRight, ChevronRight } from 'lucide-react';
 
 /* ─────────────────────── Nav Link Data ─────────────────────── */
 
@@ -32,54 +32,130 @@ function ThemeToggle() {
   const isDark = resolvedTheme === 'dark';
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="relative overflow-hidden rounded-full transition-all duration-300 hover:text-primary hover:bg-primary/10"
+      className="relative flex h-7 w-[52px] items-center rounded-full p-[3px] transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      style={{
+        background: isDark
+          ? 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%)'
+          : 'linear-gradient(135deg, #7dd3fc 0%, #38bdf8 50%, #bae6fd 100%)',
+      }}
       aria-label="Toggle theme"
       suppressHydrationWarning
     >
-      <AnimatePresence mode="wait" initial={false}>
-        {isDark ? (
-          <motion.div
-            key="moon"
-            initial={{ y: -20, opacity: 0, rotate: -90, scale: 0.5 }}
-            animate={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ y: 20, opacity: 0, rotate: 90, scale: 0.5 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-          >
-            <Moon className="size-4" />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="sun"
-            initial={{ y: 20, opacity: 0, rotate: 90, scale: 0.5 }}
-            animate={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ y: -20, opacity: 0, rotate: -90, scale: 0.5 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-          >
-            <Sun className="size-4" />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Stars (visible in dark) */}
+      <div className="absolute inset-0 overflow-hidden rounded-full">
+        {[{ t: 6, l: 8, d: 0 }, { t: 14, l: 18, d: 1.2 }, { t: 4, l: 28, d: 0.6 }, { t: 16, l: 36, d: 1.8 }, { t: 10, l: 44, d: 0.3 }].map((star, i) => (
+          <motion.span
+            key={i}
+            className="absolute size-[2px] rounded-full bg-white"
+            style={{ top: `${star.t}px`, left: `${star.l}px` }}
+            initial={false}
+            animate={{
+              opacity: isDark ? [0, 1, 0.5, 1] : 0,
+              scale: isDark ? [0, 1.2, 0.8, 1] : 0,
+            }}
+            transition={{
+              duration: 1.5,
+              delay: star.d,
+              repeat: isDark ? Infinity : 0,
+              repeatType: 'reverse',
+            }}
+          />
+        ))}
+      </div>
 
-      {/* Glow ring on hover */}
+      {/* Clouds (visible in light) */}
+      <div className="absolute inset-0 overflow-hidden rounded-full">
+        <motion.div
+          className="absolute"
+          initial={false}
+          animate={{
+            x: isDark ? 20 : 4,
+            opacity: isDark ? 0 : 0.6,
+          }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          style={{ top: 3 }}
+        >
+          <div className="flex items-end gap-[1px]">
+            <div className="size-[5px] rounded-full bg-white" />
+            <div className="size-[7px] rounded-full bg-white" />
+            <div className="size-[4px] rounded-full bg-white" />
+          </div>
+        </motion.div>
+        <motion.div
+          className="absolute"
+          initial={false}
+          animate={{
+            x: isDark ? 20 : 22,
+            opacity: isDark ? 0 : 0.4,
+          }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ top: 10 }}
+        >
+          <div className="flex items-end gap-[1px]">
+            <div className="size-[4px] rounded-full bg-white" />
+            <div className="size-[6px] rounded-full bg-white" />
+            <div className="size-[3px] rounded-full bg-white" />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Sliding thumb (sun / moon) */}
       <motion.div
-        className="absolute inset-0 rounded-full"
+        className="relative z-10 flex size-[22px] shrink-0 items-center justify-center rounded-full"
+        initial={false}
         animate={{
+          x: isDark ? 22 : 0,
+          background: isDark
+            ? 'linear-gradient(135deg, #c4b5fd, #8b5cf6)'
+            : 'linear-gradient(135deg, #fbbf24, #f59e0b)',
           boxShadow: isDark
-            ? '0 0 0px 0px rgba(250,204,21,0)'
-            : '0 0 0px 0px rgba(250,204,21,0)',
+            ? '0 0 8px 2px rgba(139,92,246,0.4)'
+            : '0 0 8px 2px rgba(251,191,36,0.5)',
         }}
-        whileHover={{
-          boxShadow: isDark
-            ? '0 0 12px 2px rgba(139,92,246,0.3)'
-            : '0 0 12px 2px rgba(250,204,21,0.4)',
-        }}
-        transition={{ duration: 0.3 }}
-      />
-    </Button>
+        transition={{ type: 'spring', stiffness: 250, damping: 20 }}
+      >
+        {/* Sun rays */}
+        <motion.div
+          className="absolute inset-0"
+          initial={false}
+          animate={{ rotate: isDark ? 0 : 180, opacity: isDark ? 0 : 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+            <span
+              key={angle}
+              className="absolute left-1/2 top-1/2 h-[2px] w-[3px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-800/60"
+              style={{
+                transform: `rotate(${angle}deg) translateY(-7px)`,
+              }}
+            />
+          ))}
+        </motion.div>
+
+        {/* Moon crater */}
+        <motion.div
+          className="absolute"
+          initial={false}
+          animate={{ opacity: isDark ? 1 : 0, scale: isDark ? 1 : 0 }}
+          transition={{ duration: 0.3, delay: isDark ? 0.15 : 0 }}
+        >
+          <span className="absolute -right-[2px] -top-[1px] size-[6px] rounded-full bg-violet-300/40" />
+          <span className="absolute -bottom-[1px] left-[1px] size-[4px] rounded-full bg-violet-300/30" />
+        </motion.div>
+
+        {/* Center dot */}
+        <motion.div
+          className="relative size-[8px] rounded-full"
+          initial={false}
+          animate={{
+            background: isDark ? '#e0d4fc' : '#fef3c7',
+          }}
+          transition={{ duration: 0.3 }}
+        />
+      </motion.div>
+    </button>
   );
 }
 
