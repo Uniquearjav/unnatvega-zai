@@ -11,10 +11,12 @@ import {
   Eye,
   EyeOff,
   Save,
-  X,
   Loader2,
   BookOpen,
   ExternalLink,
+  FileText,
+  CheckCircle2,
+  CircleDot,
   GripVertical,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -29,12 +31,10 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
   DialogClose,
 } from '@/components/ui/dialog';
 import TipTapEditor from '@/components/tiptap-editor';
-import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 interface BlogPost {
   id: string;
@@ -79,6 +79,34 @@ const emptyPost = {
   published: false,
 };
 
+/* ─────────────── Stats Card ─────────────── */
+function StatCard({
+  icon: Icon,
+  label,
+  value,
+  color,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: number;
+  color: string;
+}) {
+  return (
+    <Card className="border-border/40 bg-card/50 backdrop-blur-sm">
+      <CardContent className="flex items-center gap-3 p-4">
+        <div className={`flex size-10 items-center justify-center rounded-xl ${color}`}>
+          <Icon className="size-5" />
+        </div>
+        <div>
+          <p className="text-2xl font-bold tracking-tight">{value}</p>
+          <p className="text-[11px] text-muted-foreground">{label}</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+/* ─────────────── Main Component ─────────────── */
 export default function BlogAdminPage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -141,7 +169,6 @@ export default function BlogAdminPage() {
       };
 
       if (editingPost) {
-        // Update
         const res = await fetch(`/api/blog/${editingPost.slug}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -149,7 +176,6 @@ export default function BlogAdminPage() {
         });
         if (!res.ok) throw new Error('Failed to update');
       } else {
-        // Create
         const res = await fetch('/api/blog', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -200,16 +226,19 @@ export default function BlogAdminPage() {
     }
   };
 
-  // Editor View
+  const publishedCount = blogs.filter((b) => b.published).length;
+  const draftCount = blogs.filter((b) => !b.published).length;
+
+  // ─── Editor View ───
   if (showEditor) {
     return (
-      <div className="min-h-screen pt-20">
+      <div className="min-h-screen pt-16">
         <div className="mx-auto max-w-4xl px-4 py-6 sm:py-8">
           {/* Editor Header */}
-          <div className="mb-6 flex items-center justify-between">
+          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <Button
               variant="ghost"
-              className="gap-2"
+              className="w-fit gap-2 text-muted-foreground"
               onClick={() => {
                 setShowEditor(false);
                 setEditingPost(null);
@@ -220,21 +249,22 @@ export default function BlogAdminPage() {
               Back to Posts
             </Button>
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-3 py-1.5">
                 <Switch
                   checked={formData.published}
                   onCheckedChange={(checked) =>
                     setFormData({ ...formData, published: checked })
                   }
+                  className="scale-75"
                 />
-                <Label className="text-sm">
+                <Label className="cursor-pointer text-xs font-medium">
                   {formData.published ? 'Published' : 'Draft'}
                 </Label>
               </div>
               <Button
                 onClick={handleSave}
                 disabled={saving || !formData.title || !formData.content}
-                className="gap-2 bg-primary text-primary-foreground"
+                className="gap-2 bg-primary text-primary-foreground shadow-lg shadow-primary/15"
               >
                 {saving ? (
                   <Loader2 className="size-4 animate-spin" />
@@ -250,12 +280,13 @@ export default function BlogAdminPage() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
             className="space-y-5"
           >
-            {/* Title */}
-            <div>
+            {/* Title Input */}
+            <div className="rounded-xl border border-border/40 bg-card/50 p-1 backdrop-blur-sm">
               <Input
-                placeholder="Blog post title..."
+                placeholder="Your blog post title..."
                 value={formData.title}
                 onChange={(e) =>
                   setFormData({
@@ -264,27 +295,27 @@ export default function BlogAdminPage() {
                     slug: editingPost ? formData.slug : generateSlug(e.target.value),
                   })
                 }
-                className="text-lg font-bold h-12 border-none bg-muted/30 px-4 focus-visible:ring-1 focus-visible:ring-primary"
+                className="h-14 border-0 bg-transparent px-4 text-lg font-bold shadow-none placeholder:text-muted-foreground/30 placeholder:font-normal focus-visible:ring-0"
               />
             </div>
 
             {/* Slug */}
-            <div className="flex items-center gap-2">
-              <Label className="text-xs text-muted-foreground whitespace-nowrap">Slug:</Label>
+            <div className="flex items-center gap-2 px-1">
+              <Label className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">Slug</Label>
               <Input
                 placeholder="post-url-slug"
                 value={formData.slug}
                 onChange={(e) =>
                   setFormData({ ...formData, slug: e.target.value })
                 }
-                className="h-8 text-xs font-mono bg-muted/30 border-none focus-visible:ring-1 focus-visible:ring-primary"
+                className="h-7 border-0 bg-muted/30 px-2.5 text-xs font-mono shadow-none focus-visible:ring-1 focus-visible:ring-primary"
               />
             </div>
 
             {/* Meta row */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <Label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                <Label className="mb-1.5 block text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
                   Excerpt
                 </Label>
                 <Textarea
@@ -294,12 +325,12 @@ export default function BlogAdminPage() {
                     setFormData({ ...formData, excerpt: e.target.value })
                   }
                   rows={3}
-                  className="text-sm bg-muted/30 border-border/50 focus-visible:ring-1 focus-visible:ring-primary"
+                  className="resize-none border-border/40 bg-muted/20 text-sm focus-visible:ring-1 focus-visible:ring-primary"
                 />
               </div>
               <div className="space-y-4">
                 <div>
-                  <Label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                  <Label className="mb-1.5 block text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
                     Cover Image URL
                   </Label>
                   <Input
@@ -308,11 +339,11 @@ export default function BlogAdminPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, coverImage: e.target.value })
                     }
-                    className="h-9 text-xs bg-muted/30 border-border/50 focus-visible:ring-1 focus-visible:ring-primary"
+                    className="h-9 border-border/40 bg-muted/20 text-xs focus-visible:ring-1 focus-visible:ring-primary"
                   />
                 </div>
                 <div>
-                  <Label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                  <Label className="mb-1.5 block text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
                     Author
                   </Label>
                   <Input
@@ -321,7 +352,7 @@ export default function BlogAdminPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, author: e.target.value })
                     }
-                    className="h-9 text-xs bg-muted/30 border-border/50 focus-visible:ring-1 focus-visible:ring-primary"
+                    className="h-9 border-border/40 bg-muted/20 text-xs focus-visible:ring-1 focus-visible:ring-primary"
                   />
                 </div>
               </div>
@@ -329,7 +360,7 @@ export default function BlogAdminPage() {
 
             {/* Tags */}
             <div>
-              <Label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+              <Label className="mb-1.5 block text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
                 Tags (comma-separated)
               </Label>
               <Input
@@ -338,13 +369,13 @@ export default function BlogAdminPage() {
                 onChange={(e) =>
                   setFormData({ ...formData, tags: e.target.value })
                 }
-                className="h-9 text-xs bg-muted/30 border-border/50 focus-visible:ring-1 focus-visible:ring-primary"
+                className="h-9 border-border/40 bg-muted/20 text-xs focus-visible:ring-1 focus-visible:ring-primary"
               />
             </div>
 
             {/* TipTap Editor */}
             <div>
-              <Label className="mb-2 block text-xs font-medium text-muted-foreground">
+              <Label className="mb-2 block text-[10px] font-medium uppercase tracking-wider text-muted-foreground/60">
                 Content
               </Label>
               <TipTapEditor
@@ -359,17 +390,17 @@ export default function BlogAdminPage() {
     );
   }
 
-  // List View
+  // ─── List View ───
   return (
-    <div className="min-h-screen pt-20">
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer}
-        className="mx-auto max-w-5xl px-4 py-8 sm:py-12"
-      >
+    <div className="min-h-screen pt-16">
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:py-12">
         {/* Header */}
-        <motion.div variants={fadeInUp} className="mb-8 flex items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+        >
           <div>
             <h1
               className="text-2xl font-bold tracking-tight sm:text-3xl"
@@ -381,16 +412,16 @@ export default function BlogAdminPage() {
               Create, edit, and manage your blog posts
             </p>
           </div>
-          <div className="flex items-center gap-3">
-            <Button asChild variant="outline" className="gap-2">
+          <div className="flex items-center gap-2">
+            <Button asChild variant="outline" className="gap-1.5 text-xs">
               <Link href="/blog">
-                <ExternalLink className="size-4" />
+                <ExternalLink className="size-3.5" />
                 View Blog
               </Link>
             </Button>
             <Button
               onClick={handleNewPost}
-              className="gap-2 bg-primary text-primary-foreground"
+              className="gap-1.5 bg-primary text-primary-foreground shadow-lg shadow-primary/15"
             >
               <Plus className="size-4" />
               New Post
@@ -398,17 +429,46 @@ export default function BlogAdminPage() {
           </div>
         </motion.div>
 
+        {/* Stats */}
+        {!loading && blogs.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="mb-6 grid grid-cols-3 gap-3 sm:gap-4"
+          >
+            <StatCard
+              icon={FileText}
+              label="Total Posts"
+              value={blogs.length}
+              color="bg-primary/10 text-primary"
+            />
+            <StatCard
+              icon={CheckCircle2}
+              label="Published"
+              value={publishedCount}
+              color="bg-green-500/10 text-green-600 dark:text-green-400"
+            />
+            <StatCard
+              icon={CircleDot}
+              label="Drafts"
+              value={draftCount}
+              color="bg-yellow-500/10 text-yellow-600 dark:text-yellow-400"
+            />
+          </motion.div>
+        )}
+
         {/* Posts List */}
         {loading ? (
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <Card key={i} className="animate-pulse border-transparent">
+              <Card key={i} className="animate-pulse border-border/40">
                 <CardContent className="p-4">
                   <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 rounded bg-muted" />
+                    <div className="h-10 w-10 rounded-xl bg-muted/50" />
                     <div className="flex-1 space-y-2">
-                      <div className="h-4 w-1/2 rounded bg-muted" />
-                      <div className="h-3 w-1/4 rounded bg-muted" />
+                      <div className="h-4 w-1/2 rounded bg-muted/50" />
+                      <div className="h-3 w-1/4 rounded bg-muted/30" />
                     </div>
                   </div>
                 </CardContent>
@@ -416,34 +476,35 @@ export default function BlogAdminPage() {
             ))}
           </div>
         ) : blogs.length === 0 ? (
-          <div className="py-20 text-center">
-            <BookOpen className="mx-auto mb-4 size-16 text-muted-foreground/30" />
+          <div className="py-24 text-center">
+            <div className="mx-auto mb-5 flex size-16 items-center justify-center rounded-2xl border border-border/40 bg-muted/20">
+              <BookOpen className="size-7 text-muted-foreground/25" />
+            </div>
             <h3 className="mb-2 text-lg font-semibold">No blog posts yet</h3>
             <p className="mb-6 text-sm text-muted-foreground">
               Create your first blog post to get started.
             </p>
-            <Button onClick={handleNewPost} className="gap-2 bg-primary text-primary-foreground">
+            <Button onClick={handleNewPost} className="gap-2 bg-primary text-primary-foreground shadow-lg shadow-primary/15">
               <Plus className="size-4" />
               Create First Post
             </Button>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {blogs.map((blog, index) => (
               <motion.div
                 key={blog.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
+                transition={{ duration: 0.3, delay: index * 0.04 }}
               >
-                <Card className="border-transparent transition-all duration-200 hover:border-primary/20 hover:shadow-sm">
-                  <CardContent className="p-4 sm:p-5">
-                    <div className="flex items-start gap-3 sm:gap-4">
-                      {/* Drag handle + status */}
-                      <div className="flex flex-col items-center gap-2 pt-1">
-                        <GripVertical className="size-4 text-muted-foreground/30" />
+                <Card className="border-border/40 bg-card/50 backdrop-blur-sm transition-all duration-200 hover:border-primary/15 hover:shadow-sm">
+                  <CardContent className="p-3.5 sm:p-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      {/* Status indicator */}
+                      <div className="flex flex-col items-center gap-1.5">
                         <div
-                          className={`size-2.5 rounded-full ${
+                          className={`size-2.5 rounded-full transition-colors ${
                             blog.published
                               ? 'bg-green-500 shadow-sm shadow-green-500/30'
                               : 'bg-yellow-500 shadow-sm shadow-yellow-500/30'
@@ -456,33 +517,30 @@ export default function BlogAdminPage() {
                       <div className="min-w-0 flex-1">
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0 flex-1">
-                            <h3 className="truncate text-sm font-semibold sm:text-base">
+                            <h3 className="truncate text-sm font-semibold">
                               {blog.title}
                             </h3>
-                            <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                              <span>/{blog.slug}</span>
-                              <span>·</span>
+                            <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground">
+                              <span className="font-mono text-muted-foreground/50">/{blog.slug.slice(0, 30)}{blog.slug.length > 30 ? '...' : ''}</span>
+                              <span className="text-muted-foreground/30">·</span>
                               <span>{formatDate(blog.createdAt)}</span>
-                              <span>·</span>
-                              <span>{blog.author}</span>
                             </div>
                             {blog.tags && (
-                              <div className="mt-2 flex flex-wrap gap-1">
+                              <div className="mt-1.5 flex flex-wrap gap-1">
                                 {blog.tags.split(',').slice(0, 3).map((tag) => (
-                                  <Badge
+                                  <span
                                     key={tag.trim()}
-                                    variant="outline"
-                                    className="border-primary/15 bg-primary/5 px-1.5 py-0 text-[10px] text-primary"
+                                    className="rounded-full bg-primary/5 px-1.5 py-0.5 text-[9px] font-medium text-primary/70"
                                   >
                                     {tag.trim()}
-                                  </Badge>
+                                  </span>
                                 ))}
                               </div>
                             )}
                           </div>
 
                           {/* Actions */}
-                          <div className="flex shrink-0 items-center gap-1">
+                          <div className="flex shrink-0 items-center gap-0.5">
                             <Button
                               variant="ghost"
                               size="icon"
@@ -491,9 +549,9 @@ export default function BlogAdminPage() {
                               title={blog.published ? 'Unpublish' : 'Publish'}
                             >
                               {blog.published ? (
-                                <Eye className="size-4 text-green-500" />
+                                <Eye className="size-3.5 text-green-500" />
                               ) : (
-                                <EyeOff className="size-4 text-yellow-500" />
+                                <EyeOff className="size-3.5 text-yellow-500" />
                               )}
                             </Button>
                             <Button
@@ -503,7 +561,7 @@ export default function BlogAdminPage() {
                               onClick={() => handleEditPost(blog)}
                               title="Edit"
                             >
-                              <Pencil className="size-4" />
+                              <Pencil className="size-3.5" />
                             </Button>
                             {blog.published && (
                               <Button
@@ -514,21 +572,21 @@ export default function BlogAdminPage() {
                                 title="View post"
                               >
                                 <Link href={`/blog/${blog.slug}`}>
-                                  <ExternalLink className="size-4" />
+                                  <ExternalLink className="size-3.5" />
                                 </Link>
                               </Button>
                             )}
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="h-8 w-8 text-destructive hover:text-destructive"
+                              className="h-8 w-8 text-destructive/60 hover:text-destructive"
                               onClick={() => {
                                 setDeletingSlug(blog.slug);
                                 setDeleteDialogOpen(true);
                               }}
                               title="Delete"
                             >
-                              <Trash2 className="size-4" />
+                              <Trash2 className="size-3.5" />
                             </Button>
                           </div>
                         </div>
@@ -540,7 +598,7 @@ export default function BlogAdminPage() {
             ))}
           </div>
         )}
-      </motion.div>
+      </div>
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
