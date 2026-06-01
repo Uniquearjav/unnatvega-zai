@@ -12,6 +12,7 @@ import {
   SheetTitle,
   SheetClose,
 } from '@/components/ui/sheet';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, ArrowRight, ChevronRight, Sun, Moon } from 'lucide-react';
 
 /* ─────────────────────── Nav Link Data ─────────────────────── */
@@ -28,18 +29,56 @@ const navLinks = [
 
 function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      className="relative transition-all duration-300 hover:text-primary"
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      className="relative overflow-hidden rounded-full transition-all duration-300 hover:text-primary hover:bg-primary/10"
       aria-label="Toggle theme"
       suppressHydrationWarning
     >
-      <Sun className="size-4 rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute size-4 rotate-90 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100" />
+      <AnimatePresence mode="wait" initial={false}>
+        {isDark ? (
+          <motion.div
+            key="moon"
+            initial={{ y: -20, opacity: 0, rotate: -90, scale: 0.5 }}
+            animate={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ y: 20, opacity: 0, rotate: 90, scale: 0.5 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+          >
+            <Moon className="size-4" />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="sun"
+            initial={{ y: 20, opacity: 0, rotate: 90, scale: 0.5 }}
+            animate={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ y: -20, opacity: 0, rotate: -90, scale: 0.5 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+          >
+            <Sun className="size-4" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Glow ring on hover */}
+      <motion.div
+        className="absolute inset-0 rounded-full"
+        animate={{
+          boxShadow: isDark
+            ? '0 0 0px 0px rgba(250,204,21,0)'
+            : '0 0 0px 0px rgba(250,204,21,0)',
+        }}
+        whileHover={{
+          boxShadow: isDark
+            ? '0 0 12px 2px rgba(139,92,246,0.3)'
+            : '0 0 12px 2px rgba(250,204,21,0.4)',
+        }}
+        transition={{ duration: 0.3 }}
+      />
     </Button>
   );
 }
