@@ -20,6 +20,7 @@ const navLinks = [
   { label: 'Services', href: '#services', isHash: true },
   { label: 'About', href: '/about', isHash: false },
   { label: 'Work', href: '/work', isHash: false },
+  { label: 'Blog', href: '/blog', isHash: false },
   { label: 'Contact', href: '/contact', isHash: false },
 ] as const;
 
