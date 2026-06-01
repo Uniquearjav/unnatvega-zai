@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
+import WhatsAppButton from "@/components/whatsapp-button";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -230,6 +231,7 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
+          <WhatsAppButton />
           <Toaster />
         </ThemeProvider>
       </body>
