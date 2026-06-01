@@ -94,3 +94,40 @@ Stage Summary:
 - Blog detail: Reading progress bar, author card, better prose typography with custom bullets/borders
 - Blog admin: Stats dashboard, cleaner editor UI with micro-labels
 - Consistent design language with the rest of the site (gradient-text, glass, backdrop-blur, primary accents)
+
+---
+Task ID: 9
+Agent: main
+Task: Remove admin page and database, switch blog to JSON file, improve blog UI
+
+Work Log:
+- Created src/data/blogs.json with all 3 blog posts (previously in seed-blogs.ts for Prisma)
+- Updated /api/blog route to read from JSON file instead of Prisma database
+- Updated /api/blog/[slug] route to read from JSON file instead of Prisma database
+- Removed Blog model from Prisma schema (ran db:push with --accept-data-loss)
+- Deleted src/app/blog/admin/ directory (admin page)
+- Deleted src/components/tiptap-editor.tsx (TipTap editor no longer needed)
+- Deleted prisma/seed-blogs.ts (seed data now in JSON)
+- Redesigned blog listing page (/blog):
+  - New FeaturedPost component: side-by-side layout with cover image + content on md+, gradient overlay
+  - Better CoverPlaceholder with decorative grid pattern and glow effect
+  - "Latest Articles" section divider between featured and grid cards
+  - Improved card design with rounded-2xl borders and hover effects
+  - X button for clearing search instead of text "Clear"
+  - Better loading skeleton matching the featured + grid layout
+- Redesigned blog detail page (/blog/[slug]):
+  - Cover image/placeholder section at top of article
+  - Author + meta info in a bordered card with backdrop blur
+  - Related Articles section at bottom (fetches 2 related posts)
+  - Better icon rendering (fixed React component-during-render lint error)
+- Fixed ESLint error: Cannot create components during render (changed dynamic icon mapping to static conditional rendering)
+- All pages verified returning 200, lint passes clean
+
+Stage Summary:
+- Blog data: Moved from Prisma/SQLite to src/data/blogs.json
+- Admin page: Completely removed (/blog/admin no longer exists)
+- TipTap editor: Removed (no longer needed without admin page)
+- Prisma: Blog model removed from schema
+- Blog listing: New featured post side-by-side layout, better card design, section dividers
+- Blog detail: Cover image section, related articles, improved author card
+- All API endpoints working with JSON data source

@@ -30,17 +30,3 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
-model Blog {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  excerpt     String?
-  content     String   // Rich HTML content from TipTap editor
-  coverImage  String?
-  author      String   @default("Unnat Vega")
-  tags        String?  // Comma-separated tags
-  published   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}

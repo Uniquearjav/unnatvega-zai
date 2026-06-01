@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import {
@@ -10,15 +11,18 @@ import {
   Clock,
   User,
   Tag,
-  Share2,
   BookOpen,
   ChevronRight,
-  Facebook,
   Twitter,
   Linkedin,
   Link as LinkIcon,
   Check,
   ArrowRight,
+  TrendingUp,
+  Globe,
+  Zap,
+  Flame,
+  Newspaper,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -52,10 +56,13 @@ const getReadTime = (content: string) => {
   return Math.max(3, Math.ceil(words / 200));
 };
 
+const coverIcons = [TrendingUp, Globe, Zap, BookOpen, Flame, Newspaper];
+
 export default function BlogPostPage() {
   const params = useParams();
   const slug = params.slug as string;
   const [blog, setBlog] = useState<BlogPost | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
 
@@ -74,6 +81,16 @@ export default function BlogPostPage() {
         if (!res.ok) throw new Error('Blog not found');
         const data = await res.json();
         setBlog(data);
+
+        // Fetch related posts
+        const allRes = await fetch('/api/blog');
+        if (allRes.ok) {
+          const allPosts: BlogPost[] = await allRes.json();
+          const related = allPosts
+            .filter((p) => p.slug !== data.slug && p.published)
+            .slice(0, 2);
+          setRelatedPosts(related);
+        }
       } catch (err) {
         console.error('Error fetching blog:', err);
       } finally {
@@ -100,7 +117,6 @@ export default function BlogPostPage() {
 
     const shareUrls: Record<string, string> = {
       twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
     };
 
@@ -161,6 +177,7 @@ export default function BlogPostPage() {
   }
 
   const tags = blog.tags?.split(',').map((t) => t.trim()) || [];
+  const iconIndex = parseInt(blog.id, 10) % coverIcons.length;
 
   return (
     <div className="min-h-screen pt-16">
@@ -170,7 +187,7 @@ export default function BlogPostPage() {
         style={{ scaleX }}
       />
 
-      <article className="mx-auto max-w-3xl px-4 py-8 sm:py-12">
+      <article className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
         {/* Breadcrumb */}
         <motion.nav
           initial={{ opacity: 0, y: 10 }}
@@ -227,11 +244,42 @@ export default function BlogPostPage() {
             </p>
           )}
 
+          {/* Cover Image or Placeholder */}
+          {(blog.coverImage || true) && (
+            <div className="mb-6 overflow-hidden rounded-2xl border border-border/30 sm:mb-8">
+              {blog.coverImage ? (
+                <Image
+                  src={blog.coverImage}
+                  alt={blog.title}
+                  width={900}
+                  height={400}
+                  className="w-full object-cover"
+                />
+              ) : (
+                <div className="relative flex h-48 items-center justify-center overflow-hidden bg-gradient-to-br from-primary/15 via-primary/5 to-transparent sm:h-64 md:h-72">
+                  <div className="absolute inset-0 opacity-10" style={{
+                    backgroundImage: 'radial-gradient(circle at 1px 1px, var(--primary) 1px, transparent 0)',
+                    backgroundSize: '24px 24px',
+                  }} />
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-40 rounded-full bg-primary/10 blur-3xl" />
+                  <div className="relative rounded-2xl border border-primary/15 bg-primary/8 p-5">
+                    {iconIndex === 0 && <TrendingUp className="size-12 text-primary/40" />}
+                    {iconIndex === 1 && <Globe className="size-12 text-primary/40" />}
+                    {iconIndex === 2 && <Zap className="size-12 text-primary/40" />}
+                    {iconIndex === 3 && <BookOpen className="size-12 text-primary/40" />}
+                    {iconIndex === 4 && <Flame className="size-12 text-primary/40" />}
+                    {iconIndex === 5 && <Newspaper className="size-12 text-primary/40" />}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Author + Meta bar */}
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 rounded-xl border border-border/30 bg-card/50 p-4 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:p-5">
             <div className="flex items-center gap-3">
               {/* Author avatar */}
-              <div className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
+              <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
                 {blog.author
                   .split(' ')
                   .map((n) => n[0])
@@ -314,7 +362,7 @@ export default function BlogPostPage() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-10 rounded-2xl border border-border/40 bg-card/50 p-5 backdrop-blur-sm sm:p-6"
+          className="mb-10 rounded-2xl border border-border/40 bg-gradient-to-br from-primary/5 via-card/50 to-card/50 p-5 backdrop-blur-sm sm:p-6"
         >
           <div className="flex items-start gap-4">
             <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">
@@ -333,11 +381,56 @@ export default function BlogPostPage() {
           </div>
         </motion.div>
 
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="mb-10"
+          >
+            <h3
+              className="mb-4 text-lg font-bold tracking-tight sm:text-xl"
+              style={{ fontFamily: 'var(--font-geist-mono)' }}
+            >
+              Related <span className="gradient-text">Articles</span>
+            </h3>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {relatedPosts.map((post) => (
+                <Link key={post.id} href={`/blog/${post.slug}`} className="group">
+                  <div className="overflow-hidden rounded-xl border border-border/40 bg-card/50 p-4 transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+                    <div className="mb-2 flex flex-wrap gap-1">
+                      {post.tags?.split(',').slice(0, 2).map((tag) => (
+                        <span
+                          key={tag.trim()}
+                          className="rounded-full bg-primary/5 px-2 py-0.5 text-[10px] font-medium text-primary/70"
+                        >
+                          {tag.trim()}
+                        </span>
+                      ))}
+                    </div>
+                    <h4 className="mb-1.5 text-sm font-bold leading-snug transition-colors group-hover:text-primary">
+                      {post.title}
+                    </h4>
+                    <p className="line-clamp-2 text-xs text-muted-foreground">
+                      {post.excerpt}
+                    </p>
+                    <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-primary transition-all group-hover:gap-2.5">
+                      Read
+                      <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         {/* Bottom navigation */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
         >
           <Button asChild variant="outline" className="gap-2">
