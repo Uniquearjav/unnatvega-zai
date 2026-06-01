@@ -3,42 +3,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const WHATSAPP_NUMBER = '919876543210'; // Replace with actual WhatsApp number
+const WHATSAPP_NUMBER = '917597464336'; // Replace with actual WhatsApp number
 const WHATSAPP_MESSAGE = 'Hello! I would like to know more about your services.';
 
 export default function WhatsAppButton() {
   const [showTooltip, setShowTooltip] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(false);
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
   return (
     <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-3">
-      {/* Dismissible greeting bubble */}
-      <AnimatePresence>
-        {!isDismissed && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="relative max-w-[220px] rounded-2xl rounded-bl-sm bg-[#25D366] px-4 py-3 shadow-xl shadow-[#25D366]/20 border border-[#25D366]/60"
-          >
-            <button
-              onClick={() => setIsDismissed(true)}
-              className="absolute -top-1.5 -right-1.5 flex size-5 items-center justify-center rounded-full bg-white/30 text-white transition-colors hover:bg-white/50"
-              aria-label="Dismiss"
-            >
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </button>
-            <p className="text-xs leading-relaxed text-white">
-              👋 Need help? Chat with us on WhatsApp!
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Tooltip on hover */}
       <AnimatePresence>

@@ -226,16 +226,6 @@ export default function Navigation() {
           <div className="mx-2 h-5 w-px bg-border/60" />
 
           <ThemeToggle />
-
-          <Button
-            asChild
-            className="ml-3 bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
-          >
-            <Link href="/contact">
-              Start a Project
-              <ArrowRight className="ml-1 size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </Link>
-          </Button>
         </div>
 
         {/* ─── Mobile: Hamburger (right) ─── */}

@@ -1,9 +1,15 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { motion, useInView, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  motion,
+  useInView,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import {
   Palette,
   Code2,
@@ -17,132 +23,118 @@ import {
   Facebook,
   Send,
   Globe,
-  Play,
-  Sparkles,
   Zap,
   Shield,
   Heart,
   MessageCircle,
   Linkedin,
   Twitter,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
-import {
-  fadeInUp,
-  staggerContainer,
-} from '@/lib/animations';
+import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 /* ─────────────────────── Data ─────────────────────── */
 
 const services = [
   {
     icon: Target,
-    title: 'Export Solutions',
+    title: "Export Solutions",
     description:
-      'End-to-end export management helping Indian businesses reach global markets with compliance and confidence.',
+      "End-to-end export management helping Indian businesses reach global markets with compliance and confidence.",
   },
   {
     icon: TrendingUp,
-    title: 'Import Services',
+    title: "Import Services",
     description:
-      'Seamless import facilitation with strategic sourcing, quality assurance, and customs clearance support.',
+      "Seamless import facilitation with strategic sourcing, quality assurance, and customs clearance support.",
   },
   {
     icon: Code2,
-    title: 'Digital Presence',
+    title: "Digital Presence",
     description:
-      'Powerful websites and digital platforms built for trade businesses to attract international clients and partners.',
+      "Powerful websites and digital platforms built for trade businesses to attract international clients and partners.",
   },
   {
     icon: Palette,
-    title: 'Brand Identity',
+    title: "Brand Identity",
     description:
-      'Premium branding that positions your business as a trusted global player in the international trade ecosystem.',
+      "Premium branding that positions your business as a trusted global player in the international trade ecosystem.",
   },
 ];
 
 const projects = [
   {
-    name: 'SpiceRoute Exports',
-    category: 'Export',
-    description: 'Premium spice export platform connecting Indian farmers to global markets',
-    image: '/images/project-1.png',
-    year: '2024',
-    tech: ['Next.js', 'Shopify', 'Framer Motion'],
-    metrics: '+340% Export Volume',
+    name: "Revati Craft",
+    category: "Export",
+    description:
+      "Premium spice export platform connecting Indian farmers to global markets",
+    image: "/images/work/revati_craft.png",
+    year: "2026",
+    tech: ["Next.js", "Shadcn UI"],
   },
   {
-    name: 'TextileHub Global',
-    category: 'Export',
-    description: 'High-end textile export portal with seamless order management',
-    image: '/images/project-2.png',
-    year: '2024',
-    tech: ['React', 'Node.js', 'Stripe'],
-    metrics: '+220% Revenue',
+    name: "Nirvatatva",
+    category: "Export",
+    description:
+      "High-end textile export portal with seamless order management",
+    image: "/images/work/nirvatatva.png",
+    year: "2024",
+    tech: ["React", "Node.js", "Next.js"],
   },
   {
-    name: 'TradeNexus Analytics',
-    category: 'SaaS',
-    description: 'Enterprise trade analytics dashboard with real-time market intelligence',
-    image: '/images/project-3.png',
-    year: '2023',
-    tech: ['TypeScript', 'D3.js', 'WebSocket'],
-    metrics: '50K+ Daily Users',
+    name: "Anantastra",
+    category: "SaaS",
+    description:
+      "Enterprise trade analytics dashboard with real-time market intelligence",
+    image: "/images/work/anantastra.png",
+    year: "2025",
+    tech: ["Nextjs", "Tailwind CSS", "GSAP"],
   },
   {
-    name: 'AgroVista Branding',
-    category: 'Branding',
-    description: 'Bold brand identity for an agro-products export house with global reach',
-    image: '/images/project-4.png',
-    year: '2023',
-    tech: ['Next.js', 'GSAP', 'Three.js'],
-    metrics: 'Award Winning',
+    name: "Arjav Consultancy",
+    category: "Consultancy",
+    description:
+      "Bold brand identity for an agro-products export house with global reach",
+    image: "/images/work/arjav_consultancy.png",
+    year: "2025",
+    tech: ["Next.js"],
   },
   {
-    name: 'ImportEase App',
-    category: 'Mobile App',
-    description: 'Import management app with customs tracking and compliance tools',
-    image: '/images/project-5.png',
-    year: '2023',
-    tech: ['React Native', 'Firebase', 'Plaid'],
-    metrics: '100K+ Downloads',
-  },
-  {
-    name: 'Maritime Solutions',
-    category: 'Web Design',
-    description: 'Corporate website for a logistics and freight forwarding company',
-    image: '/images/project-6.png',
-    year: '2024',
-    tech: ['Next.js', 'Prisma', 'Tailwind'],
-    metrics: '+180% Inquiries',
+    name: "Numerologist Simple Bhansali",
+    category: "Consultancy",
+    description:
+      "Import management app with customs tracking and compliance tools",
+    image: "/images/work/simple_bhansali.png",
+    year: "2025",
+    tech: ["React", "Next.js"],
   },
 ];
 
 const testimonials = [
   {
     quote:
-      'Unnat Vega transformed our export operations completely. Their digital platform helped us reach 15 new countries in just 6 months. The attention to compliance and user experience was remarkable.',
-    name: 'Rajesh Sharma',
-    title: 'Director at SpiceRoute Exports',
-    initials: 'RS',
+      "Unnat Vega transformed our export operations completely. Their digital platform helped us reach 15 new countries in just 6 months. The attention to compliance and user experience was remarkable.",
+    name: "Alpha Jain",
+    title: "Director at SpiceRoute Exports",
+    initials: "RS",
   },
   {
     quote:
       "Working with Unnat Vega was a game-changer for our import business. They didn't just build a website — they created a complete trade management ecosystem that streamlined our entire supply chain.",
-    name: 'Priya Patel',
-    title: 'CEO at TextileHub Global',
-    initials: 'PP',
+    name: "Priya Patel",
+    title: "CEO at TextileHub Global",
+    initials: "PP",
   },
   {
     quote:
-      'The team at Unnat Vega brings an unmatched level of understanding of international trade. Their digital solutions helped us reduce customs clearance time by 60% and scale our operations globally.',
-    name: 'Amit Verma',
-    title: 'COO at TradeNexus Analytics',
-    initials: 'AV',
+      "The team at Unnat Vega brings an unmatched level of understanding of international trade. Their digital solutions helped us reduce customs clearance time by 60% and scale our operations globally.",
+    name: "Amit Verma",
+    title: "COO at TradeNexus Analytics",
+    initials: "AV",
   },
 ];
 
@@ -150,21 +142,21 @@ const testimonials = [
 function AnimatedSection({
   children,
   id,
-  className = '',
+  className = "",
 }: {
   children: React.ReactNode;
   id?: string;
   className?: string;
 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <motion.section
       id={id}
       ref={ref}
       initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
+      animate={isInView ? "visible" : "hidden"}
       variants={staggerContainer}
       className={className}
     >
@@ -178,14 +170,14 @@ function Hero() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [currentWord, setCurrentWord] = useState(0);
-  const rotatingWords = ['Trade', 'Business', 'Exports', 'Imports'];
+  const rotatingWords = ["Traders","Consultants", "Businesses", "Exporters", "Importers"];
 
   // Parallax scroll effect
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   useEffect(() => {
@@ -207,7 +199,7 @@ function Hero() {
         style={{ y: bgY, scale: bgScale }}
       >
         <Image
-          src="/images/hero-bg.png"
+          src="/images/hero.png"
           alt="Global trade and commerce background"
           fill
           className="object-cover"
@@ -218,11 +210,7 @@ function Hero() {
       </motion.div>
 
       {/* Dark overlay for text readability */}
-      <div className="pointer-events-none absolute inset-0 bg-background/70 dark:bg-background/80" />
-
-      {/* Subtle gradient overlay for depth */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/60" />
-
+      <div className="pointer-events-none absolute inset-0 bg-black/50 dark:bg-background/80" />
       {/* Background decorative elements (subtle overlays on top of image) */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {/* Orange gradient orbs - more subtle over image */}
@@ -238,77 +226,41 @@ function Hero() {
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage:
-              'linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
+              "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
           }}
         />
       </div>
 
       <motion.div
         initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
+        animate={isInView ? "visible" : "hidden"}
         variants={staggerContainer}
         className="relative z-10 mx-auto max-w-6xl text-center"
       >
-        {/* Floating badges */}
-        <motion.div variants={fadeInUp} className="mb-6 flex items-center justify-center gap-3 sm:mb-8">
-          <div className="flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 backdrop-blur-sm sm:px-4">
-            <Sparkles className="size-3.5 text-primary" />
-            <span className="text-[11px] font-medium text-primary sm:text-xs">Trusted by 500+ Businesses</span>
-          </div>
-        </motion.div>
 
         <motion.h1
           variants={fadeInUp}
-          className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl"
-          style={{ fontFamily: 'var(--font-geist-mono)' }}
+          className="text-3xl text-white font-bold tracking-tight "
+          style={{ fontFamily: "var(--font-geist-mono)" }}
         >
-          <span className="block">Empowering</span>
-          <span className="gradient-text block">
-            Global{' '}
+          <span className="block sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">Unnat Vega</span>
+          <span className=" block">
+            Luxury Web Design for {" "}
             <AnimatePresence mode="wait">
               <motion.span
                 key={currentWord}
-                initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -20, filter: 'blur(8px)' }}
-                transition={{ duration: 0.5, ease: 'easeInOut' }}
+                initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="inline-block"
               >
                 {rotatingWords[currentWord]}
               </motion.span>
             </AnimatePresence>
           </span>
-          <span className="block">Digital Excellence</span>
         </motion.h1>
-
-        <motion.p
-          variants={fadeInUp}
-          className="mx-auto mt-6 max-w-2xl text-sm text-muted-foreground sm:mt-8 sm:text-base md:text-lg lg:text-xl"
-        >
-          We help exporters, importers, and businesses build powerful digital
-          presence and streamline international trade operations. From strategy to execution.
-        </motion.p>
-
-        {/* Feature pills */}
-        <motion.div
-          variants={fadeInUp}
-          className="mt-6 flex flex-wrap items-center justify-center gap-2 sm:mt-8 sm:gap-3"
-        >
-          {[
-            { icon: Shield, text: '100% Compliance' },
-            { icon: Zap, text: 'Fast Turnaround' },
-            { icon: Globe, text: '25+ Countries' },
-          ].map((feature) => (
-            <div
-              key={feature.text}
-              className="flex items-center gap-1.5 rounded-full border border-border/50 bg-card/50 px-3 py-1.5 backdrop-blur-sm sm:gap-2 sm:px-4 sm:py-2"
-            >
-              <feature.icon className="size-3.5 text-primary sm:size-4" />
-              <span className="text-[11px] font-medium text-muted-foreground sm:text-xs md:text-sm">{feature.text}</span>
-            </div>
-          ))}
-        </motion.div>
 
         <motion.div
           variants={fadeInUp}
@@ -324,27 +276,17 @@ function Hero() {
               <ArrowRight className="ml-2 size-4" />
             </Link>
           </Button>
-          <Button asChild variant="outline" size="lg" className="min-h-[44px] border-border transition-all duration-300 hover:border-primary/40 hover:shadow-md hover:scale-105">
+          <Button
+            asChild
+            variant="outline"
+            size="lg"
+            className="min-h-[44px] border-border transition-all duration-300 hover:border-primary/40 hover:shadow-md hover:scale-105"
+          >
             <Link href="/work">
               View Our Work
               <ExternalLink className="ml-2 size-4" />
             </Link>
           </Button>
-        </motion.div>
-
-        {/* Play button / Video teaser */}
-        <motion.div
-          variants={fadeInUp}
-          className="mt-10 flex items-center justify-center gap-4 sm:mt-14"
-        >
-          <button className="group flex min-h-[44px] items-center gap-3 transition-all duration-300 hover:gap-4">
-            <div className="flex size-11 items-center justify-center rounded-full border border-primary/30 bg-primary/10 transition-all duration-300 group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/10 sm:size-12">
-              <Play className="size-4 translate-x-0.5 text-primary" />
-            </div>
-            <span className="text-sm font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
-              Watch How We Work
-            </span>
-          </button>
         </motion.div>
       </motion.div>
     </section>
@@ -354,10 +296,7 @@ function Hero() {
 /* ─────────────────────── Services ─────────────────────── */
 function Services() {
   return (
-    <AnimatedSection
-      id="services"
-      className="px-4 py-16 md:py-20 lg:py-24"
-    >
+    <AnimatedSection id="services" className="px-4 py-16 md:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl">
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
           <Badge
@@ -379,7 +318,9 @@ function Services() {
                   <div className="mb-3 flex size-11 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20 md:mb-4 md:size-12">
                     <service.icon className="size-5 text-primary transition-transform duration-300 group-hover:scale-110 md:size-6" />
                   </div>
-                  <h3 className="mb-1.5 text-lg font-semibold md:mb-2 md:text-xl">{service.title}</h3>
+                  <h3 className="mb-1.5 text-lg font-semibold md:mb-2 md:text-xl">
+                    {service.title}
+                  </h3>
                   <p className="text-sm leading-relaxed text-muted-foreground">
                     {service.description}
                   </p>
@@ -398,10 +339,10 @@ function Portfolio() {
   const [activeProject, setActiveProject] = useState(0);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") {
       e.preventDefault();
       setActiveProject((prev) => Math.min(prev + 1, projects.length - 1));
-    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
       e.preventDefault();
       setActiveProject((prev) => Math.max(prev - 1, 0));
     }
@@ -458,8 +399,8 @@ function Portfolio() {
             onClick={() => setActiveProject(idx)}
             className={`shrink-0 rounded-full px-3 py-2 text-xs font-medium transition-all duration-300 min-h-[44px] ${
               activeProject === idx
-                ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
-                : 'border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground'
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
             }`}
           >
             {project.name}
@@ -482,23 +423,23 @@ function Portfolio() {
                 onClick={() => setActiveProject(idx)}
                 className={`group/sidebar relative flex items-center gap-3 px-5 py-3.5 text-left transition-all duration-300 ${
                   activeProject === idx
-                    ? 'bg-primary/10 border-l-2 border-primary'
-                    : 'border-l-2 border-transparent hover:bg-muted/30'
+                    ? "bg-primary/10 border-l-2 border-primary"
+                    : "border-l-2 border-transparent hover:bg-muted/30"
                 }`}
               >
                 <div
                   className={`shrink-0 size-1.5 rounded-full transition-all duration-500 ${
                     activeProject === idx
-                      ? 'bg-primary shadow-sm shadow-primary/50'
-                      : 'bg-muted-foreground/20 group-hover/sidebar:bg-muted-foreground/40'
+                      ? "bg-primary shadow-sm shadow-primary/50"
+                      : "bg-muted-foreground/20 group-hover/sidebar:bg-muted-foreground/40"
                   }`}
                 />
                 <div className="min-w-0 flex-1">
                   <span
                     className={`block truncate text-sm font-medium transition-all duration-300 ${
                       activeProject === idx
-                        ? 'text-primary font-semibold'
-                        : 'text-muted-foreground/50 group-hover/sidebar:text-muted-foreground/80'
+                        ? "text-primary font-semibold"
+                        : "text-muted-foreground/50 group-hover/sidebar:text-muted-foreground/80"
                     }`}
                   >
                     {project.name}
@@ -506,8 +447,8 @@ function Portfolio() {
                   <span
                     className={`block truncate text-[10px] transition-all duration-300 ${
                       activeProject === idx
-                        ? 'text-muted-foreground/60'
-                        : 'text-muted-foreground/0 group-hover/sidebar:text-muted-foreground/40'
+                        ? "text-muted-foreground/60"
+                        : "text-muted-foreground/0 group-hover/sidebar:text-muted-foreground/40"
                     }`}
                   >
                     {project.category}
@@ -521,23 +462,33 @@ function Portfolio() {
               <motion.div
                 className="h-full rounded-full bg-primary"
                 initial={false}
-                animate={{ width: `${((activeProject + 1) / projects.length) * 100}%` }}
+                animate={{
+                  width: `${((activeProject + 1) / projects.length) * 100}%`,
+                }}
                 transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               />
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs font-bold text-primary" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-                  {String(activeProject + 1).padStart(2, '0')}
+                <span
+                  className="text-xs font-bold text-primary"
+                  style={{ fontFamily: "var(--font-geist-mono)" }}
+                >
+                  {String(activeProject + 1).padStart(2, "0")}
                 </span>
                 <span className="text-[10px] text-muted-foreground/40">/</span>
-                <span className="text-[10px] text-muted-foreground/40" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-                  {String(projects.length).padStart(2, '0')}
+                <span
+                  className="text-[10px] text-muted-foreground/40"
+                  style={{ fontFamily: "var(--font-geist-mono)" }}
+                >
+                  {String(projects.length).padStart(2, "0")}
                 </span>
               </div>
               <div className="flex gap-1">
                 <button
-                  onClick={() => setActiveProject((prev) => Math.max(prev - 1, 0))}
+                  onClick={() =>
+                    setActiveProject((prev) => Math.max(prev - 1, 0))
+                  }
                   disabled={activeProject === 0}
                   className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-30"
                   aria-label="Previous project"
@@ -545,7 +496,11 @@ function Portfolio() {
                   <ChevronRight className="size-3.5 -rotate-90" />
                 </button>
                 <button
-                  onClick={() => setActiveProject((prev) => Math.min(prev + 1, projects.length - 1))}
+                  onClick={() =>
+                    setActiveProject((prev) =>
+                      Math.min(prev + 1, projects.length - 1),
+                    )
+                  }
                   disabled={activeProject === projects.length - 1}
                   className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-30"
                   aria-label="Next project"
@@ -571,17 +526,13 @@ function Portfolio() {
             >
               <Image
                 src={projects[activeProject].image}
-                alt={projects[activeProject].name}
+                alt={projects[activeProbrject].name}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 80vw"
-                priority
+                // sizes="(max-width: 768px) 100vw, 80vw"
               />
               {/* Overlay gradients - heavier on mobile for readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/20" />
-              <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-l from-background/30 via-transparent to-transparent md:from-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/20" />
             </motion.div>
           </AnimatePresence>
 
@@ -592,19 +543,27 @@ function Portfolio() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+              transition={{
+                duration: 0.5,
+                ease: [0.25, 0.46, 0.45, 0.94],
+                delay: 0.1,
+              }}
               className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-4 sm:px-6 sm:pb-6 md:px-10 md:pb-10 lg:px-14 lg:pb-12"
             >
               <div className="mb-2 flex flex-wrap items-center gap-2 md:mb-3 md:gap-3">
                 <Badge className="border border-primary/30 bg-primary/15 px-2 py-0.5 text-[10px] font-medium text-primary backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[11px]">
                   {projects[activeProject].category}
                 </Badge>
-                <span className="text-[11px] text-foreground/40 sm:text-xs">{projects[activeProject].year}</span>
-                <span className="text-[11px] font-semibold text-primary/70 sm:text-xs">{projects[activeProject].metrics}</span>
+                <span className="text-[11px] text-foreground/40 sm:text-xs">
+                  {projects[activeProject].year}
+                </span>
+                <span className="text-[11px] font-semibold text-primary/70 sm:text-xs">
+                  {projects[activeProject].metrics}
+                </span>
               </div>
               <h3
                 className="mb-2 text-xl font-bold tracking-tight text-foreground sm:text-2xl md:mb-3 md:text-4xl lg:text-5xl"
-                style={{ fontFamily: 'var(--font-geist-mono)' }}
+                style={{ fontFamily: "var(--font-geist-mono)" }}
               >
                 {projects[activeProject].name}
               </h3>
@@ -643,8 +602,8 @@ function Portfolio() {
                 onClick={() => setActiveProject(idx)}
                 className={`transition-all duration-500 ${
                   activeProject === idx
-                    ? 'h-6 w-1.5 rounded-full bg-primary shadow-sm shadow-primary/50'
-                    : 'h-1.5 w-1.5 rounded-full bg-foreground/20 hover:bg-foreground/40'
+                    ? "h-6 w-1.5 rounded-full bg-primary shadow-sm shadow-primary/50"
+                    : "h-1.5 w-1.5 rounded-full bg-foreground/20 hover:bg-foreground/40"
                 }`}
                 aria-label={`Go to project ${idx + 1}`}
               />
@@ -656,12 +615,18 @@ function Portfolio() {
       {/* Mobile navigation arrows - below the image */}
       <div className="mt-3 flex items-center justify-between md:hidden">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-primary" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-            {String(activeProject + 1).padStart(2, '0')}
+          <span
+            className="text-xs font-bold text-primary"
+            style={{ fontFamily: "var(--font-geist-mono)" }}
+          >
+            {String(activeProject + 1).padStart(2, "0")}
           </span>
           <span className="text-[10px] text-muted-foreground/40">/</span>
-          <span className="text-[10px] text-muted-foreground/40" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-            {String(projects.length).padStart(2, '0')}
+          <span
+            className="text-[10px] text-muted-foreground/40"
+            style={{ fontFamily: "var(--font-geist-mono)" }}
+          >
+            {String(projects.length).padStart(2, "0")}
           </span>
         </div>
         <div className="flex gap-2">
@@ -674,7 +639,11 @@ function Portfolio() {
             <ChevronRight className="size-4 -rotate-90" />
           </button>
           <button
-            onClick={() => setActiveProject((prev) => Math.min(prev + 1, projects.length - 1))}
+            onClick={() =>
+              setActiveProject((prev) =>
+                Math.min(prev + 1, projects.length - 1),
+              )
+            }
             disabled={activeProject === projects.length - 1}
             className="flex size-9 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-30"
             aria-label="Next project"
@@ -690,10 +659,31 @@ function Portfolio() {
 /* ─────────────────────── Listed On ─────────────────────── */
 function ListedOn() {
   const platforms = [
-    { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/unnatvega', color: '#E4405F' },
-    { name: 'Facebook', icon: Facebook, href: 'https://facebook.com/unnatvega', color: '#1877F2' },
-    { name: 'Telegram', icon: Send, href: 'https://t.me/unnatvega', color: '#26A5E4' },
-    { name: 'Alibaba', icon: Globe, href: 'https://alibaba.com', color: '#FF6A00' },
+    {
+      name: "Clutch",
+      image: "/images/listing/clutch.png",
+      href: "https://instagram.com/unnatvega",
+    },
+    {
+      name: "Google My Business",
+      image: "/images/listing/gmb.webp",
+      href: "https://facebook.com/unnatvega",
+    },
+    {
+      name: "The Mainfest",
+      image: "/images/listing/manifest.png",
+      href: "https://t.me/unnatvega",
+    },
+    {
+      name: "Good Firms",
+      image: "/images/listing/goodfirms.jpeg",
+      href: "https://www.goodfirms.co/company/unnat-vega",
+    },
+    {
+      name: "Dribbble",
+      image: "/images/listing/dribbble.png",
+      href: "https://dribbble.com/unnat-vega",
+    },
   ];
 
   return (
@@ -715,7 +705,10 @@ function ListedOn() {
           <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-background to-transparent sm:w-20 md:w-32" />
           <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-background to-transparent sm:w-20 md:w-32" />
 
-          <div className="carousel-track flex items-center gap-10 md:gap-24" style={{ width: 'max-content' }}>
+          <div
+            className="carousel-track flex items-center gap-10 md:gap-24"
+            style={{ width: "max-content" }}
+          >
             {[0, 1, 2].map((set) =>
               platforms.map((platform) => (
                 <a
@@ -725,15 +718,18 @@ function ListedOn() {
                   rel="noopener noreferrer"
                   className="group flex shrink-0 flex-col items-center gap-2 transition-all duration-300 sm:gap-3"
                 >
-                  <platform.icon
-                    className="size-8 transition-all duration-300 group-hover:scale-110 sm:size-10 md:size-12"
-                    style={{ color: platform.color }}
+                  <Image
+                    src={platform.image}
+                    alt={platform.name}
+                    width={100}
+                    height={100}
+                    className="transition-all grayscale hover:grayscale-0 duration-300 group-hover:scale-110"
                   />
                   <span className="text-xs font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground sm:text-sm md:text-base">
                     {platform.name}
                   </span>
                 </a>
-              ))
+              )),
             )}
           </div>
         </div>
@@ -766,7 +762,10 @@ function Testimonials() {
                 <CardContent className="flex h-full flex-col p-4 sm:p-6">
                   <div className="mb-3 flex gap-1 sm:mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="size-3.5 fill-primary text-primary sm:size-4" />
+                      <Star
+                        key={i}
+                        className="size-3.5 fill-primary text-primary sm:size-4"
+                      />
                     ))}
                   </div>
                   <p className="mb-4 flex-1 text-sm leading-relaxed text-muted-foreground sm:mb-6">
@@ -778,7 +777,9 @@ function Testimonials() {
                     </div>
                     <div>
                       <div className="text-sm font-semibold">{t.name}</div>
-                      <div className="text-xs text-muted-foreground">{t.title}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {t.title}
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -795,65 +796,91 @@ function Testimonials() {
 const socialPosts = [
   {
     id: 1,
-    platform: 'instagram' as const,
-    image: '/images/social-1.png',
-    caption: 'From farm to global market 🌍 Our export solutions connect Indian artisans and farmers to 25+ countries worldwide. Quality that speaks for itself.',
+    platform: "instagram" as const,
+    image: "/images/social-1.png",
+    caption:
+      "From farm to global market 🌍 Our export solutions connect Indian artisans and farmers to 25+ countries worldwide. Quality that speaks for itself.",
     likes: 284,
     comments: 18,
-    time: '2h ago',
+    time: "2h ago",
   },
   {
     id: 2,
-    platform: 'linkedin' as const,
-    image: '/images/social-2.png',
-    caption: 'Global trade never sleeps. Our logistics team ensures seamless container tracking and customs clearance across major ports worldwide. 🚢',
+    platform: "linkedin" as const,
+    image: "/images/social-2.png",
+    caption:
+      "Global trade never sleeps. Our logistics team ensures seamless container tracking and customs clearance across major ports worldwide. 🚢",
     likes: 156,
     comments: 24,
-    time: '5h ago',
+    time: "5h ago",
   },
   {
     id: 3,
-    platform: 'instagram' as const,
-    image: '/images/social-3.png',
-    caption: 'Behind every successful trade deal is a dedicated team 💼 Strategy meetings that turn global opportunities into real business growth.',
+    platform: "instagram" as const,
+    image: "/images/social-3.png",
+    caption:
+      "Behind every successful trade deal is a dedicated team 💼 Strategy meetings that turn global opportunities into real business growth.",
     likes: 412,
     comments: 32,
-    time: '1d ago',
+    time: "1d ago",
   },
   {
     id: 4,
-    platform: 'facebook' as const,
-    image: '/images/social-4.png',
-    caption: 'Indian textiles reaching the world 🧵 Premium silk and embroidery exports that showcase the artistry of Indian craftsmanship on the global stage.',
+    platform: "facebook" as const,
+    image: "/images/social-4.png",
+    caption:
+      "Indian textiles reaching the world 🧵 Premium silk and embroidery exports that showcase the artistry of Indian craftsmanship on the global stage.",
     likes: 389,
     comments: 45,
-    time: '1d ago',
+    time: "1d ago",
   },
   {
     id: 5,
-    platform: 'twitter' as const,
-    image: '/images/social-5.png',
-    caption: 'Data-driven trade decisions are the future. Our analytics platform helps businesses identify the most profitable markets and routes in real-time. 📊',
+    platform: "twitter" as const,
+    image: "/images/social-5.png",
+    caption:
+      "Data-driven trade decisions are the future. Our analytics platform helps businesses identify the most profitable markets and routes in real-time. 📊",
     likes: 203,
     comments: 15,
-    time: '2d ago',
+    time: "2d ago",
   },
   {
     id: 6,
-    platform: 'instagram' as const,
-    image: '/images/social-6.png',
-    caption: 'Milestone unlocked! 🎉 Celebrating 500+ businesses empowered and counting. Thank you for trusting Unnat Vega with your global journey.',
+    platform: "instagram" as const,
+    image: "/images/social-6.png",
+    caption:
+      "Milestone unlocked! 🎉 Celebrating 500+ businesses empowered and counting. Thank you for trusting Unnat Vega with your global journey.",
     likes: 567,
     comments: 89,
-    time: '3d ago',
+    time: "3d ago",
   },
 ];
 
 const platformConfig = {
-  instagram: { icon: Instagram, label: 'Instagram', color: '#E4405F', gradient: 'from-[#E4405F]/20 via-[#F77737]/10 to-[#FCAF45]/10' },
-  linkedin: { icon: Linkedin, label: 'LinkedIn', color: '#0A66C2', gradient: 'from-[#0A66C2]/20 via-[#0A66C2]/10 to-transparent' },
-  facebook: { icon: Facebook, label: 'Facebook', color: '#1877F2', gradient: 'from-[#1877F2]/20 via-[#1877F2]/10 to-transparent' },
-  twitter: { icon: Twitter, label: 'X', color: '#000000', gradient: 'from-foreground/10 via-foreground/5 to-transparent' },
+  instagram: {
+    icon: Instagram,
+    label: "Instagram",
+    color: "#E4405F",
+    gradient: "from-[#E4405F]/20 via-[#F77737]/10 to-[#FCAF45]/10",
+  },
+  linkedin: {
+    icon: Linkedin,
+    label: "LinkedIn",
+    color: "#0A66C2",
+    gradient: "from-[#0A66C2]/20 via-[#0A66C2]/10 to-transparent",
+  },
+  facebook: {
+    icon: Facebook,
+    label: "Facebook",
+    color: "#1877F2",
+    gradient: "from-[#1877F2]/20 via-[#1877F2]/10 to-transparent",
+  },
+  twitter: {
+    icon: Twitter,
+    label: "X",
+    color: "#000000",
+    gradient: "from-foreground/10 via-foreground/5 to-transparent",
+  },
 };
 
 function SocialMedia() {
@@ -873,12 +900,16 @@ function SocialMedia() {
             Follow Our <span className="gradient-text">Journey</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base">
-            Stay connected with us on social media for the latest updates, trade insights, and behind-the-scenes moments.
+            Stay connected with us on social media for the latest updates, trade
+            insights, and behind-the-scenes moments.
           </p>
         </motion.div>
 
         {/* Platform links */}
-        <motion.div variants={fadeInUp} className="mb-8 flex items-center justify-center gap-3 sm:gap-4">
+        <motion.div
+          variants={fadeInUp}
+          className="mb-8 flex items-center justify-center gap-3 sm:gap-4"
+        >
           {Object.entries(platformConfig).map(([key, config]) => {
             const IconComp = config.icon;
             return (
@@ -887,7 +918,10 @@ function SocialMedia() {
                 href="#"
                 className="group flex items-center gap-2 rounded-full border border-border/60 px-3.5 py-2 transition-all duration-300 hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 sm:px-4"
               >
-                <IconComp className="size-4 transition-transform duration-300 group-hover:scale-110" style={{ color: config.color }} />
+                <IconComp
+                  className="size-4 transition-transform duration-300 group-hover:scale-110"
+                  style={{ color: config.color }}
+                />
                 <span className="hidden text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground sm:inline">
                   {config.label}
                 </span>
@@ -922,21 +956,36 @@ function SocialMedia() {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     {/* Overlay on hover */}
-                    <div className={`absolute inset-0 bg-background/60 backdrop-blur-[2px] transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
+                    <div
+                      className={`absolute inset-0 bg-background/60 backdrop-blur-[2px] transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
+                    />
                     {/* Platform badge */}
-                    <div className={`absolute left-3 top-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 backdrop-blur-sm transition-all duration-300 ${isHovered ? 'bg-primary/90' : 'bg-background/80'}`}>
-                      <IconComp className={`size-3 ${isHovered ? 'text-primary-foreground' : ''}`} style={!isHovered ? { color: config.color } : undefined} />
-                      <span className={`text-[10px] font-semibold ${isHovered ? 'text-primary-foreground' : 'text-foreground/70'}`}>{config.label}</span>
+                    <div
+                      className={`absolute left-3 top-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 backdrop-blur-sm transition-all duration-300 ${isHovered ? "bg-primary/90" : "bg-background/80"}`}
+                    >
+                      <IconComp
+                        className={`size-3 ${isHovered ? "text-primary-foreground" : ""}`}
+                        style={!isHovered ? { color: config.color } : undefined}
+                      />
+                      <span
+                        className={`text-[10px] font-semibold ${isHovered ? "text-primary-foreground" : "text-foreground/70"}`}
+                      >
+                        {config.label}
+                      </span>
                     </div>
                     {/* Hover stats */}
-                    <div className={`absolute inset-0 flex items-center justify-center gap-6 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+                    <div
+                      className={`absolute inset-0 flex items-center justify-center gap-6 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
+                    >
                       <div className="flex items-center gap-1.5 text-foreground">
                         <Heart className="size-5 fill-primary text-primary" />
                         <span className="text-sm font-bold">{post.likes}</span>
                       </div>
                       <div className="flex items-center gap-1.5 text-foreground">
                         <MessageCircle className="size-5 text-primary" />
-                        <span className="text-sm font-bold">{post.comments}</span>
+                        <span className="text-sm font-bold">
+                          {post.comments}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -957,7 +1006,9 @@ function SocialMedia() {
                           {post.comments}
                         </span>
                       </div>
-                      <span className="text-[10px] text-muted-foreground/40">{post.time}</span>
+                      <span className="text-[10px] text-muted-foreground/40">
+                        {post.time}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -973,7 +1024,11 @@ function SocialMedia() {
             variant="outline"
             className="gap-2 border-border/60 transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
           >
-            <a href="https://instagram.com/unnatvega" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://instagram.com/unnatvega"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Instagram className="size-4" />
               Follow Us on Instagram
               <ArrowRight className="ml-1 size-4" />
@@ -1007,12 +1062,14 @@ function CTASection() {
             </Badge>
             <h2
               className="mb-3 text-2xl font-bold tracking-tight sm:text-3xl md:mb-4 md:text-4xl lg:text-5xl"
-              style={{ fontFamily: 'var(--font-geist-mono)' }}
+              style={{ fontFamily: "var(--font-geist-mono)" }}
             >
               Ready to Go <span className="gradient-text">Global</span>?
             </h2>
             <p className="mx-auto mb-6 max-w-xl text-sm text-muted-foreground sm:mb-8 sm:text-base md:text-lg">
-              Take the first step towards expanding your business internationally. Our team is ready to help you navigate global trade.
+              Take the first step towards expanding your business
+              internationally. Our team is ready to help you navigate global
+              trade.
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
               <Button
@@ -1025,10 +1082,13 @@ function CTASection() {
                   <ArrowRight className="ml-2 size-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="min-h-[44px] border-border transition-all duration-300 hover:border-primary/40">
-                <Link href="/about">
-                  Learn About Us
-                </Link>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="min-h-[44px] border-border transition-all duration-300 hover:border-primary/40"
+              >
+                <Link href="/about">Learn About Us</Link>
               </Button>
             </div>
           </div>

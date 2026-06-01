@@ -27,7 +27,7 @@ const projects = [
     category: 'Export',
     description: 'Premium spice export platform connecting Indian farmers to global markets',
     fullDescription: 'A complete digital transformation for a leading spice export house. We built an end-to-end platform connecting Indian farmers directly to international buyers, with real-time inventory tracking, compliance management, and seamless documentation workflows.',
-    image: '/images/project-1.png',
+    image: '/images/listing/project-1.png',
     year: '2024',
     tech: ['Next.js', 'Shopify', 'Framer Motion'],
     metrics: '+340% Export Volume',
