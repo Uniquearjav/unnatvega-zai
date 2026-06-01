@@ -973,7 +973,7 @@ function SocialMedia() {
             variant="outline"
             className="gap-2 border-border/60 transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
           >
-            <a href="https://instagram.com/unnatvega" target="blank" rel="noopener noreferrer">
+            <a href="https://instagram.com/unnatvega" target="_blank" rel="noopener noreferrer">
               <Instagram className="size-4" />
               Follow Us on Instagram
               <ArrowRight className="ml-1 size-4" />

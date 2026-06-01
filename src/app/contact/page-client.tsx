@@ -526,10 +526,10 @@ export default function ContactPage() {
                     asChild
                     className="bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
                   >
-                    <a href="#contact-form">
+                    <Link href="#contact-form">
                       Get Started
                       <ArrowRight className="ml-2 size-4" />
-                    </a>
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -721,10 +721,10 @@ export default function ContactPage() {
               size="lg"
               className="min-h-[44px] bg-primary-foreground text-primary shadow-xl transition-all duration-300 hover:bg-primary-foreground/90 hover:shadow-2xl"
             >
-              <a href="#contact-form">
+              <Link href="#contact-form">
                 Start a Project
                 <ArrowRight className="ml-2 size-4" />
-              </a>
+              </Link>
             </Button>
             <Button
               asChild
