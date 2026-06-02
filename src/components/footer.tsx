@@ -25,8 +25,6 @@ const quickLinks = [
 ];
 
 const companyLinks = [
-  { label: 'About Us', href: '/about' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Privacy Policy', href: '/privacy-policy' },
   { label: 'Terms & Conditions', href: '/terms-and-conditions' },
 ];
