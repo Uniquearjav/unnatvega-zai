@@ -482,10 +482,10 @@ function Hero() {
           className="text-3xl font-bold tracking-tight text-white"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
-          <span className="block sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
+          <span className="block sm:text-6xl md:text-4xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
             Unnat Vega
           </span>
-          <span className="block">
+          <span className="block text-xl">
             Luxury Web Design for{" "}
             <AnimatePresence mode="wait">
               <motion.span
@@ -501,15 +501,6 @@ function Hero() {
             </AnimatePresence>
           </span>
         </motion.h1>
-
-        <motion.p
-          variants={fadeInUp}
-          className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/70 sm:mt-6 sm:text-base md:text-lg"
-        >
-          Empowering businesses to go global with premium digital solutions,
-          export/import expertise, and strategic branding.
-        </motion.p>
-
         <motion.div
           variants={fadeInUp}
           className="mt-8 flex flex-col items-center gap-3 sm:mt-10 sm:flex-row sm:justify-center sm:gap-4"
@@ -528,7 +519,7 @@ function Hero() {
             asChild
             variant="outline"
             size="lg"
-            className="min-h-[44px] border-white/20 bg-white/10 text-white backdrop-blur-sm transition-all duration-300 hover:border-primary/40 hover:bg-white/20 hover:shadow-md hover:scale-105"
+            className="min-h-[44px] border-white/20 bg-white/10 text-white backdrop-blur-2xl rounded-xl transition-all duration-300 hover:border-primary/40 hover:bg-white/20 hover:shadow-md hover:scale-105"
           >
             <Link href="/work">
               View Our Work
@@ -537,43 +528,6 @@ function Hero() {
           </Button>
         </motion.div>
 
-        {/* Trust Badges */}
-        <motion.div
-          variants={fadeInUp}
-          className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-6"
-        >
-          <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-sm">
-            <Star className="size-4 fill-primary text-primary" />
-            <span className="text-xs font-medium text-white/80 sm:text-sm">
-              Trusted by 500+ Businesses
-            </span>
-          </div>
-          <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-sm">
-            <Zap className="size-4 fill-primary text-primary" />
-            <span className="text-xs font-medium text-white/80 sm:text-sm">
-              98% Client Satisfaction
-            </span>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll Down Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
-        >
-          <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/40">
-            Scroll
-          </span>
-          <ChevronDown className="size-5 text-white/40" />
-        </motion.div>
       </motion.div>
     </section>
   );

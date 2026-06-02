@@ -182,17 +182,13 @@ export default function Navigation() {
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center px-4 md:px-6 lg:px-8">
-        {/* ─── Mobile: Theme Toggle (left) ─── */}
-        <div className="flex items-center md:hidden">
-          <ThemeToggle />
-        </div>
-
         {/* ─── Logo (centered on mobile, left on desktop) ─── */}
+
         <Link
           href="/"
-          className="group flex flex-1 items-center justify-center text-xl font-bold tracking-tight transition-all duration-300 hover:opacity-80 md:flex-none md:justify-start md:mr-auto"
+          className="group  flex flex-1 items-center justify-center text-xl font-bold tracking-tight transition-all duration-300 hover:opacity-80 md:flex-none md:justify-start md:mr-auto"
         >
-          <span className="text-foreground transition-colors duration-300 group-hover:text-foreground/90">
+          <span className="text-white transition-colors duration-300 group-hover:text-foreground/90">
             UNNAT
           </span>
           <span className="text-primary transition-colors duration-300 group-hover:text-primary/80">
@@ -201,6 +197,10 @@ export default function Navigation() {
           </span>
         </Link>
 
+        {/* ─── Mobile: Theme Toggle (left) ─── */}
+        <div className="flex items-center md:hidden">
+          <ThemeToggle />
+        </div>
         {/* ─── Desktop Navigation ─── */}
         <div className="hidden items-center gap-1 md:flex">
           {navLinks.map((link) =>
@@ -216,7 +216,7 @@ export default function Navigation() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="relative px-3 py-2 text-sm font-medium text-muted-foreground transition-all duration-300 hover:text-foreground after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-4"
+                className="relative px-3 py-2 text-sm text-white uppercase font-bold transition-all duration-300 hover:text-foreground after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-4"
               >
                 {link.label}
               </Link>
@@ -235,14 +235,14 @@ export default function Navigation() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="transition-all duration-300"
+                className="transition-all text-white duration-300"
                 aria-label="Open menu"
               >
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="right" className="w-72 bg-background p-0">
+            <SheetContent side="left" className="w-72 bg-background p-0">
               <SheetHeader className="border-b border-border/40 px-6 py-5">
                 <SheetTitle className="flex items-center gap-0 text-xl font-bold tracking-tight">
                   <span className="text-foreground">UNNAT</span>
