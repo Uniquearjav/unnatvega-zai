@@ -1667,6 +1667,179 @@ function ContactForm() {
   );
 }
 
+/* ─────────────────────── Before / After Comparison ─────────────────────── */
+function BeforeAfterComparison() {
+  const [sliderPos, setSliderPos] = useState(50);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  const handleMove = useCallback((clientX: number) => {
+    if (!containerRef.current || !isDragging.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    setSliderPos(percent);
+  }, []);
+
+  const handleMouseDown = useCallback(() => {
+    isDragging.current = true;
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    isDragging.current = false;
+  }, []);
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => handleMove(e.clientX);
+    const onMouseUp = () => { isDragging.current = false; };
+    const onTouchMove = (e: TouchEvent) => handleMove(e.touches[0].clientX);
+    const onTouchEnd = () => { isDragging.current = false; };
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    window.addEventListener("touchmove", onTouchMove);
+    window.addEventListener("touchend", onTouchEnd);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [handleMove]);
+
+  return (
+    <section ref={sectionRef} className="relative w-full px-4 py-16 md:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={staggerContainer}
+          className="mb-10 text-center md:mb-14"
+        >
+          <motion.div variants={fadeInUp}>
+            <Badge
+              variant="outline"
+              className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary md:mb-4"
+            >
+              TRANSFORMATION
+            </Badge>
+          </motion.div>
+          <motion.h2
+            variants={fadeInUp}
+            className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl"
+          >
+            See the <span className="gradient-text">Difference</span>
+          </motion.h2>
+          <motion.p
+            variants={fadeInUp}
+            className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base"
+          >
+            Drag the slider to see how we transform outdated digital presences
+            into premium, high-converting experiences.
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="mx-auto"
+          style={{ width: "80%", maxWidth: "1200px" }}
+        >
+          {/* Comparison container */}
+          <div
+            ref={containerRef}
+            className="group relative h-[80vh] min-h-[400px] max-h-[900px] cursor-ew-resize select-none overflow-hidden rounded-2xl border border-border/40 shadow-2xl shadow-primary/5"
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleMouseDown}
+          >
+            {/* AFTER image (full width, underneath) */}
+            <div className="absolute inset-0">
+              <Image
+                src="/images/after.png"
+                alt="After: Modern premium website design by Unnat Vega"
+                fill
+                className="object-cover"
+                sizes="80vw"
+                priority
+              />
+            </div>
+
+            {/* BEFORE image (clipped by slider position) */}
+            <div
+              className="absolute inset-0 overflow-hidden"
+              style={{ width: `${sliderPos}%` }}
+            >
+              <Image
+                src="/images/before.png"
+                alt="Before: Outdated website design"
+                fill
+                className="object-cover"
+                sizes="80vw"
+                style={{ width: `${10000 / sliderPos}%`, maxWidth: "none" }}
+                priority
+              />
+            </div>
+
+            {/* Slider line */}
+            <div
+              className="absolute top-0 bottom-0 z-20 w-[3px] -translate-x-1/2 bg-white shadow-[0_0_12px_rgba(0,0,0,0.5)]"
+              style={{ left: `${sliderPos}%` }}
+            >
+              {/* Slider handle */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex size-12 items-center justify-center rounded-full border-[3px] border-white bg-primary shadow-lg shadow-primary/40 transition-transform duration-150 group-hover:scale-110 sm:size-14">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="text-white"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M8 4l-6 8 6 8" />
+                  <path d="M16 4l6 8-6 8" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Before label */}
+            <div className="absolute top-4 left-4 z-10 rounded-full bg-black/60 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm sm:px-4 sm:py-2 sm:text-sm">
+              Before
+            </div>
+
+            {/* After label */}
+            <div className="absolute top-4 right-4 z-10 rounded-full bg-primary/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm sm:px-4 sm:py-2 sm:text-sm">
+              After
+            </div>
+
+            {/* Subtle edge gradients */}
+            <div
+              className="pointer-events-none absolute top-0 bottom-0 z-10 w-8 bg-gradient-to-r from-black/20 to-transparent"
+              style={{ left: `${sliderPos}%` }}
+            />
+          </div>
+
+          {/* Instructions */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.8 }}
+            className="mt-4 text-center text-xs text-muted-foreground/60 sm:text-sm"
+          >
+            ← Drag the slider to compare →
+          </motion.p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 /* ─────────────────────── Main Page ─────────────────────── */
 export default function Home() {
   return (
@@ -1677,6 +1850,7 @@ export default function Home() {
       <StatsCounter />
       <Services />
       <Portfolio />
+      <BeforeAfterComparison />
       <HowItWorks />
       <ListedOn />
       <Testimonials />
