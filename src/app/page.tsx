@@ -166,7 +166,7 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: 500, suffix: "+", label: "Businesses Empowered" },
+  { value: 500, suffix: "+", label: "Instagram Followers" },
   { value: 25, suffix: "+", label: "Countries Served" },
   { value: 60, suffix: "%", label: "Faster Customs Clearance" },
   { value: 98, suffix: "%", label: "Client Satisfaction" },
@@ -454,12 +454,6 @@ function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-black/50 dark:bg-background/80" />
       {/* Background decorative elements */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-32 top-1/4 size-[400px] rounded-full bg-primary/8 blur-[150px] md:size-[500px]" />
-        <div className="absolute -right-32 bottom-1/4 size-[300px] rounded-full bg-primary/6 blur-[120px] md:size-[400px]" />
-        <div className="absolute left-1/2 top-1/2 size-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/4 blur-[100px] md:size-64" />
-        <div className="absolute right-[10%] top-[20%] hidden size-72 rounded-full border border-primary/8 md:block md:size-96" />
-        <div className="absolute right-[8%] top-[18%] hidden size-80 rounded-full border border-primary/4 md:block md:size-[420px]" />
-        <div className="absolute left-[5%] bottom-[15%] hidden size-48 rounded-full border border-primary/6 md:block md:size-72" />
         <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
@@ -482,10 +476,10 @@ function Hero() {
           className="text-3xl font-bold tracking-tight text-white"
           style={{ fontFamily: "var(--font-geist-mono)" }}
         >
-          <span className="block sm:text-6xl md:text-4xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
+          <span className="block sm:text-6xl p-5 md:text-4xl lg:text-8xl xl:text-7xl 2xl:text-8xl">
             Unnat Vega
           </span>
-          <span className="block text-xl">
+          <span className="block text-2xl">
             Luxury Web Design for{" "}
             <AnimatePresence mode="wait">
               <motion.span
@@ -572,7 +566,7 @@ function CounterItem({
         className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
         style={{ fontFamily: "var(--font-geist-mono)" }}
       >
-        <span className="gradient-text">
+        <span className="text-orange-500">
           {count}
           {suffix}
         </span>

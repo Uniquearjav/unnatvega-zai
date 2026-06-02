@@ -21,74 +21,122 @@ import {
 
 /* ─────────────────────── Data ─────────────────────── */
 
+// const projects = [
+//   {
+//     name: 'Revati Craft',
+//     category: 'Export',
+//     description: 'Premium spice export platform connecting Indian farmers to global markets',
+//     fullDescription: 'A complete digital transformation for a leading spice export house. We built an end-to-end platform connecting Indian farmers directly to international buyers, with real-time inventory tracking, compliance management, and seamless documentation workflows.',
+//     image: '/images/work/revati_craft.png',
+//     year: '2024',
+//     tech: ['Next.js', 'Shopify', 'Framer Motion'],
+//     metrics: '+340% Export Volume',
+//     color: 'from-orange-500/20 to-orange-700/10',
+//   },
+//   {
+//     name: 'Nirvatatva',
+//     category: 'Export',
+//     description: 'High-end textile export portal with seamless order management',
+//     fullDescription: 'An enterprise-grade textile export portal built for speed and conversion. We engineered a frictionless order management experience that reduced processing time by 60% while maintaining a premium aesthetic that reflects the quality of Indian textiles.',
+//     image: '/images/project-2.png',
+//     year: '2024',
+//     tech: ['React', 'Node.js', 'Stripe'],
+//     metrics: '+220% Revenue',
+//     color: 'from-orange-600/20 to-amber-600/10',
+//   },
+//   {
+//     name: 'TradeNexus Analytics',
+//     category: 'SaaS',
+//     description: 'Enterprise trade analytics dashboard with real-time market intelligence',
+//     fullDescription: 'A sophisticated trade analytics platform handling millions of data points in real time. We built an intuitive dashboard that makes complex trade data accessible, enabling exporters and importers to make data-driven decisions faster than ever.',
+//     image: '/images/project-3.png',
+//     year: '2023',
+//     tech: ['TypeScript', 'D3.js', 'WebSocket'],
+//     metrics: '50K+ Daily Users',
+//     color: 'from-orange-400/20 to-yellow-600/10',
+//   },
+//   {
+//     name: 'AgroVista Branding',
+//     category: 'Branding',
+//     description: 'Bold brand identity for an agro-products export house with global reach',
+//     fullDescription: 'An award-winning brand identity that positions an agro-products export house as a global leader. We created a visual system that communicates trust, quality, and international standards across all touchpoints.',
+//     image: '/images/project-4.png',
+//     year: '2023',
+//     tech: ['Next.js', 'GSAP', 'Three.js'],
+//     metrics: 'Award Winning',
+//     color: 'from-amber-500/20 to-orange-400/10',
+//   },
+//   {
+//     name: 'ImportEase App',
+//     category: 'Mobile App',
+//     description: 'Import management app with customs tracking and compliance tools',
+//     fullDescription: 'A next-generation import management app that makes customs clearance accessible and transparent. We designed an intuitive interface that simplifies complex import regulations, resulting in massive adoption by businesses across India.',
+//     image: '/images/project-5.png',
+//     year: '2023',
+//     tech: ['React Native', 'Firebase', 'Plaid'],
+//     metrics: '100K+ Downloads',
+//     color: 'from-orange-700/20 to-red-600/10',
+//   },
+//   {
+//     name: 'Maritime Solutions',
+//     category: 'Web Design',
+//     description: 'Corporate website for a logistics and freight forwarding company',
+//     fullDescription: 'A powerful corporate website for a logistics and freight forwarding company. We crafted a digital experience that showcases their global network, complete with real-time shipment tracking and an integrated inquiry system.',
+//     image: '/images/project-6.png',
+//     year: '2024',
+//     tech: ['Next.js', 'Prisma', 'Tailwind'],
+//     metrics: '+180% Inquiries',
+//     color: 'from-red-500/20 to-orange-600/10',
+//   },
+// ];
+
 const projects = [
   {
-    name: 'SpiceRoute Exports',
-    category: 'Export',
-    description: 'Premium spice export platform connecting Indian farmers to global markets',
-    fullDescription: 'A complete digital transformation for a leading spice export house. We built an end-to-end platform connecting Indian farmers directly to international buyers, with real-time inventory tracking, compliance management, and seamless documentation workflows.',
-    image: '/images/listing/project-1.png',
-    year: '2024',
-    tech: ['Next.js', 'Shopify', 'Framer Motion'],
-    metrics: '+340% Export Volume',
-    color: 'from-orange-500/20 to-orange-700/10',
+    name: "Revati Craft",
+    category: "Export",
+    description:
+      "Premium spice export platform connecting Indian farmers to global markets",
+    image: "/images/work/revati_craft.png",
+    year: "2026",
+    tech: ["Next.js", "Shadcn UI"],
   },
   {
-    name: 'TextileHub Global',
-    category: 'Export',
-    description: 'High-end textile export portal with seamless order management',
-    fullDescription: 'An enterprise-grade textile export portal built for speed and conversion. We engineered a frictionless order management experience that reduced processing time by 60% while maintaining a premium aesthetic that reflects the quality of Indian textiles.',
-    image: '/images/project-2.png',
-    year: '2024',
-    tech: ['React', 'Node.js', 'Stripe'],
-    metrics: '+220% Revenue',
-    color: 'from-orange-600/20 to-amber-600/10',
+    name: "Nirvatatva",
+    category: "Export",
+    description:
+      "High-end textile export portal with seamless order management",
+    image: "/images/work/nirvatatva.png",
+    year: "2024",
+    tech: ["React", "Node.js", "Next.js"],
   },
   {
-    name: 'TradeNexus Analytics',
-    category: 'SaaS',
-    description: 'Enterprise trade analytics dashboard with real-time market intelligence',
-    fullDescription: 'A sophisticated trade analytics platform handling millions of data points in real time. We built an intuitive dashboard that makes complex trade data accessible, enabling exporters and importers to make data-driven decisions faster than ever.',
-    image: '/images/project-3.png',
-    year: '2023',
-    tech: ['TypeScript', 'D3.js', 'WebSocket'],
-    metrics: '50K+ Daily Users',
-    color: 'from-orange-400/20 to-yellow-600/10',
+    name: "Anantastra",
+    category: "SaaS",
+    description:
+      "Enterprise trade analytics dashboard with real-time market intelligence",
+    image: "/images/work/anantastra.png",
+    year: "2025",
+    tech: ["Nextjs", "Tailwind CSS", "GSAP"],
   },
   {
-    name: 'AgroVista Branding',
-    category: 'Branding',
-    description: 'Bold brand identity for an agro-products export house with global reach',
-    fullDescription: 'An award-winning brand identity that positions an agro-products export house as a global leader. We created a visual system that communicates trust, quality, and international standards across all touchpoints.',
-    image: '/images/project-4.png',
-    year: '2023',
-    tech: ['Next.js', 'GSAP', 'Three.js'],
-    metrics: 'Award Winning',
-    color: 'from-amber-500/20 to-orange-400/10',
+    name: "Arjav Consultancy",
+    category: "Consultancy",
+    description:
+      "Bold brand identity for an agro-products export house with global reach",
+    image: "/images/work/arjav_consultancy.png",
+    year: "2025",
+    tech: ["Next.js"],
   },
   {
-    name: 'ImportEase App',
-    category: 'Mobile App',
-    description: 'Import management app with customs tracking and compliance tools',
-    fullDescription: 'A next-generation import management app that makes customs clearance accessible and transparent. We designed an intuitive interface that simplifies complex import regulations, resulting in massive adoption by businesses across India.',
-    image: '/images/project-5.png',
-    year: '2023',
-    tech: ['React Native', 'Firebase', 'Plaid'],
-    metrics: '100K+ Downloads',
-    color: 'from-orange-700/20 to-red-600/10',
+    name: "Numerologist Simple Bhansali",
+    category: "Consultancy",
+    description:
+      "Import management app with customs tracking and compliance tools",
+    image: "/images/work/simple_bhansali.png",
+    year: "2025",
+    tech: ["React", "Next.js"],
   },
-  {
-    name: 'Maritime Solutions',
-    category: 'Web Design',
-    description: 'Corporate website for a logistics and freight forwarding company',
-    fullDescription: 'A powerful corporate website for a logistics and freight forwarding company. We crafted a digital experience that showcases their global network, complete with real-time shipment tracking and an integrated inquiry system.',
-    image: '/images/project-6.png',
-    year: '2024',
-    tech: ['Next.js', 'Prisma', 'Tailwind'],
-    metrics: '+180% Inquiries',
-    color: 'from-red-500/20 to-orange-600/10',
-  },
-];
+]
 
 const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
 
@@ -219,7 +267,7 @@ function FeaturedProject() {
     >
       <div className="grid md:grid-cols-2">
         {/* Image side */}
-        <div className="relative aspect-[16/10] md:aspect-auto md:min-h-[500px]">
+        <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[500px]">
           <Image
             src={project.image}
             alt={project.name}

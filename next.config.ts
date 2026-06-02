@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     'preview-chat-4b0a275a-a5b8-43eb-b56c-50f6eaafe9ea.space-z.ai',
     '.space-z.ai',
     'space-z.ai',
+    '127.0.0.1',
   ],
   typescript: {
     ignoreBuildErrors: true,

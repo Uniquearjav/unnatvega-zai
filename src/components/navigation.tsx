@@ -199,7 +199,6 @@ export default function Navigation() {
                         style={{ animationDelay: `${idx * 50}ms` }}
                       >
                         <span className="flex-1">{link.label}</span>
-                        <ChevronRight className="size-4 text-muted-foreground/40 transition-all duration-300 group-hover:text-primary group-hover:translate-x-0.5" />
                       </a>
                     </SheetClose>
                   ) : (
@@ -210,7 +209,6 @@ export default function Navigation() {
                         style={{ animationDelay: `${idx * 50}ms` }}
                       >
                         <span className="flex-1">{link.label}</span>
-                        <ChevronRight className="size-4 text-muted-foreground/40 transition-all duration-300 group-hover:text-primary group-hover:translate-x-0.5" />
                       </Link>
                     </SheetClose>
                   )
