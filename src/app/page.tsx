@@ -526,7 +526,7 @@ function Portfolio() {
             >
               <Image
                 src={projects[activeProject].image}
-                alt={projects[activeProbrject].name}
+                alt={projects[activeProject].name}
                 fill
                 className="object-cover"
                 // sizes="(max-width: 768px) 100vw, 80vw"
