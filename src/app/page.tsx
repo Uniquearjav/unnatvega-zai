@@ -1757,32 +1757,25 @@ function BeforeAfterComparison() {
             onTouchStart={handleMouseDown}
           >
             {/* AFTER image (full width, underneath) */}
-            <div className="absolute inset-0">
-              <Image
-                src="/images/after.png"
-                alt="After: Modern premium website design by Unnat Vega"
-                fill
-                className="object-cover"
-                sizes="80vw"
-                priority
-              />
-            </div>
+            <Image
+              src="/images/after.png"
+              alt="After: Modern premium website design by Unnat Vega"
+              fill
+              className="object-cover"
+              sizes="80vw"
+              priority
+            />
 
-            {/* BEFORE image (clipped by slider position) */}
-            <div
-              className="absolute inset-0 overflow-hidden"
-              style={{ width: `${sliderPos}%` }}
-            >
-              <Image
-                src="/images/before.png"
-                alt="Before: Outdated website design"
-                fill
-                className="object-cover"
-                sizes="80vw"
-                style={{ width: `${10000 / sliderPos}%`, maxWidth: "none" }}
-                priority
-              />
-            </div>
+            {/* BEFORE image (clipped by slider position using clipPath) */}
+            <Image
+              src="/images/before.png"
+              alt="Before: Outdated website design"
+              fill
+              className="object-cover"
+              sizes="80vw"
+              style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
+              priority
+            />
 
             {/* Slider line */}
             <div
