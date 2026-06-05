@@ -62,7 +62,10 @@ const services = [
       "End-to-end export management helping Indian businesses reach global markets with compliance and confidence.",
     number: "01",
     features: ["Compliance", "Logistics", "Documentation"],
-    accent: "from-orange-500/20 to-orange-600/5",
+    accent: "from-orange-500/15 to-orange-600/5",
+    accentSolid: "bg-orange-500",
+    gridClass: "md:col-span-2 md:row-span-2", // Big hero card
+    layout: "hero" as const,
   },
   {
     icon: TrendingUp,
@@ -71,25 +74,34 @@ const services = [
       "Seamless import facilitation with strategic sourcing, quality assurance, and customs clearance support.",
     number: "02",
     features: ["Sourcing", "Quality Check", "Customs"],
-    accent: "from-emerald-500/20 to-emerald-600/5",
+    accent: "from-emerald-500/15 to-emerald-600/5",
+    accentSolid: "bg-emerald-500",
+    gridClass: "md:col-span-2", // Wide top-right
+    layout: "wide" as const,
   },
   {
     icon: Code2,
     title: "Digital Presence",
     description:
-      "Powerful websites and digital platforms built for trade businesses to attract international clients and partners.",
+      "Powerful websites and digital platforms built for trade businesses to attract international clients.",
     number: "03",
     features: ["Websites", "SEO", "Analytics"],
-    accent: "from-violet-500/20 to-violet-600/5",
+    accent: "from-violet-500/15 to-violet-600/5",
+    accentSolid: "bg-violet-500",
+    gridClass: "md:col-span-1", // Small bottom-left
+    layout: "compact" as const,
   },
   {
     icon: Palette,
     title: "Brand Identity",
     description:
-      "Premium branding that positions your business as a trusted global player in the international trade ecosystem.",
+      "Premium branding that positions your business as a trusted global player in the trade ecosystem.",
     number: "04",
     features: ["Logo", "Strategy", "Guidelines"],
-    accent: "from-rose-500/20 to-rose-600/5",
+    accent: "from-rose-500/15 to-rose-600/5",
+    accentSolid: "bg-rose-500",
+    gridClass: "md:col-span-1", // Small bottom-right
+    layout: "compact" as const,
   },
 ];
 
@@ -615,119 +627,232 @@ function StatsCounter() {
 function Services() {
   return (
     <AnimatedSection id="services" className="relative overflow-hidden px-4 py-16 md:py-20 lg:py-28">
-      {/* Background decorative elements */}
+      {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         <div
-          className="absolute inset-0 opacity-[0.015]"
+          className="absolute inset-0 opacity-[0.012]"
           style={{
             backgroundImage:
               "radial-gradient(circle, var(--foreground) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
+            backgroundSize: "28px 28px",
           }}
         />
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[600px] rounded-full bg-primary/[0.03] blur-[120px]" />
-        <div className="absolute right-0 bottom-0 h-[400px] w-[400px] rounded-full bg-primary/[0.04] blur-[100px]" />
+        <div className="absolute -left-40 top-1/4 size-[500px] rounded-full bg-primary/[0.03] blur-[120px]" />
+        <div className="absolute -right-20 bottom-0 size-[400px] rounded-full bg-primary/[0.04] blur-[100px]" />
       </div>
 
       <div className="relative mx-auto max-w-7xl">
         {/* Header */}
-        <motion.div variants={fadeInUp} className="mb-12 md:mb-16 lg:mb-20">
-          <div className="flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
-              <div className="mb-4 flex items-center gap-3">
+        <motion.div variants={fadeInUp} className="mb-10 md:mb-14 lg:mb-16">
+          <div className="flex flex-col items-start gap-3 md:flex-row md:items-end md:justify-between md:gap-6">
+            <div>
+              <div className="mb-3 flex items-center gap-3">
                 <div className="h-px w-8 bg-primary" />
                 <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-orange-500">
                   What We Do
                 </span>
               </div>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                Solutions That
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-[3.4rem] lg:leading-[1.1]">
+                Solutions That Drive
                 <br />
-                Drive <span className="gradient-text">Growth</span>
+                <span className="gradient-text">Growth</span>
               </h2>
             </div>
-            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground md:text-base">
+            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground md:max-w-sm md:text-[15px]">
               Comprehensive digital and trade solutions designed for businesses with global ambitions.
             </p>
           </div>
         </motion.div>
 
-        {/* Bento Grid */}
-        <div className="grid gap-4 md:grid-cols-3 md:gap-5 lg:gap-6">
-          {services.map((service, idx) => {
+        {/* Asymmetric Block Grid
+            Layout on md+:
+            ┌──────────────┬──────────────┐
+            │              │              │
+            │   EXPORT     │   IMPORT     │
+            │   (2col,2row)│   (2col)     │
+            │              │              │
+            │              ├────────┬─────┤
+            │              │DIGITAL │BRAND │
+            └──────────────┴────────┴─────┘
+        */}
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5 lg:gap-6">
+          {services.map((service) => {
             const IconComp = service.icon;
-            const isFirst = idx === 0;
-            const isLast = idx === 3;
 
-            return (
-              <motion.div
-                key={service.title}
-                variants={fadeInUp}
-                className={`${isFirst ? "md:col-span-2" : ""} ${isLast ? "md:col-span-2" : ""}`}
-              >
-                <div className="group relative h-full overflow-hidden rounded-2xl border border-border/30 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:rounded-3xl">
-                  {/* Animated gradient border glow on hover */}
-                  <div className="pointer-events-none absolute -inset-[1px] rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:rounded-3xl" style={{ background: `linear-gradient(135deg, oklch(0.7 0.18 40 / 30%), transparent 50%, oklch(0.7 0.18 40 / 15%))` }} />
+            /* ──── HERO CARD (Export Solutions) ──── */
+            if (service.layout === "hero") {
+              return (
+                <motion.div
+                  key={service.title}
+                  variants={fadeInUp}
+                  className={`sm:col-span-2 ${service.gridClass}`}
+                >
+                  <div className="group relative flex h-full min-h-[320px] flex-col justify-between overflow-hidden rounded-2xl border border-border/30 bg-card/50 p-6 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:min-h-[440px] md:rounded-3xl md:p-8 lg:p-10">
+                    {/* Gradient orb */}
+                    <div className={`pointer-events-none absolute -right-32 -top-32 size-80 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[80px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-125`} />
 
-                  {/* Accent gradient background */}
-                  <div className={`pointer-events-none absolute -right-20 -top-20 size-60 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[60px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-150`} />
+                    {/* Decorative grid lines */}
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-[0.015] transition-opacity duration-500 group-hover:opacity-[0.035]"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(var(--foreground) 1px, transparent 1px), linear-gradient(90deg, var(--foreground) 1px, transparent 1px)",
+                        backgroundSize: "48px 48px",
+                      }}
+                    />
 
-                  {/* Grid pattern inside card */}
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-[0.02] transition-opacity duration-500 group-hover:opacity-[0.04]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(var(--foreground) 1px, transparent 1px), linear-gradient(90deg, var(--foreground) 1px, transparent 1px)",
-                      backgroundSize: "40px 40px",
-                    }}
-                  />
-
-                  <div className="relative p-6 md:p-8 lg:p-10">
-                    {/* Top row: number + icon */}
-                    <div className="mb-6 flex items-start justify-between md:mb-8">
-                      {/* Large number */}
+                    {/* Top: Number + Icon */}
+                    <div className="relative flex items-start justify-between">
                       <span
-                        className="text-5xl font-black tracking-tighter text-foreground/[0.04] transition-colors duration-500 group-hover:text-foreground/[0.08] md:text-6xl lg:text-7xl"
+                        className="text-6xl font-black tracking-tighter text-foreground/[0.03] transition-colors duration-500 group-hover:text-foreground/[0.07] md:text-7xl lg:text-8xl"
                         style={{ fontFamily: "var(--font-geist-mono)" }}
                       >
                         {service.number}
                       </span>
-
-                      {/* Floating icon orb */}
                       <div className="relative">
                         <div className="absolute inset-0 rounded-2xl bg-primary/0 blur-xl transition-all duration-500 group-hover:bg-primary/20" />
-                        <div className="relative flex size-12 items-center justify-center rounded-2xl border border-border/50 bg-background/80 backdrop-blur-sm transition-all duration-500 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:shadow-lg group-hover:shadow-primary/10 md:size-14">
-                          <IconComp className="size-5 text-orange-500 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 md:size-6" />
+                        <div className="relative flex size-14 items-center justify-center rounded-2xl border border-border/50 bg-background/80 backdrop-blur-sm transition-all duration-500 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:shadow-lg group-hover:shadow-primary/10 lg:size-16">
+                          <IconComp className="size-6 text-orange-500 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 lg:size-7" />
                         </div>
                       </div>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="mb-3 text-xl font-bold tracking-tight transition-colors duration-300 md:text-2xl lg:text-[1.65rem]">
-                      {service.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="mb-5 text-sm leading-relaxed text-muted-foreground transition-colors duration-300 md:mb-6 md:text-[15px]">
-                      {service.description}
-                    </p>
-
-                    {/* Feature tags */}
-                    <div className="flex flex-wrap gap-2">
-                      {service.features.map((feature) => (
-                        <span
-                          key={feature}
-                          className="rounded-full border border-border/40 bg-muted/30 px-3 py-1 text-[11px] font-medium text-muted-foreground/70 transition-all duration-300 group-hover:border-primary/20 group-hover:bg-primary/5 group-hover:text-orange-500/80"
-                        >
-                          {feature}
+                    {/* Bottom: Content */}
+                    <div className="relative mt-auto">
+                      <h3 className="mb-3 text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl">
+                        {service.title}
+                      </h3>
+                      <p className="mb-5 max-w-md text-sm leading-relaxed text-muted-foreground md:text-[15px] lg:text-base">
+                        {service.description}
+                      </p>
+                      <div className="flex flex-wrap items-center gap-2">
+                        {service.features.map((feature) => (
+                          <span
+                            key={feature}
+                            className="rounded-full border border-border/40 bg-muted/30 px-3.5 py-1.5 text-[11px] font-medium text-muted-foreground/70 transition-all duration-300 group-hover:border-primary/20 group-hover:bg-primary/5 group-hover:text-orange-500/80"
+                          >
+                            {feature}
+                          </span>
+                        ))}
+                        <span className="ml-2 flex items-center gap-1.5 text-muted-foreground/30 transition-all duration-500 group-hover:text-orange-500">
+                          <span className="text-xs font-medium uppercase tracking-wider">Explore</span>
+                          <ArrowRight className="size-3.5 transition-transform duration-500 group-hover:translate-x-1" />
                         </span>
-                      ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            }
+
+            /* ──── WIDE CARD (Import Services) ──── */
+            if (service.layout === "wide") {
+              return (
+                <motion.div
+                  key={service.title}
+                  variants={fadeInUp}
+                  className={`sm:col-span-2 ${service.gridClass}`}
+                >
+                  <div className="group relative flex h-full min-h-[180px] overflow-hidden rounded-2xl border border-border/30 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:rounded-3xl">
+                    {/* Gradient orb */}
+                    <div className={`pointer-events-none absolute -left-20 -top-20 size-56 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[60px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-125`} />
+
+                    <div className="relative flex w-full flex-col justify-between p-6 md:flex-row md:items-center md:p-8 lg:p-10">
+                      {/* Left: Number + Icon + Title */}
+                      <div className="flex items-start gap-4 md:items-center md:gap-6">
+                        <div className="flex items-center gap-3">
+                          <span
+                            className="text-4xl font-black tracking-tighter text-foreground/[0.03] transition-colors duration-500 group-hover:text-foreground/[0.07] md:text-5xl"
+                            style={{ fontFamily: "var(--font-geist-mono)" }}
+                          >
+                            {service.number}
+                          </span>
+                          <div className="relative">
+                            <div className="absolute inset-0 rounded-xl bg-primary/0 blur-lg transition-all duration-500 group-hover:bg-primary/20" />
+                            <div className="relative flex size-11 items-center justify-center rounded-xl border border-border/50 bg-background/80 backdrop-blur-sm transition-all duration-500 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:shadow-lg group-hover:shadow-primary/10 md:size-12">
+                              <IconComp className="size-5 text-orange-500 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 md:size-6" />
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold tracking-tight md:text-xl lg:text-2xl">
+                            {service.title}
+                          </h3>
+                          <p className="mt-1 max-w-sm text-xs leading-relaxed text-muted-foreground md:text-sm">
+                            {service.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Right: Feature tags */}
+                      <div className="mt-4 flex flex-wrap gap-2 md:mt-0 md:shrink-0">
+                        {service.features.map((feature) => (
+                          <span
+                            key={feature}
+                            className="rounded-full border border-border/40 bg-muted/30 px-3 py-1 text-[10px] font-medium text-muted-foreground/70 transition-all duration-300 group-hover:border-primary/20 group-hover:bg-primary/5 group-hover:text-orange-500/80 md:text-[11px]"
+                          >
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            }
+
+            /* ──── COMPACT CARD (Digital Presence / Brand Identity) ──── */
+            return (
+              <motion.div
+                key={service.title}
+                variants={fadeInUp}
+                className={service.gridClass}
+              >
+                <div className="group relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-2xl border border-border/30 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:min-h-[240px] md:rounded-3xl">
+                  {/* Accent bar at top */}
+                  <div className={`h-1 w-full ${service.accentSolid} opacity-20 transition-opacity duration-500 group-hover:opacity-60`} />
+
+                  {/* Gradient orb */}
+                  <div className={`pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[50px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-150`} />
+
+                  <div className="relative flex flex-1 flex-col justify-between p-5 md:p-6">
+                    {/* Top: Number + Icon */}
+                    <div className="flex items-start justify-between">
+                      <span
+                        className="text-4xl font-black tracking-tighter text-foreground/[0.03] transition-colors duration-500 group-hover:text-foreground/[0.07] md:text-5xl"
+                        style={{ fontFamily: "var(--font-geist-mono)" }}
+                      >
+                        {service.number}
+                      </span>
+                      <div className="relative">
+                        <div className="absolute inset-0 rounded-xl bg-primary/0 blur-lg transition-all duration-500 group-hover:bg-primary/20" />
+                        <div className="relative flex size-10 items-center justify-center rounded-xl border border-border/50 bg-background/80 backdrop-blur-sm transition-all duration-500 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:shadow-lg group-hover:shadow-primary/10 md:size-11">
+                          <IconComp className="size-4.5 text-orange-500 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 md:size-5" />
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Bottom arrow indicator */}
-                    <div className="mt-5 flex items-center gap-2 text-muted-foreground/30 transition-all duration-500 group-hover:text-orange-500 md:mt-6">
-                      <span className="text-xs font-medium uppercase tracking-wider">Explore</span>
-                      <ArrowRight className="size-3.5 transition-transform duration-500 group-hover:translate-x-1" />
+                    {/* Bottom: Title + first feature */}
+                    <div>
+                      <h3 className="mb-1.5 text-base font-bold tracking-tight md:text-lg">
+                        {service.title}
+                      </h3>
+                      <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-muted-foreground md:text-[13px]">
+                        {service.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex gap-1.5">
+                          {service.features.slice(0, 2).map((feature) => (
+                            <span
+                              key={feature}
+                              className="rounded-full border border-border/40 bg-muted/30 px-2.5 py-0.5 text-[9px] font-medium text-muted-foreground/60 transition-all duration-300 group-hover:border-primary/20 group-hover:bg-primary/5 group-hover:text-orange-500/80 md:text-[10px]"
+                            >
+                              {feature}
+                            </span>
+                          ))}
+                        </div>
+                        <ArrowRight className="size-3.5 text-muted-foreground/20 transition-all duration-500 group-hover:translate-x-0.5 group-hover:text-orange-500" />
+                      </div>
                     </div>
                   </div>
                 </div>

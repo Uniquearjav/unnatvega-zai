@@ -263,5 +263,35 @@ Work Log:
 
 Stage Summary:
 - Portfolio: Auto-rotating carousel with 5s interval, progress bar, pause/play toggle, wrap-around navigation
-- Services: Modern Bento-grid layout with gradient borders, watermark numbers, feature tags, floating icon orbs, asymmetric header
+- Services: Redesigned to asymmetric block grid layout (see Task 12)
 - All responsive breakpoints working, no console errors
+
+---
+Task ID: 12
+Agent: main
+Task: Redesign Services section to asymmetric block grid layout
+
+Work Log:
+- Redesigned Services (WHAT WE DO) section with asymmetric block grid:
+  - 4-column CSS grid with varied col-span and row-span per card
+  - Export Solutions: col-span-2 + row-span-2 (big hero card, left side, tall)
+  - Import Services: col-span-2 (wide horizontal card, top-right)
+  - Digital Presence: col-span-1 (compact card, bottom-left)
+  - Brand Identity: col-span-1 (compact card, bottom-right)
+- Three distinct card layout types:
+  1. HERO card — tall, content at top and bottom with mt-auto, large watermark number (8xl), decorative grid lines, gradient orb
+  2. WIDE card — horizontal layout (md:flex-row), number+icon+title on left, feature tags on right, gradient orb from left
+  3. COMPACT card — vertical, accent color bar at top, smaller everything, only 2 features shown, arrow indicator
+- Each card type has unique visual treatment creating asymmetric visual tension
+- Added accentSolid color per service for the compact card top bar
+- Added layout type ("hero" | "wide" | "compact") and gridClass to service data
+- Mobile: 2-column grid with sm:col-span-2 for hero and wide cards
+- Background: dot-grid pattern + primary blur orbs
+- Header: asymmetric split layout with accent line + label on left, description on right
+- Lint passes clean, browser verified (desktop + mobile + dark mode), no errors
+
+Stage Summary:
+- Asymmetric block grid: 3 distinct card layouts (hero/wide/compact) creating visual tension
+- Hero card dominates left side (2col x 2row), wide card spans top-right, two compact cards fill bottom-right
+- Each card type has unique internal layout and visual accents
+- All breakpoints verified working
