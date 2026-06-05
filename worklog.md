@@ -228,3 +228,40 @@ Stage Summary:
 - CTA banner with gradient background
 - Contact form with success state
 - All animations powered by framer-motion
+
+---
+Task ID: 11
+Agent: main
+Task: Add auto-rotation to Portfolio section and redesign Services section
+
+Work Log:
+- Added auto-rotation to Portfolio (Our Work) section:
+  - Auto-advances to next project every 5 seconds with loop
+  - Animated progress bar showing countdown timer (sidebar on desktop, inline on mobile)
+  - Pause/Play toggle button in section header (desktop) and mobile nav area
+  - Navigation arrows now wrap around (last → first, first → last) instead of being disabled
+  - Manual navigation resets the auto-play timer
+  - Used refs for elapsed time tracking to avoid React 19 strict lint rules about setState in effects
+- Completely redesigned Services (WHAT WE DO) section:
+  - New Bento-grid layout: first and last cards span 2 columns on md+
+  - Left-aligned header with accent line + label, large split heading ("Solutions That / Drive Growth")
+  - Description moved to right side on desktop for asymmetric modern layout
+  - Cards with:
+    - Large watermark number (01-04) in background
+    - Floating icon orb with glow on hover
+    - Animated gradient border glow on hover
+    - Accent color gradient per service (orange, emerald, violet, rose)
+    - Subtle grid pattern inside cards (intensifies on hover)
+    - Feature tags (pill badges) that highlight on hover
+    - "Explore →" indicator at bottom with animated arrow
+  - Background: dot-grid pattern + primary color blur orbs for depth
+  - Added extra data fields: number, features[], accent gradient per service
+- Added Pause/Play icons from lucide-react
+- Fixed lint: React 19 set-state-in-effect rule compliance using refs and callback-based state updates
+- Browser verified: desktop, dark mode, mobile responsive - all working with no errors
+- Lint passes clean
+
+Stage Summary:
+- Portfolio: Auto-rotating carousel with 5s interval, progress bar, pause/play toggle, wrap-around navigation
+- Services: Modern Bento-grid layout with gradient borders, watermark numbers, feature tags, floating icon orbs, asymmetric header
+- All responsive breakpoints working, no console errors

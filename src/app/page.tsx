@@ -34,6 +34,8 @@ import {
   Mail,
   ChevronDown,
   CheckCircle2,
+  Pause,
+  Play,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -58,24 +60,36 @@ const services = [
     title: "Export Solutions",
     description:
       "End-to-end export management helping Indian businesses reach global markets with compliance and confidence.",
+    number: "01",
+    features: ["Compliance", "Logistics", "Documentation"],
+    accent: "from-orange-500/20 to-orange-600/5",
   },
   {
     icon: TrendingUp,
     title: "Import Services",
     description:
       "Seamless import facilitation with strategic sourcing, quality assurance, and customs clearance support.",
+    number: "02",
+    features: ["Sourcing", "Quality Check", "Customs"],
+    accent: "from-emerald-500/20 to-emerald-600/5",
   },
   {
     icon: Code2,
     title: "Digital Presence",
     description:
       "Powerful websites and digital platforms built for trade businesses to attract international clients and partners.",
+    number: "03",
+    features: ["Websites", "SEO", "Analytics"],
+    accent: "from-violet-500/20 to-violet-600/5",
   },
   {
     icon: Palette,
     title: "Brand Identity",
     description:
       "Premium branding that positions your business as a trusted global player in the international trade ecosystem.",
+    number: "04",
+    features: ["Logo", "Strategy", "Guidelines"],
+    accent: "from-rose-500/20 to-rose-600/5",
   },
 ];
 
@@ -600,45 +614,126 @@ function StatsCounter() {
 /* ─────────────────────── Services ─────────────────────── */
 function Services() {
   return (
-    <AnimatedSection id="services" className="px-4 py-16 md:py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl">
-        <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
-          <Badge
-            variant="outline"
-            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
-          >
-            WHAT WE DO
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
-            Solutions That Drive{" "}
-            <span className="gradient-text">Growth</span>
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base">
-            Comprehensive digital and trade solutions designed for businesses
-            with global ambitions.
-          </p>
+    <AnimatedSection id="services" className="relative overflow-hidden px-4 py-16 md:py-20 lg:py-28">
+      {/* Background decorative elements */}
+      <div className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute inset-0 opacity-[0.015]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, var(--foreground) 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[600px] rounded-full bg-primary/[0.03] blur-[120px]" />
+        <div className="absolute right-0 bottom-0 h-[400px] w-[400px] rounded-full bg-primary/[0.04] blur-[100px]" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl">
+        {/* Header */}
+        <motion.div variants={fadeInUp} className="mb-12 md:mb-16 lg:mb-20">
+          <div className="flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-2xl">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="h-px w-8 bg-primary" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-orange-500">
+                  What We Do
+                </span>
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                Solutions That
+                <br />
+                Drive <span className="gradient-text">Growth</span>
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground md:text-base">
+              Comprehensive digital and trade solutions designed for businesses with global ambitions.
+            </p>
+          </div>
         </motion.div>
 
-        <div className="grid gap-4 sm:grid-cols-2 md:gap-6">
-          {services.map((service) => (
-            <motion.div key={service.title} variants={fadeInUp}>
-              <Card className="group glass relative h-full overflow-hidden border-transparent transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10">
-                {/* Hover glow effect */}
-                <div className="pointer-events-none absolute -inset-1 rounded-xl bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
-                <CardContent className="relative p-5 md:p-8">
-                  <div className="mb-3 flex size-11 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20 group-hover:shadow-md group-hover:shadow-primary/20 md:mb-4 md:size-12">
-                    <service.icon className="size-5 text-orange-500 transition-all duration-300 group-hover:scale-125 group-hover:rotate-3 md:size-6" />
+        {/* Bento Grid */}
+        <div className="grid gap-4 md:grid-cols-3 md:gap-5 lg:gap-6">
+          {services.map((service, idx) => {
+            const IconComp = service.icon;
+            const isFirst = idx === 0;
+            const isLast = idx === 3;
+
+            return (
+              <motion.div
+                key={service.title}
+                variants={fadeInUp}
+                className={`${isFirst ? "md:col-span-2" : ""} ${isLast ? "md:col-span-2" : ""}`}
+              >
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-border/30 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:rounded-3xl">
+                  {/* Animated gradient border glow on hover */}
+                  <div className="pointer-events-none absolute -inset-[1px] rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:rounded-3xl" style={{ background: `linear-gradient(135deg, oklch(0.7 0.18 40 / 30%), transparent 50%, oklch(0.7 0.18 40 / 15%))` }} />
+
+                  {/* Accent gradient background */}
+                  <div className={`pointer-events-none absolute -right-20 -top-20 size-60 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[60px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-150`} />
+
+                  {/* Grid pattern inside card */}
+                  <div
+                    className="pointer-events-none absolute inset-0 opacity-[0.02] transition-opacity duration-500 group-hover:opacity-[0.04]"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(var(--foreground) 1px, transparent 1px), linear-gradient(90deg, var(--foreground) 1px, transparent 1px)",
+                      backgroundSize: "40px 40px",
+                    }}
+                  />
+
+                  <div className="relative p-6 md:p-8 lg:p-10">
+                    {/* Top row: number + icon */}
+                    <div className="mb-6 flex items-start justify-between md:mb-8">
+                      {/* Large number */}
+                      <span
+                        className="text-5xl font-black tracking-tighter text-foreground/[0.04] transition-colors duration-500 group-hover:text-foreground/[0.08] md:text-6xl lg:text-7xl"
+                        style={{ fontFamily: "var(--font-geist-mono)" }}
+                      >
+                        {service.number}
+                      </span>
+
+                      {/* Floating icon orb */}
+                      <div className="relative">
+                        <div className="absolute inset-0 rounded-2xl bg-primary/0 blur-xl transition-all duration-500 group-hover:bg-primary/20" />
+                        <div className="relative flex size-12 items-center justify-center rounded-2xl border border-border/50 bg-background/80 backdrop-blur-sm transition-all duration-500 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:shadow-lg group-hover:shadow-primary/10 md:size-14">
+                          <IconComp className="size-5 text-orange-500 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 md:size-6" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="mb-3 text-xl font-bold tracking-tight transition-colors duration-300 md:text-2xl lg:text-[1.65rem]">
+                      {service.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="mb-5 text-sm leading-relaxed text-muted-foreground transition-colors duration-300 md:mb-6 md:text-[15px]">
+                      {service.description}
+                    </p>
+
+                    {/* Feature tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {service.features.map((feature) => (
+                        <span
+                          key={feature}
+                          className="rounded-full border border-border/40 bg-muted/30 px-3 py-1 text-[11px] font-medium text-muted-foreground/70 transition-all duration-300 group-hover:border-primary/20 group-hover:bg-primary/5 group-hover:text-orange-500/80"
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Bottom arrow indicator */}
+                    <div className="mt-5 flex items-center gap-2 text-muted-foreground/30 transition-all duration-500 group-hover:text-orange-500 md:mt-6">
+                      <span className="text-xs font-medium uppercase tracking-wider">Explore</span>
+                      <ArrowRight className="size-3.5 transition-transform duration-500 group-hover:translate-x-1" />
+                    </div>
                   </div>
-                  <h3 className="mb-1.5 text-lg font-semibold md:mb-2 md:text-xl">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {service.description}
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </AnimatedSection>
@@ -648,14 +743,100 @@ function Services() {
 /* ─────────────────────── Portfolio ─────────────────────── */
 function Portfolio() {
   const [activeProject, setActiveProject] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [autoProgress, setAutoProgress] = useState(0);
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const AUTO_INTERVAL = 5000; // 5 seconds per slide
+  const PROGRESS_STEP = 50; // Update progress every 50ms
+
+  // Auto-play logic
+  const elapsedRef = useRef(0);
+  const isAutoPlayingRef = useRef(true);
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    isAutoPlayingRef.current = isAutoPlaying;
+  }, [isAutoPlaying]);
+
+  const startAutoPlay = useCallback(() => {
+    // Clear any existing intervals
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    if (progressRef.current) clearInterval(progressRef.current);
+
+    elapsedRef.current = 0;
+
+    progressRef.current = setInterval(() => {
+      if (!isAutoPlayingRef.current) return;
+      elapsedRef.current += PROGRESS_STEP;
+      setAutoProgress((elapsedRef.current / AUTO_INTERVAL) * 100);
+    }, PROGRESS_STEP);
+
+    autoPlayRef.current = setInterval(() => {
+      if (!isAutoPlayingRef.current) return;
+      elapsedRef.current = 0;
+      setAutoProgress(0);
+      setActiveProject((prev) => (prev + 1) % projects.length);
+    }, AUTO_INTERVAL);
+  }, []);
+
+  const stopAutoPlay = useCallback(() => {
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    if (progressRef.current) clearInterval(progressRef.current);
+    autoPlayRef.current = null;
+    progressRef.current = null;
+    elapsedRef.current = 0;
+  }, []);
+
+  // Start auto-play on mount and manage based on isAutoPlaying
+  useEffect(() => {
+    if (isAutoPlaying) {
+      startAutoPlay();
+    } else {
+      stopAutoPlay();
+    }
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+      if (progressRef.current) clearInterval(progressRef.current);
+    };
+  }, [isAutoPlaying, startAutoPlay, stopAutoPlay]);
+
+  // Reset progress when project changes manually
+  const goToProject = useCallback(
+    (idx: number) => {
+      setActiveProject(idx);
+      if (isAutoPlaying) {
+        startAutoPlay(); // Restart timer
+      }
+    },
+    [isAutoPlaying, startAutoPlay]
+  );
+
+  const nextProject = useCallback(() => {
+    goToProject((activeProject + 1) % projects.length);
+  }, [activeProject, goToProject]);
+
+  const prevProject = useCallback(() => {
+    goToProject((activeProject - 1 + projects.length) % projects.length);
+  }, [activeProject, goToProject]);
+
+  const toggleAutoPlay = useCallback(() => {
+    setIsAutoPlaying((prev) => {
+      if (prev) {
+        // Pausing — reset progress
+        setAutoProgress(0);
+      }
+      return !prev;
+    });
+  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowDown" || e.key === "ArrowRight") {
       e.preventDefault();
-      setActiveProject((prev) => Math.min(prev + 1, projects.length - 1));
+      nextProject();
     } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
       e.preventDefault();
-      setActiveProject((prev) => Math.max(prev - 1, 0));
+      prevProject();
     }
   };
 
@@ -690,16 +871,31 @@ function Portfolio() {
             Crafted with Purpose
           </h2>
         </div>
-        <Button
-          asChild
-          variant="ghost"
-          className="hidden text-sm text-muted-foreground transition-all duration-300 hover:text-orange-500 md:inline-flex"
-        >
-          <Link href="/work">
-            View All Work
-            <ArrowRight className="ml-1 size-4" />
-          </Link>
-        </Button>
+        <div className="flex items-center gap-2">
+          {/* Auto-play toggle */}
+          <button
+            onClick={toggleAutoPlay}
+            className="flex size-9 items-center justify-center rounded-full border border-border/40 text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-orange-500 md:size-8"
+            aria-label={isAutoPlaying ? "Pause auto-play" : "Resume auto-play"}
+            title={isAutoPlaying ? "Pause" : "Auto-play"}
+          >
+            {isAutoPlaying ? (
+              <Pause className="size-3.5" />
+            ) : (
+              <Play className="size-3.5" />
+            )}
+          </button>
+          <Button
+            asChild
+            variant="ghost"
+            className="hidden text-sm text-muted-foreground transition-all duration-300 hover:text-orange-500 md:inline-flex"
+          >
+            <Link href="/work">
+              View All Work
+              <ArrowRight className="ml-1 size-4" />
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Mobile project selector pills */}
@@ -707,7 +903,7 @@ function Portfolio() {
         {projects.map((project, idx) => (
           <button
             key={project.name}
-            onClick={() => setActiveProject(idx)}
+            onClick={() => goToProject(idx)}
             className={`shrink-0 rounded-full px-3 py-2 text-xs font-medium transition-all duration-300 min-h-[44px] ${
               activeProject === idx
                 ? "bg-primary text-orange-500-foreground shadow-lg shadow-primary/25"
@@ -731,7 +927,7 @@ function Portfolio() {
             {projects.map((project, idx) => (
               <button
                 key={project.name}
-                onClick={() => setActiveProject(idx)}
+                onClick={() => goToProject(idx)}
                 className={`group/sidebar relative flex items-center gap-3 px-5 py-3.5 text-left transition-all duration-300 ${
                   activeProject === idx
                     ? "border-l-2 border-primary bg-primary/10"
@@ -769,15 +965,23 @@ function Portfolio() {
             ))}
           </div>
           <div className="border-t border-border/30 px-5 py-3">
-            <div className="mb-3 h-0.5 w-full overflow-hidden rounded-full bg-border/30">
-              <motion.div
-                className="h-full rounded-full bg-primary"
-                initial={false}
-                animate={{
-                  width: `${((activeProject + 1) / projects.length) * 100}%`,
-                }}
-                transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-              />
+            {/* Auto-play progress bar */}
+            <div className="mb-2 h-0.5 w-full overflow-hidden rounded-full bg-border/30">
+              {isAutoPlaying ? (
+                <div
+                  className="h-full rounded-full bg-primary transition-[width] duration-100 ease-linear"
+                  style={{ width: `${autoProgress}%` }}
+                />
+              ) : (
+                <motion.div
+                  className="h-full rounded-full bg-primary/50"
+                  initial={false}
+                  animate={{
+                    width: `${((activeProject + 1) / projects.length) * 100}%`,
+                  }}
+                  transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                />
+              )}
             </div>
             <div className="flex items-center justify-between">
               <div>
@@ -797,23 +1001,15 @@ function Portfolio() {
               </div>
               <div className="flex gap-1">
                 <button
-                  onClick={() =>
-                    setActiveProject((prev) => Math.max(prev - 1, 0))
-                  }
-                  disabled={activeProject === 0}
-                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500 disabled:opacity-30"
+                  onClick={prevProject}
+                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500"
                   aria-label="Previous project"
                 >
                   <ChevronRight className="size-3.5 -rotate-90" />
                 </button>
                 <button
-                  onClick={() =>
-                    setActiveProject((prev) =>
-                      Math.min(prev + 1, projects.length - 1)
-                    )
-                  }
-                  disabled={activeProject === projects.length - 1}
-                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500 disabled:opacity-30"
+                  onClick={nextProject}
+                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500"
                   aria-label="Next project"
                 >
                   <ChevronRight className="size-3.5 rotate-90" />
@@ -905,7 +1101,7 @@ function Portfolio() {
             {projects.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setActiveProject(idx)}
+                onClick={() => goToProject(idx)}
                 className={`transition-all duration-500 ${
                   activeProject === idx
                     ? "h-6 w-1.5 rounded-full bg-primary shadow-sm shadow-primary/50"
@@ -918,9 +1114,20 @@ function Portfolio() {
         </div>
       </div>
 
-      {/* Mobile navigation arrows */}
+      {/* Mobile navigation arrows + auto-play progress */}
       <div className="mt-3 flex items-center justify-between md:hidden">
         <div className="flex items-center gap-2">
+          <button
+            onClick={toggleAutoPlay}
+            className="flex size-8 items-center justify-center rounded-full border border-border/40 text-muted-foreground transition-all duration-300 hover:border-primary/40 hover:text-orange-500"
+            aria-label={isAutoPlaying ? "Pause auto-play" : "Resume auto-play"}
+          >
+            {isAutoPlaying ? (
+              <Pause className="size-3" />
+            ) : (
+              <Play className="size-3" />
+            )}
+          </button>
           <span
             className="text-xs font-bold text-orange-500"
             style={{ fontFamily: "var(--font-geist-mono)" }}
@@ -935,23 +1142,26 @@ function Portfolio() {
             {String(projects.length).padStart(2, "0")}
           </span>
         </div>
+        {/* Mobile progress bar */}
+        <div className="mx-2 h-0.5 flex-1 overflow-hidden rounded-full bg-border/30">
+          {isAutoPlaying && (
+            <div
+              className="h-full rounded-full bg-primary transition-[width] duration-100 ease-linear"
+              style={{ width: `${autoProgress}%` }}
+            />
+          )}
+        </div>
         <div className="flex gap-2">
           <button
-            onClick={() => setActiveProject((prev) => Math.max(prev - 1, 0))}
-            disabled={activeProject === 0}
-            className="flex size-9 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500 disabled:opacity-30"
+            onClick={prevProject}
+            className="flex size-9 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500"
             aria-label="Previous project"
           >
             <ChevronRight className="size-4 -rotate-90" />
           </button>
           <button
-            onClick={() =>
-              setActiveProject((prev) =>
-                Math.min(prev + 1, projects.length - 1)
-              )
-            }
-            disabled={activeProject === projects.length - 1}
-            className="flex size-9 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500 disabled:opacity-30"
+            onClick={nextProject}
+            className="flex size-9 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500"
             aria-label="Next project"
           >
             <ChevronRight className="size-4 rotate-90" />
