@@ -1221,10 +1221,23 @@ function Testimonials() {
 /* ─────────────────────── Social Media ─────────────────────── */
 function SocialMedia() {
   const [hoveredPost, setHoveredPost] = useState<number | null>(null);
+  const [activePlatform, setActivePlatform] = useState<string | null>(null);
+
+  const filteredPosts = activePlatform
+    ? socialPosts.filter((p) => p.platform === activePlatform)
+    : socialPosts;
+
+  const socialStats = [
+    { icon: Instagram, label: "Instagram", value: "2.4K", color: "#E4405F" },
+    { icon: Linkedin, label: "LinkedIn", value: "1.8K", color: "#0A66C2" },
+    { icon: Facebook, label: "Facebook", value: "3.1K", color: "#1877F2" },
+    { icon: Twitter, label: "X", value: "950+", color: "#000000" },
+  ];
 
   return (
-    <AnimatedSection className="px-4 py-16 md:py-20 lg:py-24">
+    <AnimatedSection className="px-4 py-16 md:py-20 lg:py-24 overflow-hidden">
       <div className="mx-auto max-w-7xl">
+        {/* Header */}
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
           <Badge
             variant="outline"
@@ -1236,115 +1249,167 @@ function SocialMedia() {
             Follow Our <span className="gradient-text">Journey</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base">
-            Stay connected with us on social media for the latest updates, trade
-            insights, and behind-the-scenes moments.
+            Stay connected with us for the latest updates, trade insights, and
+            behind-the-scenes moments from the world of international commerce.
           </p>
         </motion.div>
 
-        {/* Platform links */}
+        {/* Social Stats Bar */}
         <motion.div
           variants={fadeInUp}
-          className="mb-8 flex items-center justify-center gap-3 sm:gap-4"
+          className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 md:mb-10"
         >
-          {Object.entries(platformConfig).map(([key, config]) => {
-            const IconComp = config.icon;
+          {socialStats.map((stat) => {
+            const IconComp = stat.icon;
             return (
-              <a
-                key={key}
-                href="#"
-                className="group flex items-center gap-2 rounded-full border border-border/60 px-3.5 py-2 transition-all duration-300 hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 sm:px-4"
+              <div
+                key={stat.label}
+                className="group relative overflow-hidden rounded-xl border border-border/40 bg-card/50 p-4 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
               >
-                <IconComp
-                  className="size-4 transition-transform duration-300 group-hover:scale-110"
-                  style={{ color: config.color }}
-                />
-                <span className="hidden text-xs font-medium text-muted-foreground transition-colors group-hover:text-foreground sm:inline">
-                  {config.label}
-                </span>
-              </a>
+                <div className="absolute -right-4 -top-4 size-16 rounded-full opacity-[0.06] transition-all duration-500 group-hover:opacity-[0.12] group-hover:scale-150" style={{ background: stat.color }} />
+                <div className="relative flex items-center gap-3">
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: `${stat.color}15` }}>
+                    <IconComp className="size-4" style={{ color: stat.color }} />
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold tracking-tight" style={{ fontFamily: "var(--font-geist-mono)" }}>
+                      {stat.value}
+                    </div>
+                    <div className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                      {stat.label}
+                    </div>
+                  </div>
+                </div>
+              </div>
             );
           })}
         </motion.div>
 
-        {/* Posts grid */}
+        {/* Platform Filter */}
+        <motion.div
+          variants={fadeInUp}
+          className="mb-6 flex flex-wrap items-center justify-center gap-2 md:mb-8"
+        >
+          <button
+            onClick={() => setActivePlatform(null)}
+            className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+              activePlatform === null
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                : "border border-border/60 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+            }`}
+          >
+            All Posts
+          </button>
+          {Object.entries(platformConfig).map(([key, config]) => {
+            const IconComp = config.icon;
+            return (
+              <button
+                key={key}
+                onClick={() => setActivePlatform(key)}
+                className={`group flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+                  activePlatform === key
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                    : "border border-border/60 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                }`}
+              >
+                <IconComp className="size-3.5 transition-transform duration-300 group-hover:scale-110" style={activePlatform !== key ? { color: config.color } : undefined} />
+                <span className="hidden sm:inline">{config.label}</span>
+              </button>
+            );
+          })}
+        </motion.div>
+
+        {/* Masonry-style Posts Grid */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5">
-          {socialPosts.map((post) => {
+          {filteredPosts.map((post, idx) => {
             const config = platformConfig[post.platform];
             const IconComp = config.icon;
             const isHovered = hoveredPost === post.id;
+            // Vary card heights for masonry effect
+            const isLarge = idx % 5 === 0;
 
             return (
               <motion.div
                 key={post.id}
                 variants={fadeInUp}
+                layout
                 onMouseEnter={() => setHoveredPost(post.id)}
                 onMouseLeave={() => setHoveredPost(null)}
-                className="group"
+                className={`${isLarge ? "sm:col-span-2 lg:col-span-1" : ""}`}
               >
-                <div className="overflow-hidden rounded-2xl border border-border/40 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5">
+                <div className="group h-full overflow-hidden rounded-2xl border border-border/40 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1">
                   {/* Image */}
-                  <div className="relative aspect-square overflow-hidden">
+                  <div className={`relative overflow-hidden ${isLarge ? "aspect-[4/3]" : "aspect-square"}`}>
                     <Image
                       src={post.image}
                       alt={post.caption}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
-                    {/* Overlay on hover */}
-                    <div
-                      className={`absolute inset-0 bg-background/60 backdrop-blur-[2px] transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
-                    />
-                    {/* Platform badge */}
-                    <div
-                      className={`absolute left-3 top-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 backdrop-blur-sm transition-all duration-300 ${isHovered ? "bg-primary/90" : "bg-background/80"}`}
-                    >
-                      <IconComp
-                        className={`size-3 ${isHovered ? "text-orange-500-foreground" : ""}`}
-                        style={!isHovered ? { color: config.color } : undefined}
-                      />
-                      <span
-                        className={`text-[10px] font-semibold ${isHovered ? "text-orange-500-foreground" : "text-foreground/70"}`}
-                      >
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0" />
+
+                    {/* Platform badge - always visible */}
+                    <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-black/40 px-2.5 py-1 backdrop-blur-md">
+                      <IconComp className="size-3 text-white" style={{ color: config.color }} />
+                      <span className="text-[10px] font-semibold text-white/90">
                         {config.label}
                       </span>
                     </div>
-                    {/* Hover stats */}
+
+                    {/* Time badge */}
+                    <div className="absolute right-3 top-3 rounded-full bg-black/30 px-2 py-0.5 backdrop-blur-md">
+                      <span className="text-[9px] font-medium text-white/70">
+                        {post.time}
+                      </span>
+                    </div>
+
+                    {/* Hover overlay with stats */}
                     <div
-                      className={`absolute inset-0 flex items-center justify-center gap-6 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
+                      className={`absolute inset-0 flex items-center justify-center gap-8 bg-black/40 backdrop-blur-[3px] transition-all duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
                     >
-                      <div className="flex items-center gap-1.5 text-foreground">
-                        <Heart className="size-5 fill-primary text-orange-500" />
-                        <span className="text-sm font-bold">{post.likes}</span>
+                      <div className="flex flex-col items-center gap-1">
+                        <Heart className={`size-6 transition-all duration-300 ${isHovered ? "scale-110 fill-red-500 text-red-500" : "text-white"}`} />
+                        <span className="text-sm font-bold text-white">{post.likes}</span>
                       </div>
-                      <div className="flex items-center gap-1.5 text-foreground">
-                        <MessageCircle className="size-5 text-orange-500" />
-                        <span className="text-sm font-bold">
-                          {post.comments}
-                        </span>
+                      <div className="flex flex-col items-center gap-1">
+                        <MessageCircle className={`size-6 transition-all duration-300 ${isHovered ? "scale-110 text-blue-400" : "text-white"}`} />
+                        <span className="text-sm font-bold text-white">{post.comments}</span>
                       </div>
+                    </div>
+
+                    {/* Caption overlay at bottom of image */}
+                    <div className="absolute bottom-0 left-0 right-0 p-3">
+                      <p className="line-clamp-2 text-[11px] font-medium leading-snug text-white/90 sm:text-xs">
+                        {post.caption}
+                      </p>
                     </div>
                   </div>
 
-                  {/* Content */}
+                  {/* Content below image */}
                   <div className="p-3.5 sm:p-4">
-                    <p className="mb-2.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                    <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
                       {post.caption}
                     </p>
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5 text-[10px] text-muted-foreground/60">
-                        <span className="flex items-center gap-1">
+                      <div className="flex items-center gap-3 text-[11px] text-muted-foreground/60">
+                        <span className="flex items-center gap-1 transition-colors duration-300 hover:text-red-400">
                           <Heart className="size-3" />
                           {post.likes}
                         </span>
-                        <span className="flex items-center gap-1">
+                        <span className="flex items-center gap-1 transition-colors duration-300 hover:text-blue-400">
                           <MessageCircle className="size-3" />
                           {post.comments}
                         </span>
                       </div>
-                      <span className="text-[10px] text-muted-foreground/40">
-                        {post.time}
-                      </span>
+                      <a
+                        href="#"
+                        className="flex items-center gap-1 text-[10px] font-medium text-muted-foreground/50 transition-colors duration-300 hover:text-orange-500"
+                      >
+                        <IconComp className="size-3" style={{ color: config.color }} />
+                        View
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -1353,22 +1418,57 @@ function SocialMedia() {
           })}
         </div>
 
-        {/* CTA to follow */}
-        <motion.div variants={fadeInUp} className="mt-8 text-center sm:mt-10">
-          <Button
-            asChild
-            variant="outline"
-            className="gap-2 border-border/60 transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
-          >
-            <a
-              href="https://instagram.com/unnatvega"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Instagram className="size-4" />
-              Follow Us on Instagram
-            </a>
-          </Button>
+        {/* CTA Section */}
+        <motion.div variants={fadeInUp} className="mt-10 sm:mt-12">
+          <div className="relative overflow-hidden rounded-2xl border border-border/40 bg-gradient-to-br from-orange-500/10 via-background to-orange-500/5 p-6 text-center sm:p-8 md:p-10">
+            {/* Decorative elements */}
+            <div className="pointer-events-none absolute -left-20 -top-20 size-60 rounded-full bg-orange-500/5 blur-[80px]" />
+            <div className="pointer-events-none absolute -bottom-20 -right-20 size-60 rounded-full bg-orange-500/5 blur-[80px]" />
+
+            <div className="relative">
+              <h3 className="mb-2 text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">
+                Never Miss an <span className="gradient-text">Update</span>
+              </h3>
+              <p className="mx-auto mb-6 max-w-md text-sm text-muted-foreground sm:text-base">
+                Follow us across all platforms for trade insights, success
+                stories, and exclusive behind-the-scenes content.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                {socialStats.map((stat) => {
+                  const IconComp = stat.icon;
+                  return (
+                    <a
+                      key={stat.label}
+                      href="#"
+                      className="group/flex flex items-center gap-2 rounded-full border border-border/60 px-4 py-2.5 transition-all duration-300 hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 hover:-translate-y-0.5"
+                    >
+                      <IconComp className="size-4 transition-transform duration-300 group-hover/flex:scale-110" style={{ color: stat.color }} />
+                      <span className="text-xs font-medium text-muted-foreground transition-colors group-hover/flex:text-foreground">
+                        {stat.label}
+                      </span>
+                      <span className="text-[10px] font-bold text-foreground/50">
+                        {stat.value}
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+              <Button
+                asChild
+                size="lg"
+                className="mt-6 min-h-[44px] bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 hover:scale-105"
+              >
+                <a
+                  href="https://instagram.com/unnatvega"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Instagram className="mr-2 size-4" />
+                  Follow Us on Instagram
+                </a>
+              </Button>
+            </div>
+          </div>
         </motion.div>
       </div>
     </AnimatedSection>
