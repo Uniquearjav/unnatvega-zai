@@ -27,7 +27,7 @@ const navLinks = [
 
 /* ─────────────────────── Theme Toggle ─────────────────────── */
 
-function ThemeToggle() {
+function ThemeToggle({ iconColor = 'text-muted-foreground hover:text-foreground hover:bg-muted/50' }: { iconColor?: string }) {
   const { setTheme, resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
   const [hovered, setHovered] = useState(false);
@@ -37,7 +37,7 @@ function ThemeToggle() {
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative flex size-9 items-center justify-center rounded-full text-muted-foreground transition-colors duration-300 hover:text-foreground hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className={`relative flex size-9 items-center justify-center rounded-full transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${iconColor}`}
       aria-label="Toggle theme"
       suppressHydrationWarning
     >
@@ -116,21 +116,41 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Color classes based on scroll state
+  const textColor = scrolled
+    ? 'text-foreground'
+    : 'text-white';
+  const textHoverColor = scrolled
+    ? 'group-hover:text-foreground/90'
+    : 'group-hover:text-white/90';
+  const linkColor = scrolled
+    ? 'text-muted-foreground hover:text-foreground'
+    : 'text-white/90 hover:text-white';
+  const iconColor = scrolled
+    ? 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+    : 'text-white/80 hover:text-white hover:bg-white/10';
+  const hamburgerColor = scrolled
+    ? 'text-foreground hover:bg-muted/50'
+    : 'text-white hover:bg-white/10';
+  const dividerColor = scrolled
+    ? 'bg-border/60'
+    : 'bg-white/20';
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'glass border-b border-border/40 shadow-lg shadow-background/5'
-          : 'bg-transparentc'
+          ? 'border-b border-border/40 shadow-lg shadow-background/5 bg-background/80 backdrop-blur-xl'
+          : 'bg-transparent'
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center px-4 md:px-6 lg:px-8">
         {/* ─── Logo (extreme left) ─── */}
         <Link
           href="/"
-          className="group flex shrink-0 items-center text-xl font-bold tracking-tight transition-all duration-300 hover:opacity-80"
+          className={`group flex shrink-0 items-center text-xl font-bold tracking-tight transition-all duration-300 hover:opacity-80 ${textColor}`}
         >
-          <span className="text-white transition-colors duration-300 group-hover:text-white/90">
+          <span className={`transition-colors duration-300 ${textHoverColor}`}>
             UNNAT
           </span>
           <span className="text-orange-500 transition-colors duration-300 group-hover:text-orange-500/80">
@@ -140,13 +160,13 @@ export default function Navigation() {
         </Link>
 
         {/* ─── Desktop Navigation ─── */}
-        <div className="hidden items-center gap-1 uppercase text-white md:flex md:ml-auto">
+        <div className="hidden items-center gap-1 uppercase md:flex md:ml-auto">
           {navLinks.map((link) =>
             link.isHash ? (
               <a
                 key={link.label}
                 href={link.href}
-                className="relative px-3 py-2 text-sm font-bold transition-all duration-300 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-4"
+                className={`relative px-3 py-2 text-sm font-bold transition-all duration-300 ${linkColor} after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-4`}
               >
                 {link.label}
               </a>
@@ -154,27 +174,27 @@ export default function Navigation() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="relative px-3 py-2 text-sm font-bold transition-all duration-300 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-4"
+                className={`relative px-3 py-2 text-sm font-bold transition-all duration-300 ${linkColor} after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-primary after:transition-all after:duration-300 hover:after:w-4`}
               >
                 {link.label}
               </Link>
             )
           )}
 
-          <div className="mx-2 h-5 w-px bg-border/60" />
+          <div className={`mx-2 h-5 w-px transition-colors duration-300 ${dividerColor}`} />
 
-          <ThemeToggle />
+          <ThemeToggle iconColor={iconColor} />
         </div>
 
         {/* ─── Mobile: Theme Toggle + Hamburger (right) ─── */}
         <div className="flex items-center gap-1 md:hidden ml-auto">
-          <ThemeToggle />
+          <ThemeToggle iconColor={iconColor} />
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="transition-all duration-300"
+                className={`transition-all duration-300 ${hamburgerColor}`}
                 aria-label="Open menu"
               >
                 <Menu className="size-5" />
