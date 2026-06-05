@@ -93,12 +93,12 @@ function CoverPlaceholder({ blogId, isFeatured = false }: { blogId: string; isFe
       {/* Glow */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-32 rounded-full bg-primary/15 blur-3xl" />
       <div className={`relative rounded-2xl border border-primary/15 bg-primary/8 p-3 ${isFeatured ? 'p-5' : ''}`}>
-        {index === 0 && <TrendingUp className={`text-primary/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
-        {index === 1 && <Globe className={`text-primary/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
-        {index === 2 && <Zap className={`text-primary/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
-        {index === 3 && <BookOpen className={`text-primary/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
-        {index === 4 && <Flame className={`text-primary/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
-        {index === 5 && <Newspaper className={`text-primary/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
+        {index === 0 && <TrendingUp className={`text-orange-500/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
+        {index === 1 && <Globe className={`text-orange-500/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
+        {index === 2 && <Zap className={`text-orange-500/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
+        {index === 3 && <BookOpen className={`text-orange-500/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
+        {index === 4 && <Flame className={`text-orange-500/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
+        {index === 5 && <Newspaper className={`text-orange-500/40 ${isFeatured ? 'size-10' : 'size-7'}`} />}
       </div>
     </div>
   );
@@ -133,8 +133,8 @@ function FeaturedPost({ blog, index = 0 }: { blog: BlogPost; index?: number }) {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-card/80 md:bg-gradient-to-l md:from-transparent md:via-transparent md:to-card/90" />
               {/* Featured badge */}
               <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-primary/90 px-3 py-1.5 backdrop-blur-sm">
-                <Flame className="size-3.5 text-primary-foreground" />
-                <span className="text-[11px] font-bold uppercase tracking-wider text-primary-foreground">Featured</span>
+                <Flame className="size-3.5 text-orange-500-foreground" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-orange-500-foreground">Featured</span>
               </div>
             </div>
 
@@ -145,7 +145,7 @@ function FeaturedPost({ blog, index = 0 }: { blog: BlogPost; index?: number }) {
                 {tags.slice(0, 4).map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 text-[11px] font-medium text-primary/80"
+                    className="rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5 text-[11px] font-medium text-orange-500/80"
                   >
                     {tag}
                   </span>
@@ -154,7 +154,7 @@ function FeaturedPost({ blog, index = 0 }: { blog: BlogPost; index?: number }) {
 
               {/* Title */}
               <h2
-                className="mb-3 text-xl font-bold leading-snug tracking-tight transition-colors duration-300 group-hover:text-primary sm:text-2xl lg:text-3xl"
+                className="mb-3 text-xl font-bold leading-snug tracking-tight transition-colors duration-300 group-hover:text-orange-500 sm:text-2xl lg:text-3xl"
                 style={{ fontFamily: 'var(--font-geist-mono)' }}
               >
                 {blog.title}
@@ -183,7 +183,7 @@ function FeaturedPost({ blog, index = 0 }: { blog: BlogPost; index?: number }) {
 
               {/* Read more CTA */}
               <div>
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-all duration-300 group-hover:gap-3">
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-orange-500 transition-all duration-300 group-hover:gap-3">
                   Read Article
                   <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </span>
@@ -256,7 +256,7 @@ function BlogCard({ blog, index = 0 }: { blog: BlogPost; index?: number }) {
             </div>
 
             {/* Title */}
-            <h3 className="mb-2 text-sm font-bold leading-snug tracking-tight transition-colors duration-300 group-hover:text-primary sm:text-base">
+            <h3 className="mb-2 text-sm font-bold leading-snug tracking-tight transition-colors duration-300 group-hover:text-orange-500 sm:text-base">
               {blog.title}
             </h3>
 
@@ -266,7 +266,7 @@ function BlogCard({ blog, index = 0 }: { blog: BlogPost; index?: number }) {
             </p>
 
             {/* Read more */}
-            <span className="flex items-center gap-1.5 text-xs font-semibold text-primary transition-all duration-300 group-hover:gap-2.5">
+            <span className="flex items-center gap-1.5 text-xs font-semibold text-orange-500 transition-all duration-300 group-hover:gap-2.5">
               Read Article
               <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
             </span>
@@ -362,8 +362,8 @@ export default function BlogPage() {
           {/* Badge */}
           <div className="mb-5 flex items-center justify-center gap-2 sm:mb-6">
             <div className="flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 backdrop-blur-sm">
-              <Newspaper className="size-3.5 text-primary" />
-              <span className="text-xs font-medium text-primary sm:text-sm">Our Blog</span>
+              <Newspaper className="size-3.5 text-orange-500" />
+              <span className="text-xs font-medium text-orange-500 sm:text-sm">Our Blog</span>
             </div>
           </div>
 
@@ -415,7 +415,7 @@ export default function BlogPage() {
                 onClick={() => setSelectedTag(null)}
                 className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 ${
                   !selectedTag
-                    ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/20'
+                    ? 'bg-primary text-orange-500-foreground shadow-sm shadow-primary/20'
                     : 'border border-border/60 text-muted-foreground hover:border-primary/30 hover:text-foreground'
                 }`}
               >
@@ -429,7 +429,7 @@ export default function BlogPage() {
                   }
                   className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 ${
                     selectedTag === tag
-                      ? 'bg-primary text-primary-foreground shadow-sm shadow-primary/20'
+                      ? 'bg-primary text-orange-500-foreground shadow-sm shadow-primary/20'
                       : 'border border-border/60 text-muted-foreground hover:border-primary/30 hover:text-foreground'
                   }`}
                 >
@@ -554,7 +554,7 @@ export default function BlogPage() {
             <div className="relative z-10 text-center">
               <Badge
                 variant="outline"
-                className="mb-4 border-primary/25 bg-primary/10 px-3 py-1 text-xs font-medium text-primary sm:mb-5"
+                className="mb-4 border-primary/25 bg-primary/10 px-3 py-1 text-xs font-medium text-orange-500 sm:mb-5"
               >
                 STAY UPDATED
               </Badge>
@@ -574,7 +574,7 @@ export default function BlogPage() {
                   placeholder="your@email.com"
                   className="h-11 flex-1 border-border/50 bg-background/50 text-sm backdrop-blur-sm sm:h-12"
                 />
-                <Button className="h-11 gap-2 bg-primary px-5 text-primary-foreground shadow-lg shadow-primary/15 sm:h-12">
+                <Button className="h-11 gap-2 bg-primary px-5 text-orange-500-foreground shadow-lg shadow-primary/15 sm:h-12">
                   Subscribe
                   <ArrowRight className="size-4" />
                 </Button>

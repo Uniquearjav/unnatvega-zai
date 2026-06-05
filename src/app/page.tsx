@@ -388,7 +388,7 @@ function BackToTopButton() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.5 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl"
+          className="fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full bg-primary text-orange-500-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl"
           aria-label="Back to top"
         >
           <ChevronRight className="size-5 -rotate-90" />
@@ -502,7 +502,7 @@ function Hero() {
           <Button
             asChild
             size="lg"
-            className="min-h-[44px] bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 hover:scale-105"
+            className="min-h-[44px] bg-primary text-orange-500-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 hover:scale-105"
           >
             <Link href="/contact">
               Start a Project
@@ -605,7 +605,7 @@ function Services() {
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
           <Badge
             variant="outline"
-            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
           >
             WHAT WE DO
           </Badge>
@@ -627,7 +627,7 @@ function Services() {
                 <div className="pointer-events-none absolute -inset-1 rounded-xl bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
                 <CardContent className="relative p-5 md:p-8">
                   <div className="mb-3 flex size-11 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20 group-hover:shadow-md group-hover:shadow-primary/20 md:mb-4 md:size-12">
-                    <service.icon className="size-5 text-primary transition-all duration-300 group-hover:scale-125 group-hover:rotate-3 md:size-6" />
+                    <service.icon className="size-5 text-orange-500 transition-all duration-300 group-hover:scale-125 group-hover:rotate-3 md:size-6" />
                   </div>
                   <h3 className="mb-1.5 text-lg font-semibold md:mb-2 md:text-xl">
                     {service.title}
@@ -682,7 +682,7 @@ function Portfolio() {
         <div>
           <Badge
             variant="outline"
-            className="mb-2 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary md:mb-3"
+            className="mb-2 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500 md:mb-3"
           >
             OUR WORK
           </Badge>
@@ -693,7 +693,7 @@ function Portfolio() {
         <Button
           asChild
           variant="ghost"
-          className="hidden text-sm text-muted-foreground transition-all duration-300 hover:text-primary md:inline-flex"
+          className="hidden text-sm text-muted-foreground transition-all duration-300 hover:text-orange-500 md:inline-flex"
         >
           <Link href="/work">
             View All Work
@@ -710,7 +710,7 @@ function Portfolio() {
             onClick={() => setActiveProject(idx)}
             className={`shrink-0 rounded-full px-3 py-2 text-xs font-medium transition-all duration-300 min-h-[44px] ${
               activeProject === idx
-                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                ? "bg-primary text-orange-500-foreground shadow-lg shadow-primary/25"
                 : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
             }`}
           >
@@ -749,7 +749,7 @@ function Portfolio() {
                   <span
                     className={`block truncate text-sm font-medium transition-all duration-300 ${
                       activeProject === idx
-                        ? "font-semibold text-primary"
+                        ? "font-semibold text-orange-500"
                         : "text-muted-foreground/50 group-hover/sidebar:text-muted-foreground/80"
                     }`}
                   >
@@ -782,7 +782,7 @@ function Portfolio() {
             <div className="flex items-center justify-between">
               <div>
                 <span
-                  className="text-xs font-bold text-primary"
+                  className="text-xs font-bold text-orange-500"
                   style={{ fontFamily: "var(--font-geist-mono)" }}
                 >
                   {String(activeProject + 1).padStart(2, "0")}
@@ -801,7 +801,7 @@ function Portfolio() {
                     setActiveProject((prev) => Math.max(prev - 1, 0))
                   }
                   disabled={activeProject === 0}
-                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-30"
+                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500 disabled:opacity-30"
                   aria-label="Previous project"
                 >
                   <ChevronRight className="size-3.5 -rotate-90" />
@@ -813,7 +813,7 @@ function Portfolio() {
                     )
                   }
                   disabled={activeProject === projects.length - 1}
-                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-30"
+                  className="flex size-7 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500 disabled:opacity-30"
                   aria-label="Next project"
                 >
                   <ChevronRight className="size-3.5 rotate-90" />
@@ -860,7 +860,7 @@ function Portfolio() {
               className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-4 sm:px-6 sm:pb-6 md:px-10 md:pb-10 lg:px-14 lg:pb-12"
             >
               <div className="mb-2 flex flex-wrap items-center gap-2 md:mb-3 md:gap-3">
-                <Badge className="border border-primary/30 bg-primary/15 px-2 py-0.5 text-[10px] font-medium text-primary backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[11px]">
+                <Badge className="border border-primary/30 bg-primary/15 px-2 py-0.5 text-[10px] font-medium text-orange-500 backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[11px]">
                   {projects[activeProject].category}
                 </Badge>
                 <span className="text-[11px] text-foreground/40 sm:text-xs">
@@ -889,7 +889,7 @@ function Portfolio() {
                 </div>
                 <Button
                   asChild
-                  className="min-h-[44px] bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 sm:ml-auto"
+                  className="min-h-[44px] bg-primary text-orange-500-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 sm:ml-auto"
                 >
                   <Link href="/contact">
                     View Case Study
@@ -922,7 +922,7 @@ function Portfolio() {
       <div className="mt-3 flex items-center justify-between md:hidden">
         <div className="flex items-center gap-2">
           <span
-            className="text-xs font-bold text-primary"
+            className="text-xs font-bold text-orange-500"
             style={{ fontFamily: "var(--font-geist-mono)" }}
           >
             {String(activeProject + 1).padStart(2, "0")}
@@ -939,7 +939,7 @@ function Portfolio() {
           <button
             onClick={() => setActiveProject((prev) => Math.max(prev - 1, 0))}
             disabled={activeProject === 0}
-            className="flex size-9 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-30"
+            className="flex size-9 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500 disabled:opacity-30"
             aria-label="Previous project"
           >
             <ChevronRight className="size-4 -rotate-90" />
@@ -951,7 +951,7 @@ function Portfolio() {
               )
             }
             disabled={activeProject === projects.length - 1}
-            className="flex size-9 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-30"
+            className="flex size-9 items-center justify-center rounded border border-border/40 text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-orange-500 disabled:opacity-30"
             aria-label="Next project"
           >
             <ChevronRight className="size-4 rotate-90" />
@@ -973,7 +973,7 @@ function HowItWorks() {
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
           <Badge
             variant="outline"
-            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
           >
             OUR PROCESS
           </Badge>
@@ -1003,10 +1003,10 @@ function HowItWorks() {
                   <div className="relative mx-auto mb-5 flex size-[120px] items-center justify-center">
                     <div className="absolute inset-0 rounded-full bg-primary/5 transition-all duration-300 group-hover:bg-primary/10 group-hover:shadow-lg group-hover:shadow-primary/10" />
                     <div className="relative flex size-16 items-center justify-center rounded-full border-2 border-primary/20 bg-background transition-all duration-300 group-hover:border-primary group-hover:shadow-md group-hover:shadow-primary/20">
-                      <step.icon className="size-7 text-primary transition-all duration-300 group-hover:scale-110" />
+                      <step.icon className="size-7 text-orange-500 transition-all duration-300 group-hover:scale-110" />
                     </div>
                     <span
-                      className="absolute -right-1 -top-1 flex size-7 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground shadow-sm"
+                      className="absolute -right-1 -top-1 flex size-7 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-orange-500-foreground shadow-sm"
                       style={{ fontFamily: "var(--font-geist-mono)" }}
                     >
                       {step.step}
@@ -1065,7 +1065,7 @@ function ListedOn() {
         <motion.div variants={fadeInUp} className="mb-8 text-center md:mb-12">
           <Badge
             variant="outline"
-            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary md:mb-4"
+            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500 md:mb-4"
           >
             LISTED ON
           </Badge>
@@ -1143,7 +1143,7 @@ function Testimonials() {
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
           <Badge
             variant="outline"
-            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary md:mb-4"
+            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500 md:mb-4"
           >
             TESTIMONIALS
           </Badge>
@@ -1173,7 +1173,7 @@ function Testimonials() {
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className="size-3.5 fill-primary text-primary sm:size-4"
+                          className="size-3.5 fill-primary text-orange-500 sm:size-4"
                         />
                       ))}
                     </div>
@@ -1181,7 +1181,7 @@ function Testimonials() {
                       &ldquo;{t.quote}&rdquo;
                     </p>
                     <div className="flex items-center gap-3">
-                      <div className="flex size-9 items-center justify-center rounded-full bg-primary/15 text-xs font-bold text-primary sm:size-10 sm:text-sm">
+                      <div className="flex size-9 items-center justify-center rounded-full bg-primary/15 text-xs font-bold text-orange-500 sm:size-10 sm:text-sm">
                         {t.initials}
                       </div>
                       <div>
@@ -1228,7 +1228,7 @@ function SocialMedia() {
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
           <Badge
             variant="outline"
-            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary md:mb-4"
+            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500 md:mb-4"
           >
             SOCIAL FEED
           </Badge>
@@ -1300,11 +1300,11 @@ function SocialMedia() {
                       className={`absolute left-3 top-3 flex items-center gap-1.5 rounded-full px-2.5 py-1 backdrop-blur-sm transition-all duration-300 ${isHovered ? "bg-primary/90" : "bg-background/80"}`}
                     >
                       <IconComp
-                        className={`size-3 ${isHovered ? "text-primary-foreground" : ""}`}
+                        className={`size-3 ${isHovered ? "text-orange-500-foreground" : ""}`}
                         style={!isHovered ? { color: config.color } : undefined}
                       />
                       <span
-                        className={`text-[10px] font-semibold ${isHovered ? "text-primary-foreground" : "text-foreground/70"}`}
+                        className={`text-[10px] font-semibold ${isHovered ? "text-orange-500-foreground" : "text-foreground/70"}`}
                       >
                         {config.label}
                       </span>
@@ -1314,11 +1314,11 @@ function SocialMedia() {
                       className={`absolute inset-0 flex items-center justify-center gap-6 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
                     >
                       <div className="flex items-center gap-1.5 text-foreground">
-                        <Heart className="size-5 fill-primary text-primary" />
+                        <Heart className="size-5 fill-primary text-orange-500" />
                         <span className="text-sm font-bold">{post.likes}</span>
                       </div>
                       <div className="flex items-center gap-1.5 text-foreground">
-                        <MessageCircle className="size-5 text-primary" />
+                        <MessageCircle className="size-5 text-orange-500" />
                         <span className="text-sm font-bold">
                           {post.comments}
                         </span>
@@ -1383,7 +1383,7 @@ function FAQ() {
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
           <Badge
             variant="outline"
-            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
           >
             FAQ
           </Badge>
@@ -1443,10 +1443,10 @@ function CTABanner() {
 
           <div className="relative px-6 py-12 sm:px-10 sm:py-16 md:px-16 md:py-20">
             <div className="mx-auto max-w-3xl text-center">
-              <h2 className="text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl md:text-4xl lg:text-5xl">
+              <h2 className="text-2xl font-bold tracking-tight text-orange-500-foreground sm:text-3xl md:text-4xl lg:text-5xl">
                 Ready to Go Global?
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-primary-foreground/80 sm:mt-6 sm:text-base md:text-lg">
+              <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-orange-500-foreground/80 sm:mt-6 sm:text-base md:text-lg">
                 Take the first step toward expanding your business worldwide.
                 Let&apos;s build something extraordinary together.
               </p>
@@ -1454,7 +1454,7 @@ function CTABanner() {
                 <Button
                   asChild
                   size="lg"
-                  className="min-h-[44px] bg-primary-foreground text-primary transition-all duration-300 hover:bg-primary-foreground/90 hover:shadow-lg hover:shadow-primary-foreground/20 hover:scale-105"
+                  className="min-h-[44px] bg-primary-foreground text-orange-500 transition-all duration-300 hover:bg-primary-foreground/90 hover:shadow-lg hover:shadow-primary-foreground/20 hover:scale-105"
                 >
                   <Link href="/contact">
                     Start a Project
@@ -1465,7 +1465,7 @@ function CTABanner() {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="min-h-[44px] border-primary-foreground/30 bg-transparent text-primary-foreground transition-all duration-300 hover:border-primary-foreground/60 hover:bg-primary-foreground/10 hover:scale-105"
+                  className="min-h-[44px] border-primary-foreground/30 bg-transparent text-orange-500-foreground transition-all duration-300 hover:border-primary-foreground/60 hover:bg-primary-foreground/10 hover:scale-105"
                 >
                   <Link href="/contact">
                     <Phone className="mr-2 size-4" />
@@ -1503,7 +1503,7 @@ function ContactForm() {
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
           <Badge
             variant="outline"
-            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+            className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
           >
             GET IN TOUCH
           </Badge>
@@ -1525,7 +1525,7 @@ function ContactForm() {
                 className="flex flex-col items-center py-8 text-center"
               >
                 <div className="mb-4 flex size-14 items-center justify-center rounded-full bg-primary/10">
-                  <CheckCircle2 className="size-7 text-primary" />
+                  <CheckCircle2 className="size-7 text-orange-500" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">Message Sent!</h3>
                 <p className="text-sm text-muted-foreground">
@@ -1601,7 +1601,7 @@ function ContactForm() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="min-h-[44px] w-full bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 sm:w-auto"
+                  className="min-h-[44px] w-full bg-primary text-orange-500-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 sm:w-auto"
                 >
                   <Send className="mr-2 size-4" />
                   Send Message
@@ -1670,7 +1670,7 @@ function BeforeAfterComparison() {
           <motion.div variants={fadeInUp}>
             <Badge
               variant="outline"
-              className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary md:mb-4"
+              className="mb-3 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500 md:mb-4"
             >
               TRANSFORMATION
             </Badge>

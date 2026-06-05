@@ -143,13 +143,13 @@ function FAQItem({ question, answer, index }: { question: string; answer: string
           aria-expanded={isOpen}
         >
           <div className="flex items-center gap-3 pr-4">
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary" style={{ fontFamily: 'var(--font-geist-mono)' }}>
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-orange-500" style={{ fontFamily: 'var(--font-geist-mono)' }}>
               {String(index + 1).padStart(2, '0')}
             </span>
             <span className="text-sm font-semibold leading-snug md:text-base">{question}</span>
           </div>
           <ChevronDown
-            className={`size-5 shrink-0 text-muted-foreground transition-transform duration-300 ${isOpen ? 'rotate-180 text-primary' : ''}`}
+            className={`size-5 shrink-0 text-muted-foreground transition-transform duration-300 ${isOpen ? 'rotate-180 text-orange-500' : ''}`}
           />
         </button>
         <AnimatePresence initial={false}>
@@ -255,7 +255,7 @@ export default function ContactPage() {
             <motion.div variants={fadeInUp}>
               <Badge
                 variant="outline"
-                className="mb-6 border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium tracking-widest text-primary"
+                className="mb-6 border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium tracking-widest text-orange-500"
               >
                 CONTACT US
               </Badge>
@@ -284,11 +284,11 @@ export default function ContactPage() {
             >
               {contactInfo.map((info) => (
                 <div key={info.label} className="flex min-h-[44px] items-center gap-2">
-                  <info.icon className="size-4 text-primary" />
+                  <info.icon className="size-4 text-orange-500" />
                   {info.href ? (
                     <a
                       href={info.href}
-                      className="transition-all duration-300 hover:text-primary"
+                      className="transition-all duration-300 hover:text-orange-500"
                     >
                       {info.value}
                     </a>
@@ -326,7 +326,7 @@ export default function ContactPage() {
                           htmlFor="name"
                           className="mb-1.5 block text-sm font-medium"
                         >
-                          Name <span className="text-primary">*</span>
+                          Name <span className="text-orange-500">*</span>
                         </label>
                         <Input
                           id="name"
@@ -343,7 +343,7 @@ export default function ContactPage() {
                           htmlFor="email"
                           className="mb-1.5 block text-sm font-medium"
                         >
-                          Email <span className="text-primary">*</span>
+                          Email <span className="text-orange-500">*</span>
                         </label>
                         <Input
                           id="email"
@@ -406,7 +406,7 @@ export default function ContactPage() {
                         htmlFor="message"
                         className="mb-1.5 block text-sm font-medium"
                       >
-                        Message <span className="text-primary">*</span>
+                        Message <span className="text-orange-500">*</span>
                       </label>
                       <Textarea
                         id="message"
@@ -424,7 +424,7 @@ export default function ContactPage() {
                       type="submit"
                       size="lg"
                       disabled={isSubmitting}
-                      className="min-h-[44px] w-full bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 disabled:opacity-60"
+                      className="min-h-[44px] w-full bg-primary text-orange-500-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20 disabled:opacity-60"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">
@@ -458,7 +458,7 @@ export default function ContactPage() {
                     {contactInfo.map((info) => (
                       <div key={info.label} className="flex items-start gap-4">
                         <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20">
-                          <info.icon className="size-5 text-primary" />
+                          <info.icon className="size-5 text-orange-500" />
                         </div>
                         <div>
                           <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -467,7 +467,7 @@ export default function ContactPage() {
                           {info.href ? (
                             <a
                               href={info.href}
-                              className="text-sm font-medium transition-all duration-300 hover:text-primary md:text-base"
+                              className="text-sm font-medium transition-all duration-300 hover:text-orange-500 md:text-base"
                             >
                               {info.value}
                             </a>
@@ -495,7 +495,7 @@ export default function ContactPage() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={social.label}
-                          className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-muted-foreground transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:shadow-primary/20"
+                          className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-muted-foreground transition-all duration-300 hover:bg-primary hover:text-orange-500-foreground hover:shadow-md hover:shadow-primary/20"
                         >
                           <social.icon className="size-4" />
                         </a>
@@ -512,7 +512,7 @@ export default function ContactPage() {
                 <CardContent className="relative p-6 md:p-8">
                   <Badge
                     variant="outline"
-                    className="mb-4 border-primary/30 bg-primary/15 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+                    className="mb-4 border-primary/30 bg-primary/15 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
                   >
                     GO GLOBAL
                   </Badge>
@@ -524,7 +524,7 @@ export default function ContactPage() {
                   </p>
                   <Button
                     asChild
-                    className="bg-primary text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
+                    className="bg-primary text-orange-500-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/20"
                   >
                     <Link href="#contact-form">
                       Get Started
@@ -544,7 +544,7 @@ export default function ContactPage() {
           <motion.div variants={fadeInUp} className="mb-8 text-center md:mb-12">
             <Badge
               variant="outline"
-              className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+              className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
             >
               OUR OFFICE
             </Badge>
@@ -573,7 +573,7 @@ export default function ContactPage() {
                     {/* Location pin */}
                     <div className="relative flex flex-col items-center gap-3">
                       <div className="flex size-16 items-center justify-center rounded-full bg-primary/20 backdrop-blur-sm">
-                        <MapPin className="size-7 text-primary" />
+                        <MapPin className="size-7 text-orange-500" />
                       </div>
                       <div className="rounded-xl bg-background/80 px-5 py-3 text-center backdrop-blur-md">
                         <p className="text-sm font-semibold">Mumbai, Maharashtra</p>
@@ -610,7 +610,7 @@ export default function ContactPage() {
                 <CardContent className="p-5 md:p-6">
                   <div className="mb-4 flex items-center gap-3">
                     <div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
-                      <Clock className="size-5 text-primary" />
+                      <Clock className="size-5 text-orange-500" />
                     </div>
                     <h4 className="font-bold tracking-tight">Office Hours</h4>
                   </div>
@@ -631,23 +631,23 @@ export default function ContactPage() {
                 <CardContent className="p-5 md:p-6">
                   <div className="mb-4 flex items-center gap-3">
                     <div className="flex size-10 items-center justify-center rounded-full bg-primary/10">
-                      <Mail className="size-5 text-primary" />
+                      <Mail className="size-5 text-orange-500" />
                     </div>
                     <h4 className="font-bold tracking-tight">Quick Contact</h4>
                   </div>
                   <div className="space-y-3">
                     <a
                       href="tel:+919876543210"
-                      className="flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 hover:text-primary"
+                      className="flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 hover:text-orange-500"
                     >
-                      <Phone className="size-4 shrink-0 text-primary" />
+                      <Phone className="size-4 shrink-0 text-orange-500" />
                       +91 98765 43210
                     </a>
                     <a
                       href="mailto:info@unnatvega.com"
-                      className="flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 hover:text-primary"
+                      className="flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 hover:text-orange-500"
                     >
-                      <Mail className="size-4 shrink-0 text-primary" />
+                      <Mail className="size-4 shrink-0 text-orange-500" />
                       info@unnatvega.com
                     </a>
                   </div>
@@ -664,7 +664,7 @@ export default function ContactPage() {
           <motion.div variants={fadeInUp} className="mb-8 text-center md:mb-12">
             <Badge
               variant="outline"
-              className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+              className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
             >
               FAQ
             </Badge>
@@ -704,14 +704,14 @@ export default function ContactPage() {
         >
           <motion.h2
             variants={fadeInUp}
-            className="mb-4 text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl md:text-4xl lg:text-5xl"
+            className="mb-4 text-2xl font-bold tracking-tight text-orange-500-foreground sm:text-3xl md:text-4xl lg:text-5xl"
             style={{ fontFamily: 'var(--font-geist-mono)' }}
           >
             Ready to Go Global?
           </motion.h2>
           <motion.p
             variants={fadeInUp}
-            className="mb-8 text-sm text-primary-foreground/70 sm:text-base md:text-lg"
+            className="mb-8 text-sm text-orange-500-foreground/70 sm:text-base md:text-lg"
           >
             Let&apos;s build your digital presence and streamline your international trade operations.
           </motion.p>
@@ -719,7 +719,7 @@ export default function ContactPage() {
             <Button
               asChild
               size="lg"
-              className="min-h-[44px] bg-primary-foreground text-primary shadow-xl transition-all duration-300 hover:bg-primary-foreground/90 hover:shadow-2xl"
+              className="min-h-[44px] bg-primary-foreground text-orange-500 shadow-xl transition-all duration-300 hover:bg-primary-foreground/90 hover:shadow-2xl"
             >
               <Link href="#contact-form">
                 Start a Project
@@ -730,7 +730,7 @@ export default function ContactPage() {
               asChild
               size="lg"
               variant="outline"
-              className="min-h-[44px] border-primary-foreground/30 bg-transparent text-primary-foreground transition-all duration-300 hover:bg-primary-foreground/10 hover:border-primary-foreground/50"
+              className="min-h-[44px] border-primary-foreground/30 bg-transparent text-orange-500-foreground transition-all duration-300 hover:bg-primary-foreground/10 hover:border-primary-foreground/50"
             >
               <Link href="/">
                 Back to Home

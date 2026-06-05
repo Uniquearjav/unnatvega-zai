@@ -170,13 +170,13 @@ function ProjectCard({
         className="relative overflow-hidden rounded-2xl border border-border/40 bg-card transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5"
       >
         {/* Image Container */}
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-[4/3] overflow-hidden">
           <Image
             src={project.image}
             alt={project.name}
             fill
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className=" transition-transform duration-700 ease-out group-hover:scale-105"
+            // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
 
           {/* Gradient overlays */}
@@ -192,16 +192,16 @@ function ProjectCard({
           >
             <Button
               size="lg"
-              className="bg-primary text-primary-foreground shadow-xl shadow-primary/25 transition-all duration-300 hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/30 min-h-[44px]"
+              className="bg-primary text-orange-500-foreground shadow-xl shadow-primary/25 transition-all duration-300 hover:bg-primary/90 hover:shadow-2xl hover:shadow-primary/30 min-h-[44px]"
             >
-              View Case Study
+              Visit Website
               <ArrowRight className="ml-2 size-4" />
             </Button>
           </motion.div>
 
           {/* Category badge - top left */}
           <div className="absolute left-3 top-3 z-10 sm:left-4 sm:top-4">
-            <Badge className="border border-primary/30 bg-primary/15 px-2.5 py-1 text-[10px] font-medium text-primary backdrop-blur-md sm:px-3 sm:text-[11px]">
+            <Badge className="border border-primary/30 bg-primary/15 px-2.5 py-1 text-[10px] font-medium text-orange-500 backdrop-blur-md sm:px-3 sm:text-[11px]">
               {project.category}
             </Badge>
           </div>
@@ -219,14 +219,11 @@ function ProjectCard({
           {/* Name + Metrics */}
           <div className="mb-2 flex items-start justify-between gap-2 sm:gap-3">
             <h3
-              className="text-lg font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-primary sm:text-xl md:text-2xl"
+              className="text-lg font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-orange-500 sm:text-xl md:text-2xl"
               style={{ fontFamily: 'var(--font-geist-mono)' }}
             >
               {project.name}
             </h3>
-            <span className="shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary sm:px-3 sm:py-1 sm:text-[11px]">
-              {project.metrics}
-            </span>
           </div>
 
           {/* Description */}
@@ -280,7 +277,7 @@ function FeaturedProject() {
 
           {/* Featured badge */}
           <div className="absolute left-4 top-4 z-10 sm:left-5 sm:top-5">
-            <Badge className="border border-primary/40 bg-primary/20 px-3 py-1 text-[10px] font-semibold tracking-wider text-primary backdrop-blur-md sm:px-4 sm:py-1.5 sm:text-[11px]">
+            <Badge className="border border-primary/40 bg-primary/20 px-3 py-1 text-[10px] font-semibold tracking-wider text-orange-500 backdrop-blur-md sm:px-4 sm:py-1.5 sm:text-[11px]">
               FEATURED PROJECT
             </Badge>
           </div>
@@ -289,7 +286,7 @@ function FeaturedProject() {
         {/* Content side */}
         <div className="flex flex-col justify-center p-5 sm:p-6 md:p-10 lg:p-14">
           <div className="mb-3 flex items-center gap-2 sm:mb-4 sm:gap-3">
-            <Badge className="border border-primary/30 bg-primary/15 px-2.5 py-1 text-[10px] font-medium text-primary sm:px-3 sm:text-[11px]">
+            <Badge className="border border-primary/30 bg-primary/15 px-2.5 py-1 text-[10px] font-medium text-orange-500 sm:px-3 sm:text-[11px]">
               {project.category}
             </Badge>
             <span className="text-[11px] text-muted-foreground/60 sm:text-xs">{project.year}</span>
@@ -306,16 +303,6 @@ function FeaturedProject() {
             {project.fullDescription}
           </p>
 
-          {/* Metrics highlight */}
-          <div className="mb-4 flex items-center gap-3 sm:mb-6 sm:gap-4">
-            <div className="rounded-xl bg-primary/10 px-4 py-2.5 sm:px-5 sm:py-3">
-              <div className="text-xl font-bold text-primary sm:text-2xl" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-                {project.metrics}
-              </div>
-              <div className="text-[10px] font-medium text-muted-foreground sm:text-[11px]">Key Result</div>
-            </div>
-          </div>
-
           {/* Tech stack */}
           <div className="mb-6 flex flex-wrap gap-1.5 sm:mb-8 sm:gap-2">
             {project.tech.map((t) => (
@@ -331,9 +318,9 @@ function FeaturedProject() {
           <div>
             <Button
               size="lg"
-              className="bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/25 min-h-[44px]"
+              className="bg-primary text-orange-500-foreground shadow-lg shadow-primary/20 transition-all duration-300 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/25 min-h-[44px]"
             >
-              View Case Study
+              Visit Website
               <ArrowRight className="ml-2 size-4" />
             </Button>
           </div>
@@ -381,7 +368,7 @@ export default function WorkPage() {
             <motion.div variants={fadeInUp}>
               <Badge
                 variant="outline"
-                className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-medium tracking-widest text-primary sm:mb-6 sm:px-4 sm:py-1.5 sm:text-xs"
+                className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-medium tracking-widest text-orange-500 sm:mb-6 sm:px-4 sm:py-1.5 sm:text-xs"
               >
                 OUR PORTFOLIO
               </Badge>
@@ -412,11 +399,11 @@ export default function WorkPage() {
               {[
                 { value: String(projects.length), label: 'Projects' },
                 { value: String(new Set(projects.map((p) => p.category)).size), label: 'Categories' },
-                { value: '98%', label: 'Satisfaction' },
+                { value: '100%', label: 'Satisfaction' },
               ].map((stat) => (
                 <div key={stat.label} className="min-w-[60px]">
                   <div
-                    className="text-2xl font-bold text-primary sm:text-3xl"
+                    className="text-2xl font-bold text-orange-500 sm:text-3xl"
                     style={{ fontFamily: 'var(--font-geist-mono)' }}
                   >
                     {stat.value}
@@ -453,7 +440,7 @@ export default function WorkPage() {
                 onClick={() => setActiveCategory(cat)}
                 className={`rounded-full px-4 py-2 text-[11px] font-medium transition-all duration-300 min-h-[44px] sm:text-xs ${
                   activeCategory === cat
-                    ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/25'
+                    ? 'bg-primary text-orange-500-foreground shadow-lg shadow-primary/25'
                     : 'border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground'
                 }`}
               >
@@ -497,7 +484,7 @@ export default function WorkPage() {
             </p>
             <button
               onClick={() => setActiveCategory('All')}
-              className="mt-4 text-sm font-medium text-primary transition-all duration-300 hover:text-primary/80 min-h-[44px] px-4"
+              className="mt-4 text-sm font-medium text-orange-500 transition-all duration-300 hover:text-orange-500/80 min-h-[44px] px-4"
             >
               View all projects
             </button>
@@ -520,14 +507,14 @@ export default function WorkPage() {
         >
           <motion.h2
             variants={fadeInUp}
-            className="mb-4 text-2xl font-bold tracking-tight text-primary-foreground sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl"
+            className="mb-4 text-2xl font-bold tracking-tight text-orange-500-foreground sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl"
             style={{ fontFamily: 'var(--font-geist-mono)' }}
           >
             Ready to Go Global?
           </motion.h2>
           <motion.p
             variants={fadeInUp}
-            className="mb-8 text-sm text-primary-foreground/70 sm:mb-10 sm:text-base md:text-lg"
+            className="mb-8 text-sm text-orange-500-foreground/70 sm:mb-10 sm:text-base md:text-lg"
           >
             Let&apos;s build your digital presence and streamline your international trade operations.
           </motion.p>
@@ -535,7 +522,7 @@ export default function WorkPage() {
             <Button
               asChild
               size="lg"
-              className="bg-primary-foreground text-primary shadow-xl transition-all duration-300 hover:bg-primary-foreground/90 hover:shadow-2xl min-h-[44px] w-full sm:w-auto"
+              className="bg-primary-foreground text-orange-500 shadow-xl transition-all duration-300 hover:bg-primary-foreground/90 hover:shadow-2xl min-h-[44px] w-full sm:w-auto"
             >
               <Link href="/contact">
                 Start a Project
@@ -546,7 +533,7 @@ export default function WorkPage() {
               asChild
               size="lg"
               variant="outline"
-              className="border-primary-foreground/30 bg-transparent text-primary-foreground transition-all duration-300 hover:bg-primary-foreground/10 hover:border-primary-foreground/50 min-h-[44px] w-full sm:w-auto"
+              className="border-primary-foreground/30 bg-transparent text-orange-500-foreground transition-all duration-300 hover:bg-primary-foreground/10 hover:border-primary-foreground/50 min-h-[44px] w-full sm:w-auto"
             >
               <Link href="/">
                 Back to Home

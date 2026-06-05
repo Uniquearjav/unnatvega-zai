@@ -63,7 +63,7 @@ export default function Footer() {
               <span className="text-2xl font-bold tracking-tight text-foreground">
                 UNNAT
               </span>
-              <span className="text-2xl font-bold tracking-tight text-primary">
+              <span className="text-2xl font-bold tracking-tight text-orange-500">
                 VEGA
               </span>
             </div>
@@ -80,18 +80,18 @@ export default function Footer() {
                 href="tel:+919876543210"
                 className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
-                <Phone className="h-4 w-4 shrink-0 text-primary" />
+                <Phone className="h-4 w-4 shrink-0 text-orange-500" />
                 +91 98765 43210
               </a>
               <a
                 href="mailto:info@unnatvega.com"
                 className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
-                <Mail className="h-4 w-4 shrink-0 text-primary" />
+                <Mail className="h-4 w-4 shrink-0 text-orange-500" />
                 info@unnatvega.com
               </a>
               <div className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-orange-500" />
                 <span>Mumbai, Maharashtra, India</span>
               </div>
             </div>
@@ -108,7 +108,7 @@ export default function Footer() {
                   {link.isHash ? (
                     <a
                       href={link.href}
-                      className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
+                      className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-orange-500"
                     >
                       <ArrowRight className="h-3 w-3" />
                       {link.label}
@@ -116,7 +116,7 @@ export default function Footer() {
                   ) : (
                     <Link
                       href={link.href}
-                      className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
+                      className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-orange-500"
                     >
                       <ArrowRight className="h-3 w-3" />
                       {link.label}
@@ -137,7 +137,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
+                    className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-orange-500"
                   >
                     <ArrowRight className="h-3 w-3" />
                     {link.label}
@@ -182,7 +182,7 @@ export default function Footer() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary hover:bg-primary/10 hover:text-primary"
+                    className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary hover:bg-primary/10 hover:text-orange-500"
                   >
                     <social.icon className="h-4 w-4" />
                   </a>
@@ -209,7 +209,7 @@ export default function Footer() {
                 )}
                 <Link
                   href={link.href}
-                  className="transition-colors hover:text-primary"
+                  className="transition-colors hover:text-orange-500"
                 >
                   {link.label}
                 </Link>

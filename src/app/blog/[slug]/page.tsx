@@ -165,7 +165,7 @@ export default function BlogPostPage() {
           <p className="mb-8 text-muted-foreground">
             The blog post you&apos;re looking for doesn&apos;t exist or may have been removed.
           </p>
-          <Button asChild className="gap-2 bg-primary text-primary-foreground">
+          <Button asChild className="gap-2 bg-primary text-orange-500-foreground">
             <Link href="/blog">
               <ArrowLeft className="size-4" />
               Back to Blog
@@ -220,7 +220,7 @@ export default function BlogPostPage() {
                 <Badge
                   key={tag}
                   variant="outline"
-                  className="border-primary/15 bg-primary/5 px-2.5 py-0.5 text-[11px] font-medium text-primary"
+                  className="border-primary/15 bg-primary/5 px-2.5 py-0.5 text-[11px] font-medium text-orange-500"
                 >
                   <Tag className="mr-1 size-2.5" />
                   {tag}
@@ -263,12 +263,12 @@ export default function BlogPostPage() {
                   }} />
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 size-40 rounded-full bg-primary/10 blur-3xl" />
                   <div className="relative rounded-2xl border border-primary/15 bg-primary/8 p-5">
-                    {iconIndex === 0 && <TrendingUp className="size-12 text-primary/40" />}
-                    {iconIndex === 1 && <Globe className="size-12 text-primary/40" />}
-                    {iconIndex === 2 && <Zap className="size-12 text-primary/40" />}
-                    {iconIndex === 3 && <BookOpen className="size-12 text-primary/40" />}
-                    {iconIndex === 4 && <Flame className="size-12 text-primary/40" />}
-                    {iconIndex === 5 && <Newspaper className="size-12 text-primary/40" />}
+                    {iconIndex === 0 && <TrendingUp className="size-12 text-orange-500/40" />}
+                    {iconIndex === 1 && <Globe className="size-12 text-orange-500/40" />}
+                    {iconIndex === 2 && <Zap className="size-12 text-orange-500/40" />}
+                    {iconIndex === 3 && <BookOpen className="size-12 text-orange-500/40" />}
+                    {iconIndex === 4 && <Flame className="size-12 text-orange-500/40" />}
+                    {iconIndex === 5 && <Newspaper className="size-12 text-orange-500/40" />}
                   </div>
                 </div>
               )}
@@ -279,7 +279,7 @@ export default function BlogPostPage() {
           <div className="flex flex-col gap-4 rounded-xl border border-border/30 bg-card/50 p-4 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:p-5">
             <div className="flex items-center gap-3">
               {/* Author avatar */}
-              <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
+              <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-orange-500">
                 {blog.author
                   .split(' ')
                   .map((n) => n[0])
@@ -365,7 +365,7 @@ export default function BlogPostPage() {
           className="mb-10 rounded-2xl border border-border/40 bg-gradient-to-br from-primary/5 via-card/50 to-card/50 p-5 backdrop-blur-sm sm:p-6"
         >
           <div className="flex items-start gap-4">
-            <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-primary">
+            <div className="flex size-14 shrink-0 items-center justify-center rounded-full bg-primary/10 text-lg font-bold text-orange-500">
               {blog.author
                 .split(' ')
                 .map((n) => n[0])
@@ -403,19 +403,19 @@ export default function BlogPostPage() {
                       {post.tags?.split(',').slice(0, 2).map((tag) => (
                         <span
                           key={tag.trim()}
-                          className="rounded-full bg-primary/5 px-2 py-0.5 text-[10px] font-medium text-primary/70"
+                          className="rounded-full bg-primary/5 px-2 py-0.5 text-[10px] font-medium text-orange-500/70"
                         >
                           {tag.trim()}
                         </span>
                       ))}
                     </div>
-                    <h4 className="mb-1.5 text-sm font-bold leading-snug transition-colors group-hover:text-primary">
+                    <h4 className="mb-1.5 text-sm font-bold leading-snug transition-colors group-hover:text-orange-500">
                       {post.title}
                     </h4>
                     <p className="line-clamp-2 text-xs text-muted-foreground">
                       {post.excerpt}
                     </p>
-                    <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-primary transition-all group-hover:gap-2.5">
+                    <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-orange-500 transition-all group-hover:gap-2.5">
                       Read
                       <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5" />
                     </div>
@@ -440,7 +440,7 @@ export default function BlogPostPage() {
             </Link>
           </Button>
 
-          <Button asChild className="gap-2 bg-primary text-primary-foreground shadow-lg shadow-primary/15">
+          <Button asChild className="gap-2 bg-primary text-orange-500-foreground shadow-lg shadow-primary/15">
             <Link href="/contact">
               Get in Touch
               <ArrowRight className="size-4" />

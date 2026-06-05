@@ -148,7 +148,7 @@ function Hero() {
         <motion.div variants={fadeInUp}>
           <Badge
             variant="outline"
-            className="mb-8 border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium tracking-widest text-primary"
+            className="mb-8 border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium tracking-widest text-orange-500"
           >
             ABOUT US
           </Badge>
@@ -183,7 +183,7 @@ function OurStory() {
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-16">
           <Badge
             variant="outline"
-            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
           >
             OUR STORY
           </Badge>
@@ -213,7 +213,7 @@ function OurStory() {
               ].map((item) => (
                 <div key={item} className="flex min-h-[44px] items-center gap-3">
                   <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                    <ArrowRight className="size-3 text-primary" />
+                    <ArrowRight className="size-3 text-orange-500" />
                   </div>
                   <span className="text-sm text-muted-foreground">{item}</span>
                 </div>
@@ -231,10 +231,10 @@ function OurStory() {
                 >
                   <CardContent className="flex flex-col items-center p-6 text-center md:p-8">
                     <div className="mb-3 flex size-12 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20">
-                      <stat.icon className="size-5 text-primary transition-transform duration-300 group-hover:scale-110" />
+                      <stat.icon className="size-5 text-orange-500 transition-transform duration-300 group-hover:scale-110" />
                     </div>
                     <span
-                      className="mb-1 text-3xl font-bold text-primary md:text-4xl"
+                      className="mb-1 text-3xl font-bold text-orange-500 md:text-4xl"
                       style={{ fontFamily: 'var(--font-geist-mono)' }}
                     >
                       {stat.value}
@@ -259,7 +259,7 @@ function OurValues() {
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-16">
           <Badge
             variant="outline"
-            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
           >
             OUR VALUES
           </Badge>
@@ -274,7 +274,7 @@ function OurValues() {
               <Card className="group glass h-full border-transparent transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5">
                 <CardContent className="p-6 md:p-8">
                   <div className="mb-4 flex size-12 items-center justify-center rounded-full bg-primary/10 transition-all duration-300 group-hover:bg-primary/20">
-                    <value.icon className="size-6 text-primary transition-transform duration-300 group-hover:scale-110" />
+                    <value.icon className="size-6 text-orange-500 transition-transform duration-300 group-hover:scale-110" />
                   </div>
                   <h3 className="mb-2 text-xl font-semibold">{value.title}</h3>
                   <p className="text-sm leading-relaxed text-muted-foreground">
@@ -298,7 +298,7 @@ function OurTeam() {
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-16">
           <Badge
             variant="outline"
-            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-primary"
+            className="mb-4 border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium tracking-widest text-orange-500"
           >
             OUR TEAM
           </Badge>
@@ -313,12 +313,12 @@ function OurTeam() {
               <Card className="group glass h-full border-transparent transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5">
                 <CardContent className="p-6 md:p-8">
                   <div className="mb-5 flex items-center gap-4">
-                    <div className="flex size-14 items-center justify-center rounded-full bg-primary/15 text-lg font-bold text-primary transition-all duration-300 group-hover:bg-primary/25 group-hover:scale-105">
+                    <div className="flex size-14 items-center justify-center rounded-full bg-primary/15 text-lg font-bold text-orange-500 transition-all duration-300 group-hover:bg-primary/25 group-hover:scale-105">
                       {member.initials}
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold">{member.name}</h3>
-                      <p className="text-sm text-primary">{member.role}</p>
+                      <p className="text-sm text-orange-500">{member.role}</p>
                     </div>
                   </div>
                   <p className="text-sm leading-relaxed text-muted-foreground">
@@ -351,14 +351,14 @@ function CTA() {
       >
         <motion.h2
           variants={fadeInUp}
-          className="mb-4 text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl md:text-4xl lg:text-5xl"
+          className="mb-4 text-2xl font-bold tracking-tight text-orange-500-foreground sm:text-3xl md:text-4xl lg:text-5xl"
           style={{ fontFamily: 'var(--font-geist-mono)' }}
         >
           Ready to Go Global?
         </motion.h2>
         <motion.p
           variants={fadeInUp}
-          className="mb-8 text-sm text-primary-foreground/70 sm:text-base md:text-lg"
+          className="mb-8 text-sm text-orange-500-foreground/70 sm:text-base md:text-lg"
         >
           Let&apos;s build your digital presence and streamline your international trade operations.
         </motion.p>
@@ -366,7 +366,7 @@ function CTA() {
           <Button
             asChild
             size="lg"
-            className="min-h-[44px] bg-primary-foreground text-primary shadow-xl transition-all duration-300 hover:bg-primary-foreground/90 hover:shadow-2xl"
+            className="min-h-[44px] bg-primary-foreground text-orange-500 shadow-xl transition-all duration-300 hover:bg-primary-foreground/90 hover:shadow-2xl"
           >
             <Link href="/contact">
               Get in Touch
@@ -377,7 +377,7 @@ function CTA() {
             asChild
             size="lg"
             variant="outline"
-            className="min-h-[44px] border-primary-foreground/30 bg-transparent text-primary-foreground transition-all duration-300 hover:bg-primary-foreground/10 hover:border-primary-foreground/50"
+            className="min-h-[44px] border-primary-foreground/30 bg-transparent text-orange-500-foreground transition-all duration-300 hover:bg-primary-foreground/10 hover:border-primary-foreground/50"
           >
             <Link href="/work">
               View Our Work
