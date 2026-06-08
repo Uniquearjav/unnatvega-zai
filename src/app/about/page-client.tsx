@@ -123,7 +123,7 @@ function Hero() {
       {/* Hero background image */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <Image
-          src="/images/hero-bg.png"
+          src="/images/hero-bg.webp"
           alt=""
           fill
           className="object-cover opacity-20 dark:opacity-15"

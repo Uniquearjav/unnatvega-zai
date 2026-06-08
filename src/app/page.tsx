@@ -112,7 +112,7 @@ const projects = [
     category: "Export",
     description:
       "Premium spice export platform connecting Indian farmers to global markets",
-    image: "/images/work/revati_craft.png",
+    image: "/images/work/revati_craft.webp",
     year: "2026",
     website: "https://www.revaticraft.com",
   },
@@ -121,7 +121,7 @@ const projects = [
     category: "Export",
     description:
       "High-end textile export portal with seamless order management",
-    image: "/images/work/nirvatatva.png",
+    image: "/images/work/nirvatatva.webp",
     year: "2024",
     website: "https://www.nirvatatva.com/",
   },
@@ -130,7 +130,7 @@ const projects = [
     category: "SaaS",
     description:
       "Enterprise trade analytics dashboard with real-time market intelligence",
-    image: "/images/work/anantastra.png",
+    image: "/images/work/anantastra.webp",
     year: "2025",
     website: "https://anantastra.vercel.app/",
 
@@ -140,7 +140,7 @@ const projects = [
     category: "Consultancy",
     description:
       "Bold brand identity for an agro-products export house with global reach",
-    image: "/images/work/arjav_consultancy.png",
+    image: "/images/work/arjav_consultancy.webp",
     year: "2025",
     website: "https://arjavconsultancy.vercel.app/"
   },
@@ -149,7 +149,7 @@ const projects = [
     category: "Consultancy",
     description:
       "Import management app with customs tracking and compliance tools",
-    image: "/images/work/simple_bhansali.png",
+    image: "/images/work/simple_bhansali.webp",
     year: "2025",
     website: "https://numerologistsimplebhansali.vercel.app/"
   },
@@ -158,35 +158,35 @@ const projects = [
 const testimonials = [
   {
     quote:
-      "Unnat Vega completely transformed our online presence. Our new website has increased leads by 150% in just three months. The team's expertise and attention to detail blew us away.",
+      "Unnat Vega created a sophisticated and highly professional website for our finance consultancy. Their attention to detail, modern design approach, and focus on user experience exceeded our expectations. A valuable investment for our business growth.",
     name: "Alpha Jain",
     title: "Owner of Alritz Consultancy",
     initials: "AJ",
   },
   {
     quote:
-      "Working with Unnat Vega was a game-changer for our import business. They created a complete trade management ecosystem.",
+      "Unnat Vega transformed my vision into a beautiful online presence. The website feels premium, loads quickly, and reflects the credibility of my numerology services. Highly recommended for any consultant looking to grow online.",
     name: "Simple Bhansali",
     title: "Numerologist",
     initials: "SB",
   },
   {
     quote:
-      "Their digital solutions helped us reduce customs clearance time by 60% and scale our operations globally.",
+      "We needed a website that reflected the quality of our leather products, and Unnat Vega delivered exactly that. The modern design, fast performance, and export-focused presentation have made a great impression on our clients worldwide.",
     name: "Siddhart Dash",
     title: "Partner of Revati Craft",
     initials: "SD",
   },
   {
     quote:
-      "The brand identity Unnat Vega crafted for us elevated our presence in international markets. We now stand out among competitors.",
+      "Our handloom products deserve a platform that reflects their quality, and Unnat Vega delivered exactly that. The website is professional, visually appealing, and easy to navigate. It has strengthened our brand presence online.",
     name: "Nehal Jaisalmeria",
     title: "Partner at Jaiselmeria Handlooms",
     initials: "NJ",
   },
   {
     quote:
-      "From strategy to execution, Unnat Vega delivered beyond expectations. Our digital platform generates 3x more leads.",
+      "They transformed our vision into a premium digital experience. The website reflects the quality and professionalism of our garments business while providing a smooth experience for visitors. We've received great feedback from both customers and partners. ",
     name: "Siddharth Jain",
     title: "Owner at Osiya Garments",
     initials: "SJ",
@@ -268,7 +268,7 @@ const socialPosts = [
   {
     id: 1,
     platform: "instagram" as const,
-    image: "/images/social-1.png",
+    image: "/images/social-1.webp",
     caption:
       "From farm to global market Our export solutions connect Indian artisans and farmers to 25+ countries worldwide.",
     likes: 284,
@@ -278,7 +278,7 @@ const socialPosts = [
   {
     id: 2,
     platform: "linkedin" as const,
-    image: "/images/social-2.png",
+    image: "/images/social-2.webp",
     caption:
       "Global trade never sleeps. Our logistics team ensures seamless container tracking and customs clearance across major ports worldwide.",
     likes: 156,
@@ -288,7 +288,7 @@ const socialPosts = [
   {
     id: 3,
     platform: "instagram" as const,
-    image: "/images/social-3.png",
+    image: "/images/social-3.webp",
     caption:
       "Behind every successful trade deal is a dedicated team. Strategy meetings that turn global opportunities into real business growth.",
     likes: 412,
@@ -298,7 +298,7 @@ const socialPosts = [
   {
     id: 4,
     platform: "facebook" as const,
-    image: "/images/social-4.png",
+    image: "/images/social-4.webp",
     caption:
       "Indian textiles reaching the world. Premium silk and embroidery exports that showcase the artistry of Indian craftsmanship.",
     likes: 389,
@@ -308,7 +308,7 @@ const socialPosts = [
   {
     id: 5,
     platform: "twitter" as const,
-    image: "/images/social-5.png",
+    image: "/images/social-5.webp",
     caption:
       "Data-driven trade decisions are the future. Our analytics platform helps businesses identify the most profitable markets in real-time.",
     likes: 203,
@@ -318,7 +318,7 @@ const socialPosts = [
   {
     id: 6,
     platform: "instagram" as const,
-    image: "/images/social-6.png",
+    image: "/images/social-6.webp",
     caption:
       "Milestone unlocked! Celebrating 500+ businesses empowered and counting. Thank you for trusting Unnat Vega with your global journey.",
     likes: 567,
@@ -440,7 +440,7 @@ function Hero() {
         style={{ y: bgY, scale: bgScale }}
       >
         <Image
-          src="/images/hero.png"
+          src="/images/hero.webp"
           alt="Global trade and commerce background"
           fill
           className="object-cover"
@@ -1148,7 +1148,7 @@ function Portfolio() {
               >
                 {projects[activeProject].name}
               </h3>
-              <p className="mb-4 max-w-xl text-sm leading-relaxed text-black/60 sm:mb-5 md:text-base md:text-black/70">
+              <p className="mb-4 max-w-xl text-sm leading-relaxed ">
                 {projects[activeProject].description}
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
@@ -1310,7 +1310,7 @@ function ListedOn() {
   const platforms = [
     {
       name: "Clutch",
-      image: "/images/listing/clutch.png",
+      image: "/images/listing/clutch.webp",
       href: "https://instagram.com/unnatvega",
     },
     {
@@ -1320,7 +1320,7 @@ function ListedOn() {
     },
     {
       name: "The Mainfest",
-      image: "/images/listing/manifest.png",
+      image: "/images/listing/manifest.webp",
       href: "https://t.me/unnatvega",
     },
     {
@@ -1330,7 +1330,7 @@ function ListedOn() {
     },
     {
       name: "Dribbble",
-      image: "/images/listing/dribbble.png",
+      image: "/images/listing/dribbble.webp",
       href: "https://dribbble.com/unnat-vega",
     },
   ];
@@ -1858,10 +1858,10 @@ function CTABanner() {
 
           <div className="relative px-6 py-12 sm:px-10 sm:py-16 md:px-16 md:py-20">
             <div className="mx-auto max-w-3xl text-center">
-              <h2 className="text-2xl font-bold tracking-tight text-orange-500-foreground sm:text-3xl md:text-4xl lg:text-5xl">
+              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
                 Ready to Go Global?
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-orange-500-foreground/80 sm:mt-6 sm:text-base md:text-lg">
+              <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white sm:mt-6 sm:text-base md:text-lg">
                 Take the first step toward expanding your business worldwide.
                 Let&apos;s build something extraordinary together.
               </p>
@@ -1882,8 +1882,8 @@ function CTABanner() {
                   variant="outline"
                   className="min-h-[44px] border-primary-foreground/30 bg-transparent text-orange-500-foreground transition-all duration-300 hover:border-primary-foreground/60 hover:bg-primary-foreground/10 hover:scale-105"
                 >
-                  <Link href="/contact">
-                    <Phone className="mr-2 size-4" />
+                  <Link href="/contact" className="text-white">
+                    <Phone className="mr-2 text-white size-4" />
                     Schedule a Call
                   </Link>
                 </Button>
@@ -2135,23 +2135,17 @@ function BeforeAfterComparison() {
           >
             {/* AFTER image (full width, underneath) */}
             <Image
-              src="/images/after.png"
+              src="/images/work/nirvatatva.webp"
               alt="After: Modern premium website design by Unnat Vega"
               fill
-              className="object-cover"
-              sizes="80vw"
-              priority
             />
 
             {/* BEFORE image (clipped by slider position using clipPath) */}
             <Image
-              src="/images/before.png"
+              src="/images/work/nirvatatva_old.webp"
               alt="Before: Outdated website design"
               fill
-              className="object-cover"
-              sizes="80vw"
               style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
-              priority
             />
 
             {/* Slider line */}
@@ -2219,10 +2213,10 @@ export default function Home() {
       <Services />
       <Portfolio />
       <BeforeAfterComparison />
-      <HowItWorks />
+      {/* <HowItWorks /> */}
       <ListedOn />
       <Testimonials />
-      <SocialMedia />
+      {/* <SocialMedia /> */}
       <FAQ />
       <CTABanner />
       <ContactForm />

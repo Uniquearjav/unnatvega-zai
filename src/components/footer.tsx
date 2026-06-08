@@ -15,9 +15,9 @@ import {
   Send,
   ArrowRight,
 } from 'lucide-react';
+import Image from 'next/image';
 
 const quickLinks = [
-  { label: 'Services', href: '#services', isHash: true },
   { label: 'About Us', href: '/about' },
   { label: 'Our Work', href: '/work' },
   { label: 'Blog', href: '/blog' },
@@ -30,10 +30,9 @@ const companyLinks = [
 ];
 
 const socialLinks = [
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Facebook, href: '#', label: 'Facebook' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/unnatvega', label: 'LinkedIn' },
+  { icon: Instagram, href: 'https://www.instagram.com/unnatvega', label: 'Instagram' },
+  { icon: Facebook, href: 'https://www.facebook.com/unnatvega', label: 'Facebook' },
 ];
 
 const bottomLinks = [
@@ -60,11 +59,19 @@ export default function Footer() {
           <div className="space-y-5">
             {/* Logo */}
             <div className="flex items-center gap-1">
+                        <Image
+                          src="/images/unnatvega.webp"
+                          alt="Unnat Vega logo"
+                          width={100}
+                          height={100}
+                          className="mr-2 rounded-sm object-contain"
+                        />
               <span className="text-2xl font-bold tracking-tight text-foreground">
                 UNNAT
-              </span>
+
               <span className="text-2xl font-bold tracking-tight text-orange-500">
                 VEGA
+              </span>
               </span>
             </div>
 
@@ -77,22 +84,22 @@ export default function Footer() {
             {/* Contact Info */}
             <div className="space-y-3">
               <a
-                href="tel:+919876543210"
+                href="tel:+917597464336"
                 className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 <Phone className="h-4 w-4 shrink-0 text-orange-500" />
-                +91 98765 43210
+                +91 7597464336
               </a>
               <a
-                href="mailto:info@unnatvega.com"
+                href="mailto:unnatvega@gmail.com"
                 className="flex items-center gap-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 <Mail className="h-4 w-4 shrink-0 text-orange-500" />
-                info@unnatvega.com
+                unnatvega@gmail.com
               </a>
               <div className="flex items-start gap-2.5 text-sm text-muted-foreground">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-orange-500" />
-                <span>Mumbai, Maharashtra, India</span>
+                <span>275-B, Section 7 ,Jodhpur, Rajasthan, India</span>
               </div>
             </div>
           </div>

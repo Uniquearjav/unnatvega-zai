@@ -52,19 +52,19 @@ const contactInfo = [
   {
     icon: Phone,
     label: 'Phone',
-    value: '+91 98765 43210',
+    value: '+91 7597464336',
     href: 'tel:+919876543210',
   },
   {
     icon: Mail,
     label: 'Email',
-    value: 'info@unnatvega.com',
-    href: 'mailto:info@unnatvega.com',
+    value: 'unnatvega@gmail.com',
+    href: 'mailto:unnatvega@gmail.com',
   },
   {
     icon: MapPin,
     label: 'Address',
-    value: 'Mumbai, Maharashtra, India',
+    value: '275-B, Section 7 ,Jodhpur, Rajasthan, India',
     href: undefined,
   },
 ];
@@ -79,7 +79,7 @@ const faqs = [
   {
     question: 'How quickly can I expect a response after submitting the form?',
     answer:
-      'We aim to respond to all inquiries within 24 business hours. For urgent requests, feel free to call us directly at +91 98765 43210 for immediate assistance.',
+      'We aim to respond to all inquiries within 24 business hours. For urgent requests, feel free to call us directly at +91 7597464336 for immediate assistance.',
   },
   {
     question: 'What services does Unnat Vega offer?',
@@ -229,7 +229,7 @@ export default function ContactPage() {
         {/* Hero background image */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <Image
-            src="/images/hero-bg.png"
+            src="/images/hero-bg.webp"
             alt=""
             fill
             className="object-cover opacity-20 dark:opacity-15"
@@ -641,14 +641,14 @@ export default function ContactPage() {
                       className="flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 hover:text-orange-500"
                     >
                       <Phone className="size-4 shrink-0 text-orange-500" />
-                      +91 98765 43210
+                      +91 7597464336
                     </a>
                     <a
-                      href="mailto:info@unnatvega.com"
+                      href="mailto:unnatvega@gmail.com"
                       className="flex items-center gap-3 text-sm text-muted-foreground transition-all duration-300 hover:text-orange-500"
                     >
                       <Mail className="size-4 shrink-0 text-orange-500" />
-                      info@unnatvega.com
+                      unnatvega@gmail.com
                     </a>
                   </div>
                 </CardContent>

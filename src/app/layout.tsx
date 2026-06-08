@@ -3,7 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "next-themes";
-import Navigation from "@/components/navigation";
+import Navigation from "@/components/header";
 import Footer from "@/components/footer";
 import WhatsAppButton from "@/components/whatsapp-button";
 
@@ -120,12 +120,11 @@ function StructuredData() {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+91-98765-43210",
+      telephone: "+91-75974-64336",
       contactType: "customer service",
       availableLanguage: ["English", "Hindi"],
     },
     sameAs: [
-      "https://twitter.com/unnatvega",
       "https://linkedin.com/company/unnatvega",
       "https://instagram.com/unnatvega",
       "https://facebook.com/unnatvega",
@@ -153,8 +152,8 @@ function StructuredData() {
     name: "Unnat Vega",
     image: `${BASE_URL}/logo.svg`,
     url: BASE_URL,
-    telephone: "+91-98765-43210",
-    email: "info@unnatvega.com",
+    telephone: "+91-75974-64336",
+    email: "unnatvega@gmail.com",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Mumbai",
