@@ -25,7 +25,6 @@ import {
   Send,
   Globe,
   Zap,
-  Shield,
   Heart,
   MessageCircle,
   Linkedin,
@@ -50,9 +49,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import { fadeInUp, staggerContainer, scrollLineVariant } from "@/lib/animations";
-
-/* ─────────────────────── Data ─────────────────────── */
+import {
+  fadeInUp,
+  staggerContainer,
+  scrollLineVariant,
+} from "@/lib/animations";
 
 const services = [
   {
@@ -113,7 +114,7 @@ const projects = [
       "Premium spice export platform connecting Indian farmers to global markets",
     image: "/images/work/revati_craft.png",
     year: "2026",
-    tech: ["Next.js", "Shadcn UI"],
+    website: "https://www.revaticraft.com",
   },
   {
     name: "Nirvatatva",
@@ -122,7 +123,7 @@ const projects = [
       "High-end textile export portal with seamless order management",
     image: "/images/work/nirvatatva.png",
     year: "2024",
-    tech: ["React", "Node.js", "Next.js"],
+    website: "https://www.nirvatatva.com/",
   },
   {
     name: "Anantastra",
@@ -131,7 +132,8 @@ const projects = [
       "Enterprise trade analytics dashboard with real-time market intelligence",
     image: "/images/work/anantastra.png",
     year: "2025",
-    tech: ["Nextjs", "Tailwind CSS", "GSAP"],
+    website: "https://anantastra.vercel.app/",
+
   },
   {
     name: "Arjav Consultancy",
@@ -140,7 +142,7 @@ const projects = [
       "Bold brand identity for an agro-products export house with global reach",
     image: "/images/work/arjav_consultancy.png",
     year: "2025",
-    tech: ["Next.js"],
+    website: "https://arjavconsultancy.vercel.app/"
   },
   {
     name: "Numerologist Simple Bhansali",
@@ -149,53 +151,53 @@ const projects = [
       "Import management app with customs tracking and compliance tools",
     image: "/images/work/simple_bhansali.png",
     year: "2025",
-    tech: ["React", "Next.js"],
+    website: "https://numerologistsimplebhansali.vercel.app/"
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "Unnat Vega transformed our export operations completely. Their digital platform helped us reach 15 new countries in just 6 months.",
+      "Unnat Vega completely transformed our online presence. Our new website has increased leads by 150% in just three months. The team's expertise and attention to detail blew us away.",
     name: "Alpha Jain",
-    title: "Director at SpiceRoute Exports",
+    title: "Owner of Alritz Consultancy",
     initials: "AJ",
   },
   {
     quote:
       "Working with Unnat Vega was a game-changer for our import business. They created a complete trade management ecosystem.",
-    name: "Priya Patel",
-    title: "CEO at TextileHub Global",
-    initials: "PP",
+    name: "Simple Bhansali",
+    title: "Numerologist",
+    initials: "SB",
   },
   {
     quote:
       "Their digital solutions helped us reduce customs clearance time by 60% and scale our operations globally.",
-    name: "Amit Verma",
-    title: "COO at TradeNexus Analytics",
-    initials: "AV",
+    name: "Siddhart Dash",
+    title: "Partner of Revati Craft",
+    initials: "SD",
   },
   {
     quote:
       "The brand identity Unnat Vega crafted for us elevated our presence in international markets. We now stand out among competitors.",
-    name: "Rahul Sharma",
-    title: "Founder at GlobalSpice Co.",
-    initials: "RS",
+    name: "Nehal Jaisalmeria",
+    title: "Partner at Jaiselmeria Handlooms",
+    initials: "NJ",
   },
   {
     quote:
       "From strategy to execution, Unnat Vega delivered beyond expectations. Our digital platform generates 3x more leads.",
-    name: "Neha Gupta",
-    title: "Marketing Head at TradeBridge",
-    initials: "NG",
+    name: "Siddharth Jain",
+    title: "Owner at Osiya Garments",
+    initials: "SJ",
   },
 ];
 
 const stats = [
   { value: 500, suffix: "+", label: "Instagram Followers" },
-  { value: 25, suffix: "+", label: "Countries Served" },
-  { value: 60, suffix: "%", label: "Faster Customs Clearance" },
-  { value: 98, suffix: "%", label: "Client Satisfaction" },
+  { value: 100, suffix: "+", label: "Countries Reached" },
+  { value: 60, suffix: "%", label: "More Leads" },
+  { value: 100, suffix: "%", label: "Client Satisfaction" },
 ];
 
 const processSteps = [
@@ -396,34 +398,6 @@ function ScrollProgressBar() {
   );
 }
 
-/* ─────────────────────── Back to Top Button ─────────────────────── */
-function BackToTopButton() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const handler = () => setVisible(window.scrollY > 400);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
-  return (
-    <AnimatePresence>
-      {visible && (
-        <motion.button
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-50 flex size-12 items-center justify-center rounded-full bg-primary text-orange-500-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl"
-          aria-label="Back to top"
-        >
-          <ChevronRight className="size-5 -rotate-90" />
-        </motion.button>
-      )}
-    </AnimatePresence>
-  );
-}
-
 /* ─────────────────────── Hero ─────────────────────── */
 function Hero() {
   const ref = useRef(null);
@@ -547,7 +521,6 @@ function Hero() {
             </Link>
           </Button>
         </motion.div>
-
       </motion.div>
     </section>
   );
@@ -626,21 +599,10 @@ function StatsCounter() {
 /* ─────────────────────── Services ─────────────────────── */
 function Services() {
   return (
-    <AnimatedSection id="services" className="relative overflow-hidden px-4 py-16 md:py-20 lg:py-28">
-      {/* Background */}
-      <div className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute inset-0 opacity-[0.012]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, var(--foreground) 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
-          }}
-        />
-        <div className="absolute -left-40 top-1/4 size-[500px] rounded-full bg-primary/[0.03] blur-[120px]" />
-        <div className="absolute -right-20 bottom-0 size-[400px] rounded-full bg-primary/[0.04] blur-[100px]" />
-      </div>
-
+    <AnimatedSection
+      id="services"
+      className="relative overflow-hidden px-4 py-16 md:py-20 lg:py-28"
+    >
       <div className="relative mx-auto max-w-7xl">
         {/* Header */}
         <motion.div variants={fadeInUp} className="mb-10 md:mb-14 lg:mb-16">
@@ -655,31 +617,14 @@ function Services() {
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-[3.4rem] lg:leading-[1.1]">
                 Solutions That Drive
                 <br />
-                <span className="gradient-text">Growth</span>
+                <span className="text-orange-500">Growth</span>
               </h2>
             </div>
-            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground md:max-w-sm md:text-[15px]">
-              Comprehensive digital and trade solutions designed for businesses with global ambitions.
-            </p>
           </div>
         </motion.div>
-
-        {/* Asymmetric Block Grid
-            Layout on md+:
-            ┌──────────────┬──────────────┐
-            │              │              │
-            │   EXPORT     │   IMPORT     │
-            │   (2col,2row)│   (2col)     │
-            │              │              │
-            │              ├────────┬─────┤
-            │              │DIGITAL │BRAND │
-            └──────────────┴────────┴─────┘
-        */}
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5 lg:gap-6">
           {services.map((service) => {
             const IconComp = service.icon;
-
-            /* ──── HERO CARD (Export Solutions) ──── */
             if (service.layout === "hero") {
               return (
                 <motion.div
@@ -689,7 +634,9 @@ function Services() {
                 >
                   <div className="group relative flex h-full min-h-[320px] flex-col justify-between overflow-hidden rounded-2xl border border-border/30 bg-card/50 p-6 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:min-h-[440px] md:rounded-3xl md:p-8 lg:p-10">
                     {/* Gradient orb */}
-                    <div className={`pointer-events-none absolute -right-32 -top-32 size-80 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[80px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-125`} />
+                    <div
+                      className={`pointer-events-none absolute -right-32 -top-32 size-80 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[80px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-125`}
+                    />
 
                     {/* Decorative grid lines */}
                     <div
@@ -704,7 +651,7 @@ function Services() {
                     {/* Top: Number + Icon */}
                     <div className="relative flex items-start justify-between">
                       <span
-                        className="text-6xl font-black tracking-tighter text-foreground/[0.03] transition-colors duration-500 group-hover:text-foreground/[0.07] md:text-7xl lg:text-8xl"
+                        className="text-6xl font-black tracking-tighter text-black/[0.03] transition-colors duration-500 group-hover:text-black/[0.07] md:text-7xl lg:text-8xl"
                         style={{ fontFamily: "var(--font-geist-mono)" }}
                       >
                         {service.number}
@@ -735,7 +682,9 @@ function Services() {
                           </span>
                         ))}
                         <span className="ml-2 flex items-center gap-1.5 text-muted-foreground/30 transition-all duration-500 group-hover:text-orange-500">
-                          <span className="text-xs font-medium uppercase tracking-wider">Explore</span>
+                          <span className="text-xs font-medium uppercase tracking-wider">
+                            Explore
+                          </span>
                           <ArrowRight className="size-3.5 transition-transform duration-500 group-hover:translate-x-1" />
                         </span>
                       </div>
@@ -745,7 +694,6 @@ function Services() {
               );
             }
 
-            /* ──── WIDE CARD (Import Services) ──── */
             if (service.layout === "wide") {
               return (
                 <motion.div
@@ -755,14 +703,16 @@ function Services() {
                 >
                   <div className="group relative flex h-full min-h-[180px] overflow-hidden rounded-2xl border border-border/30 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:rounded-3xl">
                     {/* Gradient orb */}
-                    <div className={`pointer-events-none absolute -left-20 -top-20 size-56 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[60px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-125`} />
+                    <div
+                      className={`pointer-events-none absolute -left-20 -top-20 size-56 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[60px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-125`}
+                    />
 
                     <div className="relative flex w-full flex-col justify-between p-6 md:flex-row md:items-center md:p-8 lg:p-10">
                       {/* Left: Number + Icon + Title */}
                       <div className="flex items-start gap-4 md:items-center md:gap-6">
                         <div className="flex items-center gap-3">
                           <span
-                            className="text-4xl font-black tracking-tighter text-foreground/[0.03] transition-colors duration-500 group-hover:text-foreground/[0.07] md:text-5xl"
+                            className="text-4xl font-black tracking-tighter text-black/[0.03] transition-colors duration-500 group-hover:text-black/[0.07] md:text-5xl"
                             style={{ fontFamily: "var(--font-geist-mono)" }}
                           >
                             {service.number}
@@ -810,16 +760,20 @@ function Services() {
               >
                 <div className="group relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-2xl border border-border/30 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:min-h-[240px] md:rounded-3xl">
                   {/* Accent bar at top */}
-                  <div className={`h-1 w-full ${service.accentSolid} opacity-20 transition-opacity duration-500 group-hover:opacity-60`} />
+                  <div
+                    className={`h-1 w-full ${service.accentSolid} opacity-20 transition-opacity duration-500 group-hover:opacity-60`}
+                  />
 
                   {/* Gradient orb */}
-                  <div className={`pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[50px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-150`} />
+                  <div
+                    className={`pointer-events-none absolute -right-16 -top-16 size-40 rounded-full bg-gradient-to-br ${service.accent} opacity-0 blur-[50px] transition-all duration-700 group-hover:opacity-100 group-hover:scale-150`}
+                  />
 
                   <div className="relative flex flex-1 flex-col justify-between p-5 md:p-6">
                     {/* Top: Number + Icon */}
                     <div className="flex items-start justify-between">
                       <span
-                        className="text-4xl font-black tracking-tighter text-foreground/[0.03] transition-colors duration-500 group-hover:text-foreground/[0.07] md:text-5xl"
+                        className="text-4xl font-black tracking-tighter text-black/[0.03] transition-colors duration-500 group-hover:text-black/[0.07] md:text-5xl"
                         style={{ fontFamily: "var(--font-geist-mono)" }}
                       >
                         {service.number}
@@ -934,7 +888,7 @@ function Portfolio() {
         startAutoPlay(); // Restart timer
       }
     },
-    [isAutoPlaying, startAutoPlay]
+    [isAutoPlaying, startAutoPlay],
   );
 
   const nextProject = useCallback(() => {
@@ -1032,7 +986,7 @@ function Portfolio() {
             className={`shrink-0 rounded-full px-3 py-2 text-xs font-medium transition-all duration-300 min-h-[44px] ${
               activeProject === idx
                 ? "bg-primary text-orange-500-foreground shadow-lg shadow-primary/25"
-                : "border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                : "border border-border text-muted-foreground hover:border-primary/40 hover:text-black"
             }`}
           >
             {project.name}
@@ -1071,7 +1025,7 @@ function Portfolio() {
                     className={`block truncate text-sm font-medium transition-all duration-300 ${
                       activeProject === idx
                         ? "font-semibold text-orange-500"
-                        : "text-muted-foreground/50 group-hover/sidebar:text-muted-foreground/80"
+                        : "text-muted-foreground/80 group-hover/sidebar:text-foreground"
                     }`}
                   >
                     {project.name}
@@ -1184,36 +1138,26 @@ function Portfolio() {
                 <Badge className="border border-primary/30 bg-primary/15 px-2 py-0.5 text-[10px] font-medium text-orange-500 backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[11px]">
                   {projects[activeProject].category}
                 </Badge>
-                <span className="text-[11px] text-foreground/40 sm:text-xs">
+                <span className="text-[11px] text-black/40 sm:text-xs">
                   {projects[activeProject].year}
                 </span>
               </div>
               <h3
-                className="mb-2 text-xl font-bold tracking-tight text-foreground sm:text-2xl md:mb-3 md:text-4xl lg:text-5xl"
+                className="mb-2 text-xl font-bold tracking-tight sm:text-2xl md:mb-3 md:text-4xl lg:text-5xl"
                 style={{ fontFamily: "var(--font-geist-mono)" }}
               >
                 {projects[activeProject].name}
               </h3>
-              <p className="mb-4 max-w-xl text-sm leading-relaxed text-foreground/60 sm:mb-5 md:text-base md:text-foreground/70">
+              <p className="mb-4 max-w-xl text-sm leading-relaxed text-black/60 sm:mb-5 md:text-base md:text-black/70">
                 {projects[activeProject].description}
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                  {projects[activeProject].tech.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-foreground/10 bg-foreground/5 px-2 py-0.5 text-[10px] font-medium text-foreground/50 backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[11px]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
                 <Button
                   asChild
-                  className="min-h-[44px] bg-primary text-orange-500-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 sm:ml-auto"
+                  className="min-h-[44px] bg-primary text-white transition-all duration-300 hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 sm:ml-auto"
                 >
-                  <Link href="/contact">
-                    View Case Study
+                  <Link href={projects[activeProject].website} target="_blank">
+                    Visit Website
                     <ArrowRight className="ml-2 size-4" />
                   </Link>
                 </Button>
@@ -1300,10 +1244,7 @@ function Portfolio() {
 /* ─────────────────────── How It Works / Process ─────────────────────── */
 function HowItWorks() {
   return (
-    <AnimatedSection
-      id="process"
-      className="px-4 py-16 md:py-20 lg:py-24"
-    >
+    <AnimatedSection id="process" className="px-4 py-16 md:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl">
         <motion.div variants={fadeInUp} className="mb-10 text-center md:mb-14">
           <Badge
@@ -1313,7 +1254,7 @@ function HowItWorks() {
             OUR PROCESS
           </Badge>
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
-            How We <span className="gradient-text">Work</span>
+            How We <span className="text-orange-500">Work</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base">
             A proven four-step process that turns your global vision into
@@ -1433,11 +1374,11 @@ function ListedOn() {
                     height={100}
                     className="transition-all duration-300 grayscale hover:grayscale-0 group-hover:scale-110"
                   />
-                  <span className="text-xs font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground sm:text-sm md:text-base">
+                  <span className="text-xs font-medium text-muted-foreground transition-colors duration-300 group-hover:text-black sm:text-sm md:text-base">
                     {platform.name}
                   </span>
                 </a>
-              ))
+              )),
             )}
           </div>
         </div>
@@ -1452,7 +1393,12 @@ function Testimonials() {
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const itemsPerView = typeof window !== "undefined" && window.innerWidth >= 1024 ? 3 : typeof window !== "undefined" && window.innerWidth >= 640 ? 2 : 1;
+  const itemsPerView =
+    typeof window !== "undefined" && window.innerWidth >= 1024
+      ? 3
+      : typeof window !== "undefined" && window.innerWidth >= 640
+        ? 2
+        : 1;
 
   const maxIndex = Math.max(0, testimonials.length - itemsPerView);
 
@@ -1563,10 +1509,9 @@ function SocialMedia() {
     : socialPosts;
 
   const socialStats = [
-    { icon: Instagram, label: "Instagram", value: "2.4K", color: "#E4405F" },
-    { icon: Linkedin, label: "LinkedIn", value: "1.8K", color: "#0A66C2" },
-    { icon: Facebook, label: "Facebook", value: "3.1K", color: "#1877F2" },
-    { icon: Twitter, label: "X", value: "950+", color: "#000000" },
+    { icon: Instagram, label: "Instagram", value: "500", color: "#E4405F" },
+    { icon: Linkedin, label: "LinkedIn", value: "50", color: "#0A66C2" },
+    { icon: Facebook, label: "Facebook", value: "22", color: "#1877F2" },
   ];
 
   return (
@@ -1581,7 +1526,7 @@ function SocialMedia() {
             SOCIAL FEED
           </Badge>
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
-            Follow Our <span className="gradient-text">Journey</span>
+            Follow Our <span className="text-orange-500">Journey</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base">
             Stay connected with us for the latest updates, trade insights, and
@@ -1601,13 +1546,25 @@ function SocialMedia() {
                 key={stat.label}
                 className="group relative overflow-hidden rounded-xl border border-border/40 bg-card/50 p-4 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
               >
-                <div className="absolute -right-4 -top-4 size-16 rounded-full opacity-[0.06] transition-all duration-500 group-hover:opacity-[0.12] group-hover:scale-150" style={{ background: stat.color }} />
+                <div
+                  className="absolute -right-4 -top-4 size-16 rounded-full opacity-[0.06] transition-all duration-500 group-hover:opacity-[0.12] group-hover:scale-150"
+                  style={{ background: stat.color }}
+                />
                 <div className="relative flex items-center gap-3">
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: `${stat.color}15` }}>
-                    <IconComp className="size-4" style={{ color: stat.color }} />
+                  <div
+                    className="flex size-9 shrink-0 items-center justify-center rounded-lg transition-all duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${stat.color}15` }}
+                  >
+                    <IconComp
+                      className="size-4"
+                      style={{ color: stat.color }}
+                    />
                   </div>
                   <div>
-                    <div className="text-lg font-bold tracking-tight" style={{ fontFamily: "var(--font-geist-mono)" }}>
+                    <div
+                      className="text-lg font-bold tracking-tight"
+                      style={{ fontFamily: "var(--font-geist-mono)" }}
+                    >
                       {stat.value}
                     </div>
                     <div className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
@@ -1630,7 +1587,7 @@ function SocialMedia() {
             className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
               activePlatform === null
                 ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-                : "border border-border/60 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                : "border border-border/60 text-muted-foreground hover:border-primary/40 hover:text-black"
             }`}
           >
             All Posts
@@ -1644,10 +1601,15 @@ function SocialMedia() {
                 className={`group flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
                   activePlatform === key
                     ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-                    : "border border-border/60 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                    : "border border-border/60 text-muted-foreground hover:border-primary/40 hover:text-black"
                 }`}
               >
-                <IconComp className="size-3.5 transition-transform duration-300 group-hover:scale-110" style={activePlatform !== key ? { color: config.color } : undefined} />
+                <IconComp
+                  className="size-3.5 transition-transform duration-300 group-hover:scale-110"
+                  style={
+                    activePlatform !== key ? { color: config.color } : undefined
+                  }
+                />
                 <span className="hidden sm:inline">{config.label}</span>
               </button>
             );
@@ -1674,7 +1636,9 @@ function SocialMedia() {
               >
                 <div className="group h-full overflow-hidden rounded-2xl border border-border/40 bg-card/50 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1">
                   {/* Image */}
-                  <div className={`relative overflow-hidden ${isLarge ? "aspect-[4/3]" : "aspect-square"}`}>
+                  <div
+                    className={`relative overflow-hidden ${isLarge ? "aspect-[4/3]" : "aspect-square"}`}
+                  >
                     <Image
                       src={post.image}
                       alt={post.caption}
@@ -1687,7 +1651,10 @@ function SocialMedia() {
 
                     {/* Platform badge - always visible */}
                     <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-black/40 px-2.5 py-1 backdrop-blur-md">
-                      <IconComp className="size-3 text-white" style={{ color: config.color }} />
+                      <IconComp
+                        className="size-3 text-white"
+                        style={{ color: config.color }}
+                      />
                       <span className="text-[10px] font-semibold text-white/90">
                         {config.label}
                       </span>
@@ -1705,12 +1672,20 @@ function SocialMedia() {
                       className={`absolute inset-0 flex items-center justify-center gap-8 bg-black/40 backdrop-blur-[3px] transition-all duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
                     >
                       <div className="flex flex-col items-center gap-1">
-                        <Heart className={`size-6 transition-all duration-300 ${isHovered ? "scale-110 fill-red-500 text-red-500" : "text-white"}`} />
-                        <span className="text-sm font-bold text-white">{post.likes}</span>
+                        <Heart
+                          className={`size-6 transition-all duration-300 ${isHovered ? "scale-110 fill-red-500 text-red-500" : "text-white"}`}
+                        />
+                        <span className="text-sm font-bold text-white">
+                          {post.likes}
+                        </span>
                       </div>
                       <div className="flex flex-col items-center gap-1">
-                        <MessageCircle className={`size-6 transition-all duration-300 ${isHovered ? "scale-110 text-blue-400" : "text-white"}`} />
-                        <span className="text-sm font-bold text-white">{post.comments}</span>
+                        <MessageCircle
+                          className={`size-6 transition-all duration-300 ${isHovered ? "scale-110 text-blue-400" : "text-white"}`}
+                        />
+                        <span className="text-sm font-bold text-white">
+                          {post.comments}
+                        </span>
                       </div>
                     </div>
 
@@ -1742,7 +1717,10 @@ function SocialMedia() {
                         href="#"
                         className="flex items-center gap-1 text-[10px] font-medium text-muted-foreground/50 transition-colors duration-300 hover:text-orange-500"
                       >
-                        <IconComp className="size-3" style={{ color: config.color }} />
+                        <IconComp
+                          className="size-3"
+                          style={{ color: config.color }}
+                        />
                         View
                       </a>
                     </div>
@@ -1762,7 +1740,7 @@ function SocialMedia() {
 
             <div className="relative">
               <h3 className="mb-2 text-xl font-bold tracking-tight sm:text-2xl md:text-3xl">
-                Never Miss an <span className="gradient-text">Update</span>
+                Never Miss an <span className="text-orange-500">Update</span>
               </h3>
               <p className="mx-auto mb-6 max-w-md text-sm text-muted-foreground sm:text-base">
                 Follow us across all platforms for trade insights, success
@@ -1777,11 +1755,14 @@ function SocialMedia() {
                       href="#"
                       className="group/flex flex items-center gap-2 rounded-full border border-border/60 px-4 py-2.5 transition-all duration-300 hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 hover:-translate-y-0.5"
                     >
-                      <IconComp className="size-4 transition-transform duration-300 group-hover/flex:scale-110" style={{ color: stat.color }} />
-                      <span className="text-xs font-medium text-muted-foreground transition-colors group-hover/flex:text-foreground">
+                      <IconComp
+                        className="size-4 transition-transform duration-300 group-hover/flex:scale-110"
+                        style={{ color: stat.color }}
+                      />
+                      <span className="text-xs font-medium text-muted-foreground transition-colors group-hover/flex:text-black">
                         {stat.label}
                       </span>
-                      <span className="text-[10px] font-bold text-foreground/50">
+                      <span className="text-[10px] font-bold text-black/50">
                         {stat.value}
                       </span>
                     </a>
@@ -1823,8 +1804,7 @@ function FAQ() {
             FAQ
           </Badge>
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
-            Frequently Asked{" "}
-            <span className="gradient-text">Questions</span>
+            Frequently Asked <span className="text-orange-500">Questions</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base">
             Got questions? We&apos;ve got answers. Here are the most common
@@ -1870,7 +1850,7 @@ function CTABanner() {
           className="relative overflow-hidden rounded-2xl md:rounded-3xl"
         >
           {/* Gradient Background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-500/80" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
           {/* Decorative elements */}
           <div className="pointer-events-none absolute -right-20 -top-20 size-80 rounded-full bg-white/5 blur-3xl" />
@@ -1943,11 +1923,12 @@ function ContactForm() {
             GET IN TOUCH
           </Badge>
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
-            Let&apos;s Start a <span className="gradient-text">Conversation</span>
+            Let&apos;s Start a{" "}
+            <span className="text-orange-500">Conversation</span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base">
-            Have a project in mind? Drop us a message and we&apos;ll get back
-            to you within 24 hours.
+            Have a project in mind? Drop us a message and we&apos;ll get back to
+            you within 24 hours.
           </p>
         </motion.div>
 
@@ -1982,7 +1963,10 @@ function ContactForm() {
                       placeholder="Your name"
                       value={formState.name}
                       onChange={(e) =>
-                        setFormState((prev) => ({ ...prev, name: e.target.value }))
+                        setFormState((prev) => ({
+                          ...prev,
+                          name: e.target.value,
+                        }))
                       }
                       required
                       className="min-h-[44px]"
@@ -2050,7 +2034,6 @@ function ContactForm() {
   );
 }
 
-/* ─────────────────────── Before / After Comparison ─────────────────────── */
 function BeforeAfterComparison() {
   const [sliderPos, setSliderPos] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -2076,9 +2059,13 @@ function BeforeAfterComparison() {
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => handleMove(e.clientX);
-    const onMouseUp = () => { isDragging.current = false; };
+    const onMouseUp = () => {
+      isDragging.current = false;
+    };
     const onTouchMove = (e: TouchEvent) => handleMove(e.touches[0].clientX);
-    const onTouchEnd = () => { isDragging.current = false; };
+    const onTouchEnd = () => {
+      isDragging.current = false;
+    };
 
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
@@ -2094,7 +2081,10 @@ function BeforeAfterComparison() {
   }, [handleMove]);
 
   return (
-    <section ref={sectionRef} className="relative w-full px-4 py-16 md:py-20 lg:py-24">
+    <section
+      ref={sectionRef}
+      className="relative w-full px-4 py-16 md:py-20 lg:py-24"
+    >
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial="hidden"
@@ -2114,7 +2104,7 @@ function BeforeAfterComparison() {
             variants={fadeInUp}
             className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl"
           >
-            See the <span className="gradient-text">Difference</span>
+            See the <span className="text-orange-500">Difference</span>
           </motion.h2>
           <motion.p
             variants={fadeInUp}
@@ -2128,7 +2118,11 @@ function BeforeAfterComparison() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{
+            duration: 0.7,
+            delay: 0.2,
+            ease: [0.25, 0.46, 0.45, 0.94],
+          }}
           className="mx-auto"
           style={{ width: "80%", maxWidth: "1200px" }}
         >
@@ -2216,12 +2210,10 @@ function BeforeAfterComparison() {
   );
 }
 
-/* ─────────────────────── Main Page ─────────────────────── */
 export default function Home() {
   return (
     <main>
       <ScrollProgressBar />
-      <BackToTopButton />
       <Hero />
       <StatsCounter />
       <Services />
