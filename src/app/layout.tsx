@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import Navigation from "@/components/header";
 import Footer from "@/components/footer";
 import WhatsAppButton from "@/components/whatsapp-button";
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -219,17 +220,16 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
       >
+        <GoogleTagManager gtmId="GTM-KRQ52TQ3" />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex flex-col">
             <Navigation />
             <main className="flex-1">{children}</main>
             <Footer />
-          </div>
           <WhatsAppButton />
           <Toaster />
         </ThemeProvider>
